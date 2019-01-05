@@ -1,5 +1,6 @@
 ﻿using Homefind.Core.DomainModels;
 using Homefind.Core.Filters;
+using Homefind.Infrastructure.Identity;
 using Homefind.Web.Extensions;
 using Homefind.Web.Models.PropertyViewModels;
 using System.Collections.Generic;
@@ -19,5 +20,6 @@ namespace Homefind.Web.Services
         Task AddProperty(SubmitPropertyModel propertyModel, string user);
         Task<EstateUnit> GetProperty(int propertyId, string userName);
         EstateImage GetImageById(int imageId);
+        Task<PagedCollection<EstateUnit>> GetUserListing(string userName, int pageNumber, int itemsPerPage);
     }
 }

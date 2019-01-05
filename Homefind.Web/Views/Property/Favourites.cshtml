@@ -52,7 +52,7 @@
             <ul class="pagination">
                 <li class="page-item">
                     <a class="btn btn-common @ViewData["HasPrevious"]"
-                       asp-controller="Property"
+                       asp-controller="Profile"
                        asp-action="Favourites"
                        asp-route-pageNumber="@(Model.PageIndex - 1)">
                         <i class="lni-chevron-left"></i> Previous
@@ -64,7 +64,7 @@
                 }
                 <li class="page-item">
                     <a class="btn btn-common @ViewData["HasNext"]"
-                       asp-controller="Property"
+                       asp-controller="Profile"
                        asp-action="Favourites"
                        asp-route-pageNumber="@(Model.PageIndex + 1)">
                         Next

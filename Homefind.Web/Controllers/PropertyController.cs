@@ -138,12 +138,6 @@ namespace Homefind.Web.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Favourites(string user, int pageNumber)
-        {
-            return ViewComponent("Favourites");
-        }
-
         public async Task<int> ToggleFavourite(int propertyId, string action)
         {
             switch (action)

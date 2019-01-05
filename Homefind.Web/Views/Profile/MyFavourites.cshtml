@@ -23,7 +23,7 @@
                 <div class="user-profile-box">
                     <!--header -->
                     <div class="header clearfix">
-                        <h2>Justyna Michallek</h2>
+                        <h2>@User.Identity.Name</h2>
                         <h4>Real Estate Agent</h4>
                         <img src="assets/img/avatar/avatar-2.jpg" alt="avatar" class="img-fluid profile-img">
                     </div>
@@ -31,7 +31,7 @@
                     <div class="detail clearfix">
                         <ul>
                             <li>
-                                <a class="active" href="#">
+                                <a asp-controller="Profile" asp-action="Dashboard">
                                     <i class="lni-files"></i> Dashboard
                                 </a>
                             </li>
@@ -46,7 +46,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a id="favourite-properties" href="#">
+                                <a class="active" id="favourite-properties" style="cursor:pointer">
                                     <i class="lni-heart"></i>Favorited Properties
                                 </a>
                             </li>

@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Homefind.Core.DomainModels;
+using System;
 
 namespace Homefind.Web.Models.PropertyViewModels
 {
-    public class FavouritesModel
+    public class FavouritesModel : BaseEntity
     {
         public int? Views { get; set; }
+        public int EstateUnitId { get; set; }
         public string Title { get; set; }
         public int Price { get; set; }
         public string Address { get; set; }

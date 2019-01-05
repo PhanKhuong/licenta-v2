@@ -1,42 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Homefind.Infrastructure.Identity;
+using Homefind.Web.Extensions;
+using Homefind.Web.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Homefind.Web.Controllers
 {
     public class ProfileController : Controller
     {
-        // GET: Profile
-        public ActionResult Index()
+        private readonly IPropertyViewModelService _propertyViewModelService;
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public ProfileController(IPropertyViewModelService propertyViewModelService,
+            UserManager<ApplicationUser> userManager)
+        {
+            _propertyViewModelService = propertyViewModelService;
+            _userManager = userManager;
+        }
+
+        public ActionResult MyProfile()
         {
             return View();
         }
 
-        // GET: Profile/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Profile/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Profile/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> UpdateProfile(ApplicationUser userProfileModel)
+        {
+            var updatedUser = await _userManager.UpdateAsync(userProfileModel);
+
+            return View();
+        }
+
+        public ActionResult MyFavourites()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Dashboard(int page)
+        {
+            var listing = await _propertyViewModelService
+                .GetUserListing(User.Identity.Name, page == 0 ? 1 : page, Constants.ItemsPerPage);
+
+            return View(listing);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditListing(int id)
         {
             try
             {
-                // TODO: Add insert logic here
 
-                return RedirectToAction(nameof(Index));
+
+                return View();
             }
             catch
             {
@@ -44,22 +62,15 @@ namespace Homefind.Web.Controllers
             }
         }
 
-        // GET: Profile/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Profile/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteFavourite(int id)
         {
             try
             {
-                // TODO: Add update logic here
+                await _propertyViewModelService.RemoveFromFavourites(id, User.Identity.Name);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(MyFavourites));
             }
             catch
             {
@@ -67,27 +78,10 @@ namespace Homefind.Web.Controllers
             }
         }
 
-        // GET: Profile/Delete/5
-        public ActionResult Delete(int id)
+        [HttpGet]
+        public IActionResult Favourites(string user, int pageNumber)
         {
-            return View();
-        }
-
-        // POST: Profile/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return ViewComponent("Favourites", new { page = pageNumber });
         }
     }
 }

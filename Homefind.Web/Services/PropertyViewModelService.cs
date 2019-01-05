@@ -68,7 +68,15 @@ namespace Homefind.Web.Services
             var rootItems = await _favouritesRepository.ListWithFilter(new UserFavouritesFilter(userName));
 
             var items = _mapper.Map<IEnumerable<Favourites>, IEnumerable<FavouritesModel>>(rootItems);
-            var paginatedItems = new PagedCollection<FavouritesModel>(items.ToList(), items.Count(), pageNumber, itemsPerPage);
+            var paginatedItems = PagedCollection<FavouritesModel>.Create(items, pageNumber, itemsPerPage);
+
+            return paginatedItems;
+        }
+
+        public async Task<PagedCollection<EstateUnit>> GetUserListing(string userName, int pageNumber, int itemsPerPage)
+        {
+            var items = await _propertyRepository.ListWithFilter(new UserListingsFilter(userName));
+            var paginatedItems = PagedCollection<EstateUnit>.Create(items, pageNumber, itemsPerPage);
 
             return paginatedItems;
         }

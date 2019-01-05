@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     $("#favourite-properties").click(function () {
-        $('#fav-list-container').load("/Property/Favourites");
+        $('#fav-list-container').load("/Profile/Favourites");
     });
 
     $('#addFavBtn').click(function () {

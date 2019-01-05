@@ -16,7 +16,8 @@ namespace Homefind.Web.Controllers
 
         public async Task<IViewComponentResult> InvokeAsync(string user, int page)
         {
-            var favourites = await _propertyService.ListFavourites(user, page == 0 ? 1 : page, Constants.ItemsPerPage);
+            var favourites = await _propertyService
+                .ListFavourites(user != null ? user : User.Identity.Name, page == 0 ? 1 : page, Constants.ItemsPerPage);
 
             return View(favourites);
             ///Views/Profile/Components/Favourites/Default.cshtml
