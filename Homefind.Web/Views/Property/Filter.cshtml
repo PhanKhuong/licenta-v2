@@ -1,0 +1,100 @@
+﻿@model Homefind.Core.Filters.PropertyFilterSpecification
+
+@{
+    ViewData["Title"] = "SearchProperty";
+}
+
+<h2>SearchProperty</h2>
+
+<h4>PropertyFilterSearchModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Filter">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bedrooms" class="control-label"></label>
+                <input asp-for="Bedrooms" class="form-control" />
+                <span asp-validation-for="Bedrooms" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bathrooms" class="control-label"></label>
+                <input asp-for="Bathrooms" class="form-control" />
+                <span asp-validation-for="Bathrooms" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AreaFrom" class="control-label"></label>
+                <input asp-for="AreaFrom" class="form-control" />
+                <span asp-validation-for="AreaFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AreaTo" class="control-label"></label>
+                <input asp-for="AreaTo" class="form-control" />
+                <span asp-validation-for="AreaTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PriceFrom" class="control-label"></label>
+                <input asp-for="PriceFrom" class="form-control" />
+                <span asp-validation-for="PriceFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PriceTo" class="control-label"></label>
+                <input asp-for="PriceTo" class="form-control" />
+                <span asp-validation-for="PriceTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HasCarParking" class="control-label"></label>
+                <input asp-for="HasCarParking" class="form-control" />
+                <span asp-validation-for="HasCarParking" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsFurnished" class="control-label"></label>
+                <input asp-for="IsFurnished" class="form-control" />
+                <span asp-validation-for="IsFurnished" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HasAirConditioning" class="control-label"></label>
+                <input asp-for="HasAirConditioning" class="form-control" />
+                <span asp-validation-for="HasAirConditioning" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArePetsAllowed" class="control-label"></label>
+                <input asp-for="ArePetsAllowed" class="form-control" />
+                <span asp-validation-for="ArePetsAllowed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HasTv" class="control-label"></label>
+                <input asp-for="HasTv" class="form-control" />
+                <span asp-validation-for="HasTv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HasInternet" class="control-label"></label>
+                <input asp-for="HasInternet" class="form-control" />
+                <span asp-validation-for="HasInternet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

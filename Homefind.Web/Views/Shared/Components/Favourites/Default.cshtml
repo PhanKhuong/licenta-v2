@@ -1,0 +1,77 @@
+﻿@using Homefind.Web.Extensions
+@using Homefind.Web.Models.PropertyViewModels
+
+@model PagedCollection<FavouritesModel>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    ViewData["HasNext"] = Model.HasNextPage ? "" : "disabled";
+    ViewData["HasPrevious"] = Model.HasPreviousPage ? "" : "disabled";
+}
+
+<div class="my-properties">
+    @* List of favourite properties *@
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Property</th>
+                <th></th>
+                <th>Date Added</th>
+                <th>Views</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var favourite in Model)
+            {
+                <tr>
+                    <td class="image">
+                        <a href="#"><img alt="my-properties-3" src="assets/img/property/house-1.jpg" class="img-fluid"></a>
+                    </td>
+                    <td>
+                        <div class="inner">
+                            <a href="#"><h2>@favourite.Title</h2></a>
+                            <figure><i class="lni-map-marker"></i> @($"{favourite.Address}, {favourite.City}")</figure>
+                            <div class="tag price">$ @favourite.Price</div>
+                        </div>
+                    </td>
+                    <td>@favourite.DateAdded.ToShortDateString()</td>
+                    <td>@favourite.Views</td>
+                    <td class="actions">
+                        <a href="#"><i class="delete lni-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@* pagination *@
+<div class="pagination-container">
+    <nav>
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="btn btn-common @ViewData["HasPrevious"]"
+                   asp-controller="Property"
+                   asp-action="Favourites"
+                   asp-route-pageNumber="@(Model.PageIndex - 1)">
+                    <i class="lni-chevron-left"></i> Previous
+                </a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item"><a class="page-link" asp-controller="Property" asp-action="Index" asp-route-pageNumber="@i">@i</a></li>
+            }
+            <li class="page-item">
+                <a class="btn btn-common @ViewData["HasNext"]"
+                   asp-controller="Property"
+                   asp-action="Favourites"
+                   asp-route-pageNumber="@(Model.PageIndex + 1)">
+                    Next
+                    <i class="lni-chevron-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

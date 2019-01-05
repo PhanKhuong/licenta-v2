@@ -1,0 +1,65 @@
+﻿@using Homefind.Web.Models.AccountViewModels;
+@model RegisterViewModel
+<!-- Page Banner Start -->
+<div id="page-banner-area" class="page-banner">
+    <div class="page-banner-title">
+        <div class="text-center">
+            <h2>Register</h2>
+            <a href="#"><i class="lni-home"></i> Home</a>
+            <span class="crumbs-spacer"><i class="lni-chevron-right"></i></span>
+            <span class="current">Register</span>
+        </div>
+    </div>
+</div>
+<!-- Page Banner End -->
+<!-- Content section Start -->
+<section id="content" class="section-padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-6 col-xs-12">
+                <div class="page-login-form box">
+                    <h3>
+                        Create Your account
+                    </h3>
+                    <form class="login-form" asp-controller="Account" asp-action="Register">
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <i class="lni-user"></i>
+                                <input asp-for="Username" type="text" class="form-control" placeholder="Your name" />
+                                <span asp-validation-for="Username" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <i class="lni-envelope"></i>
+                                <input asp-for="Email" type="text" class="form-control" name="email" placeholder="Email Address">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <i class="lni-lock"></i>
+                                <input asp-for="Password" type="password" class="form-control" placeholder="Password">
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <i class="lni-unlock"></i>
+                                <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Retype Password">
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-common log-btn mt-3">Register</button>
+                        <p class="text-center">Already have an account?<a href=@Url.Action("Login", "Account")> Sign In</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Content section End -->
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

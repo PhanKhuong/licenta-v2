@@ -1,0 +1,212 @@
+﻿@using Homefind.Web.Models.PropertyViewModels
+@using Homefind.Web.Extensions
+
+@model ListWithFilterModel
+
+@{
+    ViewData["Title"] = "All Properties";
+    ViewData["HasNext"] = Model.Properties.HasNextPage ? "" : "disabled";
+    ViewData["HasPrevious"] = Model.Properties.HasPreviousPage ? "" : "disabled";
+}
+
+<!-- Page Banner Start -->
+<div id="page-banner-area" class="page-banner">
+    <div class="page-banner-title">
+        <div class="text-center">
+            <h2>Simple Listing</h2>
+            <a href="#"><i class="lni-home"></i> Home</a>
+            <span class="crumbs-spacer"><i class="lni-chevron-right"></i></span>
+            <span class="current">Simple Listing</span>
+        </div>
+    </div>
+</div>
+<!-- Page Banner End -->
+<!-- Main container Start -->
+<div class="main-container section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-xs-12">
+                <!-- Product Filter Start -->
+                <div class="product-filter">
+                    <!-- Sort by -->
+                    <div class="sort-by">
+                        <span>Sort by:</span>
+                        <div class="sort-by-select">
+                            <select class="classic">
+                                <option>Default Order</option>
+                                <option>Price Low to High</option>
+                                <option>Price High to Low</option>
+                                <option>Newest Properties</option>
+                                <option>Oldest Properties</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Layout Switcher -->
+                    <div class="layout-switcher">
+                        <a href="#" class="list active">
+                            <i class="lni-menu"></i>
+                        </a>
+                        <a href="#" class="grid">
+                            <i class="lni-grid"></i>
+                        </a>
+                    </div>
+                    <p class="text-left">@Model.Properties.TotalItems homes found</p>
+                </div>
+                <!-- Product Filter End -->
+                <!-- Listings Star -->
+                <div class="listing-container list-layout">
+                    @foreach (var property in Model.Properties)
+                    {
+                        <div class="property-main">
+                            <div class="property-wrap">
+                                <div class="property-item">
+                                    <div class="item-thumb">
+                                        <a class="hover-effect" href='@Url.Action("PropertyDetails", "Property", new { propertyId = property.Id })'>
+                                            <img class="img-fluid" src='@Url.Action("ViewImage", "Property", new { imageId = property.AvatarImageId })' alt="">
+                                        </a>
+                                        <div class="label-inner">
+                                            <span class="label-status label bg-red">For Sale</span>
+                                        </div>
+                                    </div>
+                                    <div class="item-body">
+                                        <h3 class="property-title"><a href="#">@property.Title</a></h3>
+                                        <div class="adderess"><i class="lni-map-marker"></i> @($"{property.Address}, {property.City}")</div>
+                                        <div class="pricin-list">
+                                            <div class="property-price">
+                                                <span>$@property.Price</span>
+                                            </div>
+                                            <p>
+                                                <span> <i class="fas fa-bed fa-lg" style="color: gray; margin-right:5px"></i> @property.Bedrooms</span>
+                                                <span> <i class="fas fa-bath fa-lg" style="color: gray; margin-right:5px"></i> @property.Bathrooms</span>
+                                                <span> <i class="fas fa-th fa-lg" style="color: gray; margin-right:5px"></i> @property.CarpetArea Sqft</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <!-- Listings End -->
+
+                <div class="pagination-container">
+                    <nav>
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="btn btn-common @ViewData["HasPrevious"]" asp-action="Index" asp-route-page="@(Model.Properties.PageIndex - 1)">
+                                    <i class="lni-chevron-left"></i> Previous
+                                </a>
+                            </li>
+                            @for (int i = 1; i <= Model.Properties.TotalPages; i++)
+                            {
+                                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@i">@i</a></li>
+                            }
+                            <li class="page-item">
+                                <a class="btn btn-common @ViewData["HasNext"]" asp-action="Index" asp-route-page="@(Model.Properties.PageIndex + 1)">
+                                    Next
+                                    <i class="lni-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 col-xs-12">
+                <!-- Sidebar Start -->
+                <div class="sidebar sticky right">
+                    <!-- Widget -->
+                    <div class="widget">
+                        <h3 class="sidebar-title">Find New Home</h3>
+                        <form asp-action="Index" asp-controller="Property">
+                            <div class="row with-forms">
+                                <div class="col-md-12">
+                                    <select asp-for="FilterSpecification.Status" class="classic">
+                                        <option>@Constants.SelectAnyStatus</option>
+                                        <option>For Sale</option>
+                                        <option>For Rent</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row with-forms">
+                                <div class="col-md-12">
+                                    <select asp-for="FilterSpecification.Type" class="classic"
+                                            asp-items="@(new SelectList(ViewBag.PropertyTypes, "Id", "TypeName"))">
+                                        <option>@Constants.SelectAllTypes</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row with-forms">
+                                <div class="col-md-12">
+                                    <select asp-for="FilterSpecification.City" class="classic"
+                                            asp-items="@(new SelectList(ViewBag.Cities))">
+                                        <option>@Constants.SelectAllCities</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <select asp-for="FilterSpecification.Bedrooms" class="classic"
+                                            asp-items="@(new SelectList(Constants.SelectBeds))">
+                                        <option>Beds</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <select asp-for="FilterSpecification.Bathrooms" class="classic"
+                                            asp-items="@(new SelectList(Constants.SelectBaths))">
+                                        <option>Baths</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Area Range -->
+                            <div class="range-area">
+                                <label>Area Range</label>
+                                <div id="area-range">
+                                    <input asp-for="FilterSpecification.AreaFrom" type="text" class="form-control">
+                                    <span>sq ft  to</span>
+                                    <input asp-for="FilterSpecification.AreaTo" type="text" class="form-control">
+                                    <span>sq ft</span>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <!-- Price Range -->
+                            <div class="price-range">
+                                <label>Price Range</label>
+                                <div id="area-price">
+                                    <input asp-for="FilterSpecification.PriceFrom" type="text" class="form-control">
+                                    <span>sq ft  to</span>
+                                    <input asp-for="FilterSpecification.PriceTo" type="text" class="form-control">
+                                    <span>sq ft</span>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <!-- More Search Options -->
+                            <div class="more-search-options">
+                                <h3 class="sidebar-title">Additional Features</h3>
+                                <!-- Checkboxes -->
+                                <div class="checkboxes one-in-row">
+                                    <input asp-for="FilterSpecification.HasAirConditioning" id="check-2" type="checkbox" name="check">
+                                    <label for="check-2">Air Conditioning</label>
+                                    <input asp-for="FilterSpecification.HasCarParking" id="check-4" type="checkbox" name="check">
+                                    <label for="check-4">Car Parking</label>
+                                    <input asp-for="FilterSpecification.IsFurnished" id="check-5" type="checkbox" name="check">
+                                    <label for="check-5">Is furnished</label>
+                                    <input asp-for="FilterSpecification.ArePetsAllowed" id="check-6" type="checkbox" name="check">
+                                    <label for="check-6">Are pets allowed</label>
+                                    <input asp-for="FilterSpecification.HasTv" id="check-7" type="checkbox" name="check">
+                                    <label for="check-7">Has TV</label>
+                                    <input asp-for="FilterSpecification.HasInternet" id="check-8" type="checkbox" name="check">
+                                    <label for="check-8">Has Internet</label>
+                                </div>
+                            </div>
+                            <!-- More Search Options  End -->
+                            <input type="submit" class="fullwidth btn btn-common" value="Search" />
+                        </form>
+                    </div>
+                    <!-- Widget End -->
+                </div>
+                <!-- Sidebar End -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Main container End -->
