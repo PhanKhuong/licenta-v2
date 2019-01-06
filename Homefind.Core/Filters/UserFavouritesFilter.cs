@@ -9,6 +9,7 @@ namespace Homefind.Core.Filters
             : base(x => !string.IsNullOrEmpty(userName) && x.UserId == userName)
         {
             Includes.Add(x => x.EstateUnit);
+            Includes.Add(x => x.EstateUnit.EstateImages);
             Includes.Add(x => x.EstateUnit.EstateLocation);
         }
     }

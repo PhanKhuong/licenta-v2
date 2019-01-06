@@ -25,7 +25,7 @@
                     <div class="header clearfix">
                         <h2>@User.Identity.Name</h2>
                         <h4>Real Estate Agent</h4>
-                        <img src="assets/img/avatar/avatar-2.jpg" alt="avatar" class="img-fluid profile-img">
+                        <img src="~/assets/img/avatar/profile-anonimous.png" alt="avatar" class="img-fluid profile-img">
                     </div>
                     <!-- Detail -->
                     <div class="detail clearfix">
@@ -36,34 +36,36 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a asp-controller="Profile" asp-action="MyProfile">
                                     <i class="lni-user"></i>Profile
                                 </a>
                             </li>
+                            @*<li>
+                                    <a href="#">
+                                        <i class="lni-home"></i>My Properties
+                                    </a>
+                                </li>*@
                             <li>
-                                <a href="#">
-                                    <i class="lni-home"></i>My Properties
-                                </a>
-                            </li>
-                            <li>
-                                <a class="active" id="favourite-properties" style="cursor:pointer">
+                                <a asp-controller="Profile" asp-action="MyFavourites" class="active">
                                     <i class="lni-heart"></i>Favorited Properties
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a asp-controller="Property" asp-action="Submit">
                                     <i class="lni-plus"></i>Submit New Property
                                 </a>
                             </li>
+                            @*<li>
+                                    <a href="#">
+                                        <i class="lni-lock"></i>Change Password
+                                    </a>
+                                </li>*@
                             <li>
-                                <a href="#">
-                                    <i class="lni-lock"></i>Change Password
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="lni-logout"></i>Log Out
-                                </a>
+                                <form method="post">
+                                    <button style="text-transform: capitalize; color:grey" type="submit" class="btn btn-link" asp-controller="Account" asp-action="Logout">
+                                        <i class="fas fa-sign-out-alt"></i> Sign Out
+                                    </button>
+                                </form>
                             </li>
                         </ul>
                     </div>

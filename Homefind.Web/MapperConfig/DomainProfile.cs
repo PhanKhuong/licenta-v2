@@ -27,10 +27,12 @@ namespace Homefind.Web.MapperConfig
 
             CreateMap<EstateUnit, FavouritesModel>();
             CreateMap<EstateLocation, FavouritesModel>();
+            CreateMap<EstateImage, FavouritesModel>();
             CreateMap<Favourites, FavouritesModel>()
                 .ForMember(x => x.Title, opt => opt.MapFrom(src => src.EstateUnit.Title))
                 .ForMember(x => x.Price, opt => opt.MapFrom(src => src.EstateUnit.Price))
                 .ForMember(x => x.City, opt => opt.MapFrom(src => src.EstateUnit.EstateLocation.City))
+                .ForMember(x => x.AvatarImageId, opt => opt.MapFrom(src => src.EstateUnit.EstateImages.First().Id))
                 .ForMember(x => x.Country, opt => opt.MapFrom(src => src.EstateUnit.EstateLocation.Country))
                 .ForMember(x => x.Address, opt => opt.MapFrom(src => src.EstateUnit.EstateLocation.Address));
 

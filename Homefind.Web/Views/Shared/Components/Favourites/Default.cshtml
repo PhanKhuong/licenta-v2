@@ -30,7 +30,10 @@
                 {
                     <tr>
                         <td class="image">
-                            <a href="#"><img alt="my-properties-3" src="assets/img/property/house-1.jpg" class="img-fluid"></a>
+                            <a href="#">
+                                <img alt="image" src='@Url.Action("ViewImage", "Property", new { imageId = favourite.AvatarImageId })'
+                                     class="img-fluid">
+                            </a>
                         </td>
                         <td>
                             <div class="inner">

@@ -13,5 +13,6 @@ namespace Homefind.Web.Models.PropertyViewModels
         public string City { get; set; }
         public string Country { get; set; }
         public DateTime DateAdded { get; set; }
+        public int AvatarImageId { get; set; }
     }
 }
