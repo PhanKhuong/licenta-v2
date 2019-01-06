@@ -45,7 +45,11 @@
                         <td>@favourite.DateAdded.ToShortDateString()</td>
                         <td>133</td>
                         <td class="actions">
-                            @*<button class="btn btn-link" style="color:blue; width:30px; height:30px; margin-bottom:20px"><i class="far fa-edit"></i>Edit</button>*@
+                            <button type="button" class="remove-fav btn btn-link" style="color:blue; width:30px; height:30px; margin-bottom:20px"
+                                    data-toggle="modal" data-target="#modalConfirmRemoveFavourite" data-myvalue="@favourite.Title" data-myvar="@favourite.Title">
+                                <i class="far fa-edit"></i>Edit
+                            </button>
+
                             <button class="btn btn-link"
                                     style="color:red; width:30px; height:30px;margin-bottom:20px"
                                     type="submit"
@@ -58,6 +62,26 @@
             </tbody>
         </table>
     </form>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalConfirmRemoveFavourite" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    Remove from favourites <span id="modal-myvalue"></span> ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @* pagination *@
     <div class="pagination-container">
         <nav>
