@@ -103,7 +103,7 @@ namespace Homefind.Web.Controllers
 
             await _propertyViewModelService.AddProperty(model, User.Identity.Name);
 
-            return View();
+            return RedirectToAction(nameof(Submit));
         }
 
         [HttpGet]

@@ -63,7 +63,6 @@ namespace Homefind.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteFavourite(int id)
         {
             try

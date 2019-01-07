@@ -54,7 +54,7 @@ namespace Homefind.Web.Services
         {
             var property = _mapper.Map<EstateUnit>(propertyModel);
             property.PostedBy = user;
-            property.EstateLocationId = 1;
+            property.EstateLocationId = new Random().Next(1, 4);
             property.Status = "1";
             property.DatePosted = DateTime.Today;
             property.DateAvailable = DateTime.Today;

@@ -46,7 +46,7 @@
                         <td>133</td>
                         <td class="actions">
                             <button type="button" class="remove-fav btn btn-link" style="color:blue; width:30px; height:30px; margin-bottom:20px"
-                                    data-toggle="modal" data-target="#modalConfirmRemoveFavourite" data-myvalue="@favourite.Title" data-myvar="@favourite.Title">
+                                    data-toggle="modal" data-target="#modalConfirmRemoveFavourite" data-myvalue="@favourite.EstateUnitId">
                                 <i class="far fa-edit"></i>Edit
                             </button>
 
@@ -72,11 +72,12 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    Remove from favourites <span id="modal-myvalue"></span> ?
+                    Remove item from favourites?
+                    <input type="hidden" id="modal-myvalue" />
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <button id="btnRemoveFromFavourites" type="button" class="btn btn-primary">Yes</button>
                 </div>
             </div>
         </div>
