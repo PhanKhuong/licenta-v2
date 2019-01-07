@@ -2,7 +2,7 @@
 {
     public class Constants
     {
-        public static readonly int ItemsPerPage = 10;
+        public static readonly int ItemsPerPage = 5;
         public static readonly string SelectAnyStatus = "Any Status";
         public static readonly string SelectAllTypes = "All Types";
         public static readonly string SelectAllCities = "All Cities";
