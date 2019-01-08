@@ -4282,7 +4282,7 @@ textarea {
 
 .action-edit {
     width: 50%;
-    color: blue;
+    color: #4064d7;
     display: inline;
     margin-right: 1rem;
     cursor: pointer;
@@ -4290,7 +4290,7 @@ textarea {
 
 .action-delete {
     width: 50%;
-    color: red;
+    color: #f50057;
     display: inline;
     margin-right: 1rem;
     cursor: pointer;
