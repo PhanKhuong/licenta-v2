@@ -33,9 +33,13 @@ namespace Homefind.Web.Controllers
             return View();
         }
 
-        public ActionResult MyFavourites()
+        [HttpGet]
+        public async Task<IActionResult> MyFavourites(int page)
         {
-            return View();
+            var favourites = await _propertyViewModelService
+               .ListFavourites(User.Identity.Name, page == 0 ? 1 : page, Constants.ItemsPerPage);
+
+            return View(favourites);
         }
 
         [HttpGet]

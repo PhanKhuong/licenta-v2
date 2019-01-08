@@ -1,6 +1,12 @@
-﻿
+﻿@using Homefind.Web.Extensions
+@using Homefind.Web.Models.PropertyViewModels
+
+@model PagedCollection<FavouritesModel>
+
 @{
     ViewData["Title"] = "Profile";
+    ViewData["HasNext"] = Model.HasNextPage ? "" : "disabled";
+    ViewData["HasPrevious"] = Model.HasPreviousPage ? "" : "disabled";
 }
 
 <!-- Page Banner Start -->
@@ -73,7 +79,101 @@
             </div>
 
             <div id="fav-list-container" class="col-lg-8 col-md-7 col-xs-12">
-                @await Component.InvokeAsync("Favourites", new { user = User.Identity.Name })
+                <div class="my-properties">
+
+                    @* List of favourite properties *@
+                    <form method="post">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Property</th>
+                                    <th></th>
+                                    <th>Date Added</th>
+                                    <th>Views</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var favourite in Model)
+                                {
+                                    <tr>
+                                        <td class="image">
+                                            <a href="#">
+                                                <img alt="image" src='@Url.Action("ViewImage", "Property", new { imageId = favourite.AvatarImageId })'
+                                                     class="img-fluid">
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <div class="inner">
+                                                <a href="#"><h2>@favourite.Title</h2></a>
+                                                <figure><i class="lni-map-marker"></i> @($"{favourite.Address}, {favourite.City}")</figure>
+                                                <div class="tag price">$ @favourite.Price</div>
+                                            </div>
+                                        </td>
+                                        <td>@favourite.DateAdded.ToShortDateString()</td>
+                                        <td>@favourite.Views</td>
+                                        <td class="actions">
+                                            <div class="action-edit">
+                                                <i class="fas fa-pencil-alt"></i> Edit
+                                            </div>
+                                            <div class="action-delete">
+                                                <i class="far fa-trash-alt" data-toggle="modal" data-target="#modalConfirmRemoveFavourite"
+                                                   data-myvalue="@favourite.EstateUnitId"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </form>
+
+                    @* pagination *@
+                    <form method="get" asp-controller="Profile" asp-action="MyFavourites">
+                        <div class="pagination-container">
+                            <nav>
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="btn btn-common @ViewData["HasPrevious"]" asp-route-page="@(Model.PageIndex - 1)">
+                                            <i class="lni-chevron-left"></i> Previous
+                                        </a>
+                                    </li>
+                                    @for (int i = 1; i <= Model.TotalPages; i++)
+                                    {
+                                        <li class="fav page-item">
+                                            <a class="page-link" asp-route-page="@i">@i</a>
+                                        </li>
+                                    }
+                                    <li class="page-item">
+                                        <a class="btn btn-common @ViewData["HasNext"]" asp-route-page="@(Model.PageIndex + 1)">
+                                            Next
+                                            <i class="lni-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </form>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalConfirmRemoveFavourite" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    Remove item from favourites?
+                                    <input type="hidden" id="modal-myvalue" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                    <button id="btnRemoveFromFavourites" type="button" class="btn btn-primary">Yes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
