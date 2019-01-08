@@ -4279,3 +4279,19 @@ textarea {
 .fa-heart-red{
     color: orangered;
 }
+
+.action-edit {
+    width: 50%;
+    color: blue;
+    display: inline;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.action-delete {
+    width: 50%;
+    color: red;
+    display: inline;
+    margin-right: 1rem;
+    cursor: pointer;
+}

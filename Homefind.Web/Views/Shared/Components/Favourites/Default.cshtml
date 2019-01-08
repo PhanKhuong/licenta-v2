@@ -43,19 +43,15 @@
                             </div>
                         </td>
                         <td>@favourite.DateAdded.ToShortDateString()</td>
-                        <td>133</td>
+                        <td>@favourite.Views</td>
                         <td class="actions">
-                            <button type="button" class="remove-fav btn btn-link" style="color:blue; width:30px; height:30px; margin-bottom:20px"
-                                    data-toggle="modal" data-target="#modalConfirmRemoveFavourite" data-myvalue="@favourite.EstateUnitId">
+                            <div class="action-edit">
                                 <i class="far fa-edit"></i>Edit
-                            </button>
-
-                            <button class="btn btn-link"
-                                    style="color:red; width:30px; height:30px;margin-bottom:20px"
-                                    type="submit"
-                                    asp-action="DeleteFavourite" asp-controller="Profile" asp-route-id="@favourite.EstateUnitId">
-                                <i class="far fa-trash-alt"></i>
-                            </button>
+                            </div>
+                            <div class="action-delete">
+                                <i class="far fa-trash-alt" data-toggle="modal" data-target="#modalConfirmRemoveFavourite"
+                                   data-myvalue="@favourite.EstateUnitId"></i>
+                            </div>
                         </td>
                     </tr>
                 }
