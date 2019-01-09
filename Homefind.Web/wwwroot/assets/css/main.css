@@ -4295,3 +4295,8 @@ textarea {
     margin-right: 1rem;
     cursor: pointer;
 }
+
+.page-selected {
+    background-color: #4064d7 !important;
+    color: #fff !important;
+}

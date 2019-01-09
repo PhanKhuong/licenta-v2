@@ -97,9 +97,19 @@
                                     <i class="lni-chevron-left"></i> Previous
                                 </a>
                             </li>
+                            </li>
                             @for (int i = 1; i <= Model.Properties.TotalPages; i++)
                             {
-                                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@i">@i</a></li>
+                                <li class="fav page-item">
+                                    @if (Model.Properties.PageIndex == i)
+                                    {
+                                        <a class="page-link page-selected" asp-action="Index" asp-route-page="@i">@i</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                                    }
+                                </li>
                             }
                             <li class="page-item">
                                 <a class="btn btn-common @ViewData["HasNext"]" asp-action="Index" asp-route-page="@(Model.Properties.PageIndex + 1)">
