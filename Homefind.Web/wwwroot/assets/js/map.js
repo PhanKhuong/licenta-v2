@@ -209,7 +209,7 @@ jQuery(document).ready(function ($) {
             streetViewControl: false,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             scrollwheel: false,
-            styles: style,
+            styles: style
         };
         //inizialize the map
         var map = new google.maps.Map(document.getElementById('conatiner-map'), map_options);
@@ -218,7 +218,7 @@ jQuery(document).ready(function ($) {
             position: new google.maps.LatLng(latitude, longitude),
             map: map,
             visible: true,
-            icon: $marker_url,
+            icon: $marker_url
         });
 
         //add custom buttons for the zoom-in/zoom-out on the map
