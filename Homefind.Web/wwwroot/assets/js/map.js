@@ -210,7 +210,7 @@ jQuery(document).ready(function ($) {
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             scrollwheel: false,
             styles: style,
-        }
+        };
         //inizialize the map
         var map = new google.maps.Map(document.getElementById('conatiner-map'), map_options);
         //add a custom marker to the map				
@@ -234,5 +234,5 @@ jQuery(document).ready(function ($) {
 
         //insert the zoom div on the top left of the map
         map.controls[google.maps.ControlPosition.LEFT_TOP].push(zoomControlDiv);
-    }
+    };
 });
