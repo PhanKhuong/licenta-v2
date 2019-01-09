@@ -4300,3 +4300,14 @@ textarea {
     background-color: #4064d7 !important;
     color: #fff !important;
 }
+
+.profile-link{
+    text-transform: lowercase;
+    color:#fff;
+}
+
+.profile-link-logout {
+    text-transform: capitalize;
+    color: grey;
+    border-radius: unset;
+}

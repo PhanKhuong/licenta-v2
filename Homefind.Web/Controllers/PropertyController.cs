@@ -178,5 +178,11 @@ namespace Homefind.Web.Controllers
             ViewBag.Cities = locations.Cast<EstateLocation>().Select(x => x.City).Distinct();
             ViewBag.Countries = locations.Cast<EstateLocation>().Select(x => x.Country).Distinct();
         }
+
+        [HttpPost]
+        public int GetPropertyZipCode(int propertyId)
+        {
+            return 727440;
+        }
     }
 }

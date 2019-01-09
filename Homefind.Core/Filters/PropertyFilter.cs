@@ -18,12 +18,12 @@ namespace Homefind.Core.Filters
                     && (!filterSpecs.PriceTo.HasValue || x.Price <= filterSpecs.PriceTo)
                     && (string.IsNullOrEmpty(filterSpecs.City) || filterSpecs.City == "All Cities" || x.EstateLocation.City == filterSpecs.City)
                     && (string.IsNullOrEmpty(filterSpecs.Status) || filterSpecs.Status == "Any Status" || x.Status == filterSpecs.Status)
-                    && (!filterSpecs.HasCarParking || Convert.ToBoolean(x.EstateFeature.HasCarParking))
-                    && (!filterSpecs.IsFurnished || Convert.ToBoolean(x.EstateFeature.IsFurnished))
-                    && (!filterSpecs.HasAirConditioning || Convert.ToBoolean(x.EstateFeature.HasAirConditioning))
-                    && (!filterSpecs.ArePetsAllowed || Convert.ToBoolean(x.EstateFeature.ArePetsAllowed))
-                    && (!filterSpecs.HasTv || Convert.ToBoolean(x.EstateFeature.HasTv))
-                    && (!filterSpecs.HasInternet || Convert.ToBoolean(x.EstateFeature.HasInternet))
+                    && (!Convert.ToBoolean(filterSpecs.HasCarParking) || x.EstateFeature.HasCarParking)
+                    && (!Convert.ToBoolean(filterSpecs.IsFurnished) || x.EstateFeature.IsFurnished)
+                    && (!Convert.ToBoolean(filterSpecs.HasAirConditioning) || x.EstateFeature.HasAirConditioning)
+                    && (!Convert.ToBoolean(filterSpecs.ArePetsAllowed) || x.EstateFeature.ArePetsAllowed)
+                    && (!Convert.ToBoolean(filterSpecs.HasTv) || x.EstateFeature.HasTv)
+                    && (!Convert.ToBoolean(filterSpecs.HasInternet) || x.EstateFeature.HasInternet)
                     )
         {
             Includes.Add(x => x.EstateType);

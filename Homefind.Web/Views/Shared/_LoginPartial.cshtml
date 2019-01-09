@@ -8,8 +8,18 @@
 {
     <div class="header-top-right float-right">
         <form method="post">
-            <a class="header-top-button" asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-            <input type="submit" class="header-top-button" asp-controller="Account" asp-action="Logout" value="Logout" />
+            <div class="dropdown show">
+                <a class="header-top-button white-bg dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user-circle"></i>  @((await UserManager.GetUserAsync(User)).DisplayName)
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" asp-action="MyProfile" asp-controller="Profile">My Profile</a>
+                    <button type="submit" class="btn btn-link profile-link-logout dropdown-item" asp-controller="Account" asp-action="Logout">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
         </form>
     </div>
 }

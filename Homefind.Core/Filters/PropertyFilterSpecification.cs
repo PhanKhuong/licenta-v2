@@ -15,11 +15,11 @@ namespace Homefind.Core.Filters
         public int? PriceTo { get; set; }
         public string City { get; set; }
         public string Status { get; set; }
-        public bool HasCarParking { get; set; }
-        public bool IsFurnished { get; set; }
-        public bool HasAirConditioning { get; set; }
-        public bool ArePetsAllowed { get; set; }
-        public bool HasTv { get; set; }
-        public bool HasInternet { get; set; }
+        public string HasCarParking { get; set; }
+        public string IsFurnished { get; set; }
+        public string HasAirConditioning { get; set; }
+        public string ArePetsAllowed { get; set; }
+        public string HasTv { get; set; }
+        public string HasInternet { get; set; }
     }
 }
