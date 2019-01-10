@@ -8,17 +8,28 @@ jQuery(document).ready(function ($) {
         $map_zoom = 14;
 
     var propertyId = location.search.substr(1).split("=")[1];
+    var geocoder = new google.maps.Geocoder();
     $.ajax({
-        url: "/Property/GetPropertyZipCode",
-        type: "POST",
-        dataType: "json",
+        url: "/Property/GetPropertyLocationAddress",
+        type: "GET",
+        dataType: "text",
         data: { propertyId: propertyId },
-        success: function (data) {
-            RetrieveMap(34.1215659, -118.2095611, 14);
+        success: function (address) {
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status === 'OK') {
+                    RetrieveMap(results[0].geometry.location, results[0].formatted_address, 14);
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            var err = thrownError;
         }
     });
 
-    var RetrieveMap = function (latitude, longitude, map_zoom) {
+    var RetrieveMap = function (location, complete_name, map_zoom) {
         //google map custom marker icon - .png fallback for IE11
         var is_internetExplorer11 = navigator.userAgent.toLowerCase().indexOf('trident') > -1;
         var $marker_url = (is_internetExplorer11) ? '/assets/img/location.png' : '/assets/img/location.png';
@@ -201,7 +212,7 @@ jQuery(document).ready(function ($) {
 
         //set google map options
         var map_options = {
-            center: new google.maps.LatLng(latitude, longitude),
+            center: location,
             zoom: map_zoom,
             panControl: false,
             zoomControl: false,
@@ -215,10 +226,16 @@ jQuery(document).ready(function ($) {
         var map = new google.maps.Map(document.getElementById('conatiner-map'), map_options);
         //add a custom marker to the map				
         var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(latitude, longitude),
+            position: location,
             map: map,
             visible: true,
             icon: $marker_url
+        });
+
+        var infowindow = new google.maps.InfoWindow();
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.setContent('<div>' + complete_name + '</div>');
+            infowindow.open(map, this);
         });
 
         //add custom buttons for the zoom-in/zoom-out on the map

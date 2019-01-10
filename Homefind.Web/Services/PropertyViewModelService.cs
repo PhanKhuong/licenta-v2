@@ -134,5 +134,13 @@ namespace Homefind.Web.Services
                 await _favouritesRepository.Delete(favourite);
             }
         }
+
+        public string GetPropertyLocationAddress(int propertyId)
+        {
+            var property = _propertyRepository.GetById(propertyId);
+            var location = _locationRepository.GetById(property.EstateLocationId);
+
+            return location.Address;
+        }
     }
 }

@@ -179,10 +179,12 @@ namespace Homefind.Web.Controllers
             ViewBag.Countries = locations.Cast<EstateLocation>().Select(x => x.Country).Distinct();
         }
 
-        [HttpPost]
-        public int GetPropertyZipCode(int propertyId)
+        [HttpGet]
+        public string GetPropertyLocationAddress(int propertyId)
         {
-            return 727440;
+            if (propertyId != 0)
+                return _propertyViewModelService.GetPropertyLocationAddress(propertyId);
+            else return string.Empty;
         }
     }
 }

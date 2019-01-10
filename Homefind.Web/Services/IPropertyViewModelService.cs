@@ -21,5 +21,6 @@ namespace Homefind.Web.Services
         Task<EstateUnit> GetProperty(int propertyId, string userName);
         EstateImage GetImageById(int imageId);
         Task<PagedCollection<EstateUnit>> GetUserListing(string userName, int pageNumber, int itemsPerPage);
+        string GetPropertyLocationAddress(int propertyId);
     }
 }
