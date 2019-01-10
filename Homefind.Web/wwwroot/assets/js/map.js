@@ -2,10 +2,6 @@
 jQuery(document).ready(function ($) {
 
     'use strict';
-    //set your google maps parameters
-    var $latitude = 34.1215659,
-        $longitude = -118.2095611,
-        $map_zoom = 14;
 
     var propertyId = location.search.substr(1).split("=")[1];
     var geocoder = new google.maps.Geocoder();
@@ -17,7 +13,7 @@ jQuery(document).ready(function ($) {
         success: function (address) {
             geocoder.geocode({ 'address': address }, function (results, status) {
                 if (status === 'OK') {
-                    RetrieveMap(results[0].geometry.location, results[0].formatted_address, 14);
+                    SetMapMarkerDetails(results[0].geometry.location, results[0].formatted_address, 14);
                 } else {
                     alert('Geocode was not successful for the following reason: ' + status);
                 }
@@ -29,7 +25,7 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    var RetrieveMap = function (location, complete_name, map_zoom) {
+    var SetMapMarkerDetails = function (location, complete_name, map_zoom) {
         //google map custom marker icon - .png fallback for IE11
         var is_internetExplorer11 = navigator.userAgent.toLowerCase().indexOf('trident') > -1;
         var $marker_url = (is_internetExplorer11) ? '/assets/img/location.png' : '/assets/img/location.png';
