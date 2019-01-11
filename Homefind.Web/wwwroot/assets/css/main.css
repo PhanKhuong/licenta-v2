@@ -4311,3 +4311,10 @@ textarea {
     color: grey;
     border-radius: unset;
 }
+
+.nearby-item {
+    float: left;
+    margin-left: 10px;
+    color: #4064d7;
+    cursor: pointer;
+}
