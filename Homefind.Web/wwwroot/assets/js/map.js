@@ -234,6 +234,14 @@ jQuery(document).ready(function ($) {
         findNearbyPlaces('restaurant');
     });
 
+    $(".fa-dollar-sign").click(function () {
+        findNearbyPlaces('atm');
+    });
+
+    $(".fa-shopping-cart").click(function () {
+        findNearbyPlaces('supermarket');
+    });
+
     function findNearbyPlaces(place) {
         map = new google.maps.Map(document.getElementById('conatiner-map'), getMapOptions(currentGeoposition));
 

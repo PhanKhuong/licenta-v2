@@ -1740,7 +1740,6 @@ Property wrapper Style
   height: 41px;
   text-align: center;
   width: 41px;
-  float: left;
   border: none;
   cursor: pointer;
   background-color: #f3f3f3;
@@ -4317,4 +4316,9 @@ textarea {
     margin-left: 10px;
     color: #4064d7;
     cursor: pointer;
+}
+
+.widget-wrap{
+    float: left;
+    margin-right: 15px;
 }
