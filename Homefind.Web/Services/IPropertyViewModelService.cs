@@ -12,7 +12,7 @@ namespace Homefind.Web.Services
     {
         Task<IEnumerable<EstateType>> GetPropertyTypes();
         Task<IEnumerable<EstateLocation>> GetEstateLocations();
-        Task<PagedCollection<PropertyInfoModel>> ListProperties(string userName, int pageNumber, int itemsPerPage);
+        Task<PagedCollection<PropertyInfoModel>> ListProperties(int pageNumber, int itemsPerPage);
         Task<PagedCollection<PropertyInfoModel>> ListProperties(PropertyFilterSpecification filterSpecification, int pageNumber, int itemsPerPage);
         Task<PagedCollection<FavouritesModel>> ListFavourites(string userName, int pageNumber, int itemsPerPage);
         Task<Favourites> AddToFavourites(Favourites favourite);

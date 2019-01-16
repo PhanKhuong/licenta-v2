@@ -52,7 +52,7 @@ namespace Homefind.Web
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IPropertyService, PropertyService>();
             services.AddScoped<IPropertyViewModelService, PropertyViewModelService>();
-            //services.AddScoped<IPropertyRepository, PropertyRepository>();
+            services.AddScoped<IPropertyRepository, PropertyRepository>();
 
             services.AddTransient<IEmailSender, EmailSender>();
 

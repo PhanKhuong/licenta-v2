@@ -48,7 +48,7 @@ namespace Homefind.Web.Controllers
             {
                 model.FilterSpecification = new PropertyFilterSpecification();
                 model.Properties = await _propertyViewModelService
-                    .ListProperties(User.Identity.Name, page == 0 ? 1 : page, Constants.ItemsPerPage);
+                    .ListProperties(page == 0 ? 1 : page, Constants.ItemsPerPage);
             }
 
             await SetCacheEntries();

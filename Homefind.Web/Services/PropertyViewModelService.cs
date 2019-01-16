@@ -14,18 +14,19 @@ namespace Homefind.Web.Services
     public class PropertyViewModelService : IPropertyViewModelService
     {
         private readonly IMapper _mapper;
-        private readonly IRepository<EstateUnit> _propertyRepository;
         private readonly IRepository<Favourites> _favouritesRepository;
         private readonly IRepository<EstateType> _propertyTypesRepository;
         private readonly IRepository<EstateLocation> _locationRepository;
         private readonly IRepository<EstateImage> _imageRepository;
+        private readonly IPropertyRepository _propertyRepository;
+        
 
         public PropertyViewModelService(IMapper mapper,
-            IRepository<EstateUnit> propertyRepository,
             IRepository<Favourites> favouritesRepository,
             IRepository<EstateType> propertyTypesRepository,
             IRepository<EstateLocation> locationRepository,
-            IRepository<EstateImage> imageRepository)
+            IRepository<EstateImage> imageRepository,
+            IPropertyRepository propertyRepository)
         {
             _mapper = mapper;
             _propertyRepository = propertyRepository;
@@ -45,7 +46,6 @@ namespace Homefind.Web.Services
         public async Task<IEnumerable<EstateLocation>> GetEstateLocations()
         {
             var locations = await _locationRepository.ListAll();
-            //var cities = locations.Select(x => x.City).Distinct();
 
             return locations;
         }
@@ -86,18 +86,16 @@ namespace Homefind.Web.Services
             var rootItems = await _propertyRepository.ListWithFilter(new PropertyFilter(filterSpecification));
 
             var items = _mapper.Map<IEnumerable<EstateUnit>, IEnumerable<PropertyInfoModel>>(rootItems);
-            //var paginatedItems = new PaginatedList<PropertyInfoModel>(items.ToList(), items.Count(), pageNumber, itemsPerPage);
             var paginatedItems = PagedCollection<PropertyInfoModel>.Create(items, pageNumber, itemsPerPage);
 
             return paginatedItems;
         }
 
-        public async Task<PagedCollection<PropertyInfoModel>> ListProperties(string userName, int pageNumber, int itemsPerPage)
+        public async Task<PagedCollection<PropertyInfoModel>> ListProperties(int pageNumber, int itemsPerPage)
         {
-            var rootItems = await _propertyRepository.ListWithFilter(new UserPropertyFilter(userName));
+            var rootItems = await _propertyRepository.ListAllWithEntities();
 
             var items = _mapper.Map<IEnumerable<EstateUnit>, IEnumerable<PropertyInfoModel>>(rootItems);
-            //var paginatedItems = new PaginatedList<PropertyInfoModel>(items.ToList(), items.Count(), pageNumber, itemsPerPage);
             var paginatedItems = PagedCollection<PropertyInfoModel>.Create(items, pageNumber, itemsPerPage);
 
             return paginatedItems;
