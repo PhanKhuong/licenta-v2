@@ -12,8 +12,8 @@ namespace Homefind.Web.Services
     {
         Task<IEnumerable<EstateType>> GetPropertyTypes();
         Task<IEnumerable<EstateLocation>> GetEstateLocations();
-        Task<PagedCollection<PropertyInfoModel>> ListProperties(int pageNumber, int itemsPerPage);
-        Task<PagedCollection<PropertyInfoModel>> ListProperties(PropertyFilterSpecification filterSpecification, int pageNumber, int itemsPerPage);
+        Task<PagedCollection<PropertyInfoModel>> ListProperties(int pageNumber, int itemsPerPage, SortOptions sortOptions);
+        Task<PagedCollection<PropertyInfoModel>> ListProperties(PropertyFilterSpecification filter, int pageNumber, int itemsPerPage, SortOptions sortOptions);
         Task<PagedCollection<FavouritesModel>> ListFavourites(string userName, int pageNumber, int itemsPerPage);
         Task<Favourites> AddToFavourites(Favourites favourite);
         Task RemoveFromFavourites(int propertyId, string username);

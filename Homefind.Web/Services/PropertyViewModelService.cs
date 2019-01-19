@@ -19,7 +19,7 @@ namespace Homefind.Web.Services
         private readonly IRepository<EstateLocation> _locationRepository;
         private readonly IRepository<EstateImage> _imageRepository;
         private readonly IPropertyRepository _propertyRepository;
-        
+
 
         public PropertyViewModelService(IMapper mapper,
             IRepository<Favourites> favouritesRepository,
@@ -81,9 +81,10 @@ namespace Homefind.Web.Services
             return paginatedItems;
         }
 
-        public async Task<PagedCollection<PropertyInfoModel>> ListProperties(PropertyFilterSpecification filterSpecification, int pageNumber, int itemsPerPage)
+        public async Task<PagedCollection<PropertyInfoModel>> ListProperties(PropertyFilterSpecification filter, int pageNumber, int itemsPerPage, SortOptions sortOptions)
         {
-            var rootItems = await _propertyRepository.ListWithFilter(new PropertyFilter(filterSpecification));
+            var rootItems = await _propertyRepository.ListWithFilter(new PropertyFilter(filter));
+            rootItems = GetSortedProperties(rootItems, sortOptions);
 
             var items = _mapper.Map<IEnumerable<EstateUnit>, IEnumerable<PropertyInfoModel>>(rootItems);
             var paginatedItems = PagedCollection<PropertyInfoModel>.Create(items, pageNumber, itemsPerPage);
@@ -91,9 +92,10 @@ namespace Homefind.Web.Services
             return paginatedItems;
         }
 
-        public async Task<PagedCollection<PropertyInfoModel>> ListProperties(int pageNumber, int itemsPerPage)
+        public async Task<PagedCollection<PropertyInfoModel>> ListProperties(int pageNumber, int itemsPerPage, SortOptions sortOptions)
         {
             var rootItems = await _propertyRepository.ListAllWithEntities();
+            rootItems = GetSortedProperties(rootItems, sortOptions);
 
             var items = _mapper.Map<IEnumerable<EstateUnit>, IEnumerable<PropertyInfoModel>>(rootItems);
             var paginatedItems = PagedCollection<PropertyInfoModel>.Create(items, pageNumber, itemsPerPage);
@@ -127,7 +129,7 @@ namespace Homefind.Web.Services
         {
             var userFavourites = await _favouritesRepository.ListWithFilter(new UserFavouritesFilter(username));
             var favourite = userFavourites.FirstOrDefault(x => x.EstateUnitId == propertyId);
-            if(favourite != null)
+            if (favourite != null)
             {
                 await _favouritesRepository.Delete(favourite);
             }
@@ -139,6 +141,23 @@ namespace Homefind.Web.Services
             var location = _locationRepository.GetById(property.EstateLocationId);
 
             return location.Address;
+        }
+
+        private IEnumerable<EstateUnit> GetSortedProperties(IEnumerable<EstateUnit> unsorted, SortOptions sortOptions)
+        {
+            switch (sortOptions)
+            {
+                case SortOptions.LowestPrice:
+                    return unsorted.OrderBy(x => x.Price);
+                case SortOptions.HighestPrice:
+                    return unsorted.OrderByDescending(x => x.Price);
+                case SortOptions.Newest:
+                    return unsorted.OrderByDescending(x => x.DatePosted);
+                case SortOptions.Oldest:
+                    return unsorted.OrderBy(x => x.DatePosted);
+                default:
+                    return unsorted;
+            }
         }
     }
 }

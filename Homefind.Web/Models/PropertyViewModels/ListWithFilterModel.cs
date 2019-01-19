@@ -1,9 +1,5 @@
 ﻿using Homefind.Core.Filters;
 using Homefind.Web.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Homefind.Web.Models.PropertyViewModels
 {
@@ -11,5 +7,6 @@ namespace Homefind.Web.Models.PropertyViewModels
     {
         public PropertyFilterSpecification FilterSpecification { get; set; }
         public PagedCollection<PropertyInfoModel> Properties { get; set; }
+        public SortOptions SortOption { get; set; } = SortOptions.Newest;
     }
 }

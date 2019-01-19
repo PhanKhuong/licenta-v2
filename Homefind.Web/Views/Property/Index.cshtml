@@ -32,12 +32,11 @@
                     <div class="sort-by">
                         <span>Sort by:</span>
                         <div class="sort-by-select">
-                            <select class="classic">
-                                <option>Default Order</option>
-                                <option>Price Low to High</option>
-                                <option>Price High to Low</option>
-                                <option>Newest Properties</option>
-                                <option>Oldest Properties</option>
+                            <select asp-for="SortOption" class="classic" id="sortOptions">
+                                <option value="@SortOptions.Newest">@EnumHelper.GetDescription(SortOptions.Newest)</option>
+                                <option value="@SortOptions.LowestPrice">@EnumHelper.GetDescription(SortOptions.LowestPrice)</option>
+                                <option value="@SortOptions.HighestPrice">@EnumHelper.GetDescription(SortOptions.HighestPrice)</option>
+                                <option value="@SortOptions.Oldest">@EnumHelper.GetDescription(SortOptions.Oldest)</option>
                             </select>
                         </div>
                     </div>
@@ -93,7 +92,8 @@
                     <nav>
                         <ul class="pagination">
                             <li class="page-item">
-                                <a class="btn btn-common @ViewData["HasPrevious"]" asp-action="Index" asp-route-page="@(Model.Properties.PageIndex - 1)">
+                                <a class="btn btn-common @ViewData["HasPrevious"]" asp-action="Index"
+                                   asp-route-page="@(Model.Properties.PageIndex - 1)" asp-route-sortOptions="@Model.SortOption">
                                     <i class="lni-chevron-left"></i> Previous
                                 </a>
                             </li>
@@ -103,16 +103,17 @@
                                 <li class="fav page-item">
                                     @if (Model.Properties.PageIndex == i)
                                     {
-                                        <a class="page-link page-selected" asp-action="Index" asp-route-page="@i">@i</a>
+                                        <a class="page-link page-selected" asp-action="Index" asp-route-page="@i" asp-route-sortOptions="@Model.SortOption">@i</a>
                                     }
                                     else
                                     {
-                                        <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                                        <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-sortOptions="@Model.SortOption">@i</a>
                                     }
                                 </li>
                             }
                             <li class="page-item">
-                                <a class="btn btn-common @ViewData["HasNext"]" asp-action="Index" asp-route-page="@(Model.Properties.PageIndex + 1)">
+                                <a class="btn btn-common @ViewData["HasNext"]" asp-action="Index"
+                                   asp-route-page="@(Model.Properties.PageIndex + 1)" asp-route-sortOptions="@Model.SortOption">
                                     Next
                                     <i class="lni-chevron-right"></i>
                                 </a>

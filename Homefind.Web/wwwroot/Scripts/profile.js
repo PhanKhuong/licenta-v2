@@ -63,6 +63,26 @@
             }
         });
     });
+
+    $("#sortOptions").change(function () {
+        $("#preloader").fadeIn();
+
+        var sortOptions = $("#sortOptions option:selected").val();
+        $.ajax({
+            type: "GET",
+            url: "/Property/Index",
+            data: { sortOptions: sortOptions },
+            dataType: "html",
+            success: function (result) {
+                $("body").html(result);
+                $("#preloader").fadeOut();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    });
 });
 
 $(function () {
