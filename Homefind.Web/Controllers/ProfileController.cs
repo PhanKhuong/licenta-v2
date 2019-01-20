@@ -32,11 +32,12 @@ namespace Homefind.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Feedback(string ratedUser)
+        public IActionResult Feedback(string ratedUser, int propertyId)
         {
             var model = new ReviewModel()
             {
-                RatedUserId = ratedUser
+                RatedUserId = ratedUser,
+                ReviewedProperty = propertyId
             };
 
             return View(model);
@@ -59,7 +60,7 @@ namespace Homefind.Web.Controllers
 
             await _profileViewModelService.AddReview(reviewModel);
 
-            return RedirectToAction(nameof(Feedback));
+            return RedirectToAction("PropertyDetails", "Property", new { propertyId = review.ReviewedProperty, redirectAction = "alert"});
         }
 
         [HttpPost]

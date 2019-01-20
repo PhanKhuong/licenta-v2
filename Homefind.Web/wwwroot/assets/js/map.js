@@ -3,7 +3,10 @@ jQuery(document).ready(function ($) {
 
     'use strict';
 
-    var propertyId = location.search.substr(1).split("=")[1];
+    var urlParams = new URLSearchParams(window.location.search);
+    ShouldDisplayAddedFeedbackInfo(urlParams);
+
+    var propertyId = urlParams.get('propertyId');
     var geocoder = new google.maps.Geocoder();
     var currentGeoposition;
     var map;
@@ -312,3 +315,12 @@ jQuery(document).ready(function ($) {
         map.controls[google.maps.ControlPosition.LEFT_TOP].push(zoomControlDiv);
     };
 });
+
+function ShouldDisplayAddedFeedbackInfo(urlParams) {
+    var action = urlParams.get('redirectAction');
+    if (action && action === "alert") {
+        $(".alert").delay(5000).fadeOut();
+    } else {
+        $(".alert").remove();
+    }
+}

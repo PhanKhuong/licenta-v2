@@ -221,6 +221,13 @@
                     <div class="clearfix"></div>
                 </div>
 
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Thank you!</strong> Your feedback was successfully sent.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
                 <!-- Property Agent Widget -->
                 <div class="widget mt3">
                     <div class="agent-inner">
@@ -236,7 +243,7 @@
                         <input type="text" class="form-control" placeholder="Your Email">
                         <input type="text" class="form-control" placeholder="Your Phone">
                         <p>I'm interested in this property [ID 123456] and I'd like to know more details.</p>
-                        <a href='@Url.Action("Feedback", "Profile", new { ratedUser=Model.PostedBy })'
+                        <a href='@Url.Action("Feedback", "Profile", new { ratedUser=Model.PostedBy, propertyId = Model.Id })'
                            class="btn btn-common fullwidth mt-4">
                             Leave feedback
                         </a>

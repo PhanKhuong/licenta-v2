@@ -15,5 +15,7 @@ namespace Homefind.Web.Models.PropertyViewModels
         public DateTime Date { get; set; }
         [NotMapped]
         public string DateFormatted { get; set; }
+        [NotMapped]
+        public int ReviewedProperty { get; set; }
     }
 }
