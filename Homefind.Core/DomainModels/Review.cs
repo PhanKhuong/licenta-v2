@@ -8,6 +8,7 @@ namespace Homefind.Core.DomainModels
     {
         public string RatedUserId { get; set; }
         public string Reviewer { get; set; }
+        public string ReviewerName { get; set; }
         public string ReviewerEmail { get; set; }
         public string Rating { get; set; }
         public string Description { get; set; }

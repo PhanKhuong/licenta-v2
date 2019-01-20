@@ -1,0 +1,43 @@
+﻿@using Homefind.Web.Models.PropertyViewModels
+
+@model ReviewModel
+<!-- Section Contact Start -->
+<section id="contact-section" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-6 form-line">
+                <h2>FeedBack</h2>
+                <form method="post" asp-action="Feedback" asp-controller="Profile">
+                    <div class="form-group">
+                        <input asp-for="ReviewerName" type="text" class="form-control" id="name" placeholder="Your name" required
+                               data-error="Please enter your name">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="ReviewerEmail" type="email" class="form-control" id="email" placeholder="Email Address" required
+                               data-error="Please enter your Email">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Description" type="tel" class="form-control" id="msg_subject" placeholder="Subject" required
+                               data-error="Please enter a feedback summary">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <textarea asp-for="Comment" class="form-control" rows="5" id="message" placeholder="Your feedback" required
+                                  data-error="Write your message"></textarea>
+                    </div>
+                    <div class="form-submit">
+                        <button type="submit" class="btn btn-common">
+                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                            Send
+                        </button>
+                        <div id="msgSubmit" class="h3 text-center hidden"></div>
+                    </div>
+                    <input type="hidden" asp-for="RatedUserId"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Section Contact End -->

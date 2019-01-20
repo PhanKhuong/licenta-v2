@@ -24,6 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Profile\Feedback.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Profile\MyProfile.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

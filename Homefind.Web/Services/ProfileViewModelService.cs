@@ -34,7 +34,7 @@ namespace Homefind.Web.Services
             var reviews = await _reviewRepository.ListWithFilter(reviewFilter);
             var reviewModels = _mapper.Map<IEnumerable<Review>, IEnumerable<ReviewModel>>(reviews);
 
-            return new PagedCollection<ReviewModel>(reviewModels.ToList(), reviewModels.Count(), pageIndex, pageSize);
+            return PagedCollection<ReviewModel>.Create(reviewModels, pageIndex, pageSize);
         }
     }
 }

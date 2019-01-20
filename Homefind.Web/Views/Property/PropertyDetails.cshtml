@@ -236,7 +236,10 @@
                         <input type="text" class="form-control" placeholder="Your Email">
                         <input type="text" class="form-control" placeholder="Your Phone">
                         <p>I'm interested in this property [ID 123456] and I'd like to know more details.</p>
-                        <button class="btn btn-common fullwidth mt-4">Send Message</button>
+                        <a href='@Url.Action("Feedback", "Profile", new { ratedUser=Model.PostedBy })'
+                           class="btn btn-common fullwidth mt-4">
+                            Leave feedback
+                        </a>
                     </div>
                 </div>
 
