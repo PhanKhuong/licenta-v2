@@ -18,6 +18,7 @@ namespace Homefind.Web.Services
         private readonly IRepository<EstateType> _propertyTypesRepository;
         private readonly IRepository<EstateLocation> _locationRepository;
         private readonly IRepository<EstateImage> _imageRepository;
+        private readonly IRepository<Review> _reviewRepository;
         private readonly IPropertyRepository _propertyRepository;
 
 
@@ -26,6 +27,7 @@ namespace Homefind.Web.Services
             IRepository<EstateType> propertyTypesRepository,
             IRepository<EstateLocation> locationRepository,
             IRepository<EstateImage> imageRepository,
+            IRepository<Review> reviewRepository,
             IPropertyRepository propertyRepository)
         {
             _mapper = mapper;
@@ -34,6 +36,7 @@ namespace Homefind.Web.Services
             _propertyTypesRepository = propertyTypesRepository;
             _locationRepository = locationRepository;
             _imageRepository = imageRepository;
+            _reviewRepository = reviewRepository;
         }
 
         public async Task<IEnumerable<EstateType>> GetPropertyTypes()

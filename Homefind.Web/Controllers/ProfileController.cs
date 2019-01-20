@@ -1,9 +1,12 @@
-﻿using Homefind.Infrastructure.Identity;
+﻿using Homefind.Core.DomainModels;
+using Homefind.Infrastructure.Identity;
 using Homefind.Web.Extensions;
+using Homefind.Web.Models.ProfileViewModels;
+using Homefind.Web.Models.PropertyViewModels;
 using Homefind.Web.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace Homefind.Web.Controllers
@@ -11,12 +14,15 @@ namespace Homefind.Web.Controllers
     public class ProfileController : Controller
     {
         private readonly IPropertyViewModelService _propertyViewModelService;
+        private readonly IProfileViewModelService _profileViewModelService;
         private readonly UserManager<ApplicationUser> _userManager;
 
         public ProfileController(IPropertyViewModelService propertyViewModelService,
+            IProfileViewModelService profileViewModelService,
             UserManager<ApplicationUser> userManager)
         {
             _propertyViewModelService = propertyViewModelService;
+            _profileViewModelService = profileViewModelService;
             _userManager = userManager;
         }
 
@@ -48,7 +54,16 @@ namespace Homefind.Web.Controllers
             var listing = await _propertyViewModelService
                 .GetUserListing(User.Identity.Name, page == 0 ? 1 : page, Constants.ItemsPerPage);
 
-            return View(listing);
+            var reviews = await _profileViewModelService.GetReviews(User.Identity.Name, page == 0 ? 1 : page, Constants.ItemsPerPage);
+            reviews.ForEach(async (r) => r.Reviewer = await GetCompleteNameForIdentityUser(r.Reviewer));
+
+            var model = new DashboardViewModel()
+            {
+                Listings = listing,
+                Reviews = reviews
+            };
+
+            return View(model);
         }
 
         [HttpGet]
@@ -85,6 +100,29 @@ namespace Homefind.Web.Controllers
         public IActionResult Favourites(string user, int pageNumber)
         {
             return ViewComponent("Favourites", new { page = pageNumber });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddReview(string review)
+        {
+            var reviewModel = new ReviewModel
+            {
+                Date = DateTime.Now,
+                Reviewer = User.Identity.Name,
+                RatedUserId = User.Identity.Name,
+                Comment = review
+            };
+
+            await _profileViewModelService.AddReview(reviewModel);
+
+            return RedirectToAction(nameof(Dashboard));
+        }
+
+        [HttpGet]
+        public async Task<string> GetCompleteNameForIdentityUser(string username)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            return user.DisplayName;
         }
     }
 }

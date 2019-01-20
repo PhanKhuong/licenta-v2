@@ -1,12 +1,15 @@
 ﻿@using Homefind.Web.Extensions;
 @using Homefind.Core.DomainModels;
+@using Homefind.Web.Models.ProfileViewModels;
 
-@model PagedCollection<EstateUnit>
+@model DashboardViewModel
 
 @{
     ViewData["Title"] = "Profile";
-    ViewData["HasNext"] = Model.HasNextPage ? "" : "disabled";
-    ViewData["HasPrevious"] = Model.HasPreviousPage ? "" : "disabled";
+    ViewData["ListingHasNext"] = Model.Listings.HasNextPage ? "" : "disabled";
+    ViewData["ListingHasPrevious"] = Model.Listings.HasPreviousPage ? "" : "disabled";
+    ViewData["ReviewHasNext"] = Model.Reviews.HasNextPage ? "" : "disabled";
+    ViewData["ReviewHasPrevious"] = Model.Reviews.HasPreviousPage ? "" : "disabled";
 }
 
 <!-- Page Banner Start -->
@@ -46,11 +49,6 @@
                                     <i class="lni-user"></i>Profile
                                 </a>
                             </li>
-                            @*<li>
-                                    <a href="#">
-                                        <i class="lni-home"></i>My Properties
-                                    </a>
-                                </li>*@
                             <li>
                                 <a asp-controller="Profile" asp-action="MyFavourites">
                                     <i class="lni-heart"></i>Favorited Properties
@@ -61,11 +59,6 @@
                                     <i class="lni-plus"></i>Submit New Property
                                 </a>
                             </li>
-                            @*<li>
-                                    <a href="#">
-                                        <i class="lni-lock"></i>Change Password
-                                    </a>
-                                </li>*@
                         </ul>
                     </div>
                 </div>
@@ -127,7 +120,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var listing in Model)
+                                    @foreach (var listing in Model.Listings)
                                     {
                                         <tr>
                                             <td>@listing.Title</td>
@@ -142,7 +135,10 @@
                                                     <span class=" active">Inactive</span>
                                                 }
                                             </td>
-                                            <td class="edit"><a asp-action="EditListing" asp-controller="Profile" asp-route-id="@listing.Id"><span class="lni-pencil"></span></a></td>
+                                            <td class="edit">
+                                                <a asp-action="EditListing" asp-controller="Profile"
+                                                   asp-route-id="@listing.Id"><span class="lni-pencil"></span></a>
+                                            </td>
                                         </tr>
                                     }
                                 </tbody>
@@ -153,14 +149,15 @@
                         <nav>
                             <ul class="pagination">
                                 <li class="page-item">
-                                    <a class="btn btn-common @ViewData["HasPrevious"]" asp-action="Dashboard" asp-route-page="@(Model.PageIndex - 1)">
+                                    <a class="btn btn-common @ViewData["ListingHasPrevious"]" asp-action="Dashboard"
+                                       asp-route-page="@(Model.Listings.PageIndex - 1)">
                                         <i class="lni-chevron-left"></i> Previous
                                     </a>
                                 </li>
-                                @for (int i = 1; i <= Model.TotalPages; i++)
+                                @for (int i = 1; i <= Model.Listings.TotalPages; i++)
                                 {
                                     <li class="fav page-item">
-                                        @if (Model.PageIndex == i)
+                                        @if (Model.Listings.PageIndex == i)
                                         {
                                             <a class="page-link page-selected" asp-action="Dashboard" asp-route-page="@i">@i</a>
                                         }
@@ -171,13 +168,66 @@
                                     </li>
                                 }
                                 <li class="page-item">
-                                    <a class="btn btn-common @ViewData["HasNext"]" asp-action="Dashboard" asp-route-page="@(Model.PageIndex + 1)">
+                                    <a class="btn btn-common @ViewData["ListingHasNext"]" asp-action="Dashboard"
+                                       asp-route-page="@(Model.Listings.PageIndex + 1)">
                                         Next
                                         <i class="lni-chevron-right"></i>
                                     </a>
                                 </li>
                             </ul>
                         </nav>
+                    </div>
+                </div>
+                <div class="dashborad-box">
+                    <h4 class="title">Reviews</h4>
+                    <div class="section-body">
+                        <div class="reviews">
+                            @foreach (var review in Model.Reviews)
+                            {
+                                <div class="review">
+                                    <div class="thumb">
+                                        <img class="img-fluid" src="~/assets/img/avatar/profile-anonimous.png" alt="">
+                                    </div>
+                                    <div class="body">
+                                        <h6>
+                                            @review.Reviewer
+                                            <span class="stars">
+                                                <i class="lni-star-filled"></i>
+                                                <i class="lni-star-filled"></i>
+                                                <i class="lni-star-filled"></i>
+                                                <i class="lni-star"></i>
+                                                <i class="lni-star"></i>
+                                            </span>
+                                        </h6>
+                                        <p class="post-time">@review.Date.Date</p>
+                                        <p class="content">@review.Comment</p>
+                                        <div class="controller">
+                                            <ul>
+                                                <li><a href="#"><i class="lni-check-box"></i></a></li>
+                                                <li><a href="#"><i class="lni-pencil-alt"></i></a></li>
+                                                <li><a href="#"><i class="lni-reply"></i></a></li>
+                                                <li><a href="#"><i class="lni-trash"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <div class="send-review">
+                                <form method="post" asp-controller="Profile" asp-action="AddReview">
+                                    <div class="form-group">
+                                        <textarea name="review" class="form-control" rows="5" id="message" name="message" placeholder="Your review" required
+                                                  data-error="Write your message"></textarea>
+                                    </div>
+                                    <div class="form-submit">
+                                        <button type="submit" class="btn btn-common">
+                                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            Send Review
+                                        </button>
+                                        <div id="msgSubmit" class="h3 text-center hidden"></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
