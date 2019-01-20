@@ -2,6 +2,7 @@
 using AutoMapper;
 using Homefind.Web.Models.PropertyViewModels;
 using System.Linq;
+using System;
 
 namespace Homefind.Web.MapperConfig
 {
@@ -36,7 +37,9 @@ namespace Homefind.Web.MapperConfig
                 .ForMember(x => x.Country, opt => opt.MapFrom(src => src.EstateUnit.EstateLocation.Country))
                 .ForMember(x => x.Address, opt => opt.MapFrom(src => src.EstateUnit.EstateLocation.Address));
 
-            CreateMap<Review, ReviewModel>().ReverseMap();
+            CreateMap<Review, ReviewModel>()
+                .ForMember(x => x.DateFormatted, opt => opt.MapFrom(src => String.Format("{0:ddd, MMM d, yyyy}", src.Date)))
+                .ReverseMap();
         }
     }
 }

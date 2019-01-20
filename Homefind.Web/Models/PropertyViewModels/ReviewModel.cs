@@ -14,5 +14,6 @@ namespace Homefind.Web.Models.PropertyViewModels
         public string Description { get; set; }
         public string Comment { get; set; }
         public DateTime Date { get; set; }
+        public string DateFormatted { get; set; }
     }
 }
