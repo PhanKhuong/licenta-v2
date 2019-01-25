@@ -1,0 +1,12 @@
+﻿.btn-common, .btn-outline-primary {
+    text-transform: none !important;
+}
+
+.bg-color-custom {
+    background-color: rgb(39, 74, 187) !important;
+}
+
+.review-container {
+    margin-left: 10px;
+    margin-right: 10px;
+}

@@ -1,0 +1,126 @@
+﻿@using Homefind.Web.Extensions
+@using Homefind.Web.Models.PropertyViewModels
+
+@model PagedCollection<ReviewModel>
+
+@{
+    ViewData["HasNext"] = Model.HasNextPage ? "" : "disabled";
+    ViewData["HasPrevious"] = Model.HasPreviousPage ? "" : "disabled";
+}
+
+<!-- Modal: modalPoll -->
+<div class="modal fade right" id="modalPoll-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true" data-backdrop="false">
+    <div class="modal-dialog modal-full-height modal-right modal-notify modal-info" style="width: 50%" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header bg-color-custom">
+                <p class="heading lead">
+                    Feedback request
+                </p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="text-center">
+                    <i class="far fa-file-alt fa-4x mb-3 animated rotateIn"></i>
+                    <p>
+                        <strong>Your opinion matters</strong>
+                    </p>
+                    <p>
+                        How satisfied are you by our agents?
+                        <strong>Give us your feedback.</strong>
+                    </p>
+                </div>
+
+                <hr />
+
+                <div id="review-alert"></div>
+
+                <!-- Radio -->
+                <p class="text-center">
+                    <strong>Your rating</strong>
+                </p>
+
+                <form method="post">
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" name="group1" type="radio" id="radio-179" value="5" checked>
+                        <label class="form-check-label" for="radio-179">Very good</label>
+                    </div>
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" name="group1" type="radio" id="radio-279" value="4">
+                        <label class="form-check-label" for="radio-279">Good</label>
+                    </div>
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" name="group1" type="radio" id="radio-379" value="3">
+                        <label class="form-check-label" for="radio-379">Mediocre</label>
+                    </div>
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" name="group1" type="radio" id="radio-479" value="2">
+                        <label class="form-check-label" for="radio-479">Bad</label>
+                    </div>
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" name="group1" type="radio" id="radio-579" value="1">
+                        <label class="form-check-label" for="radio-579">Very bad</label>
+                    </div>
+                    <!-- Radio -->
+                    <p class="text-center">
+                        <strong>What could we improve?</strong>
+                    </p>
+                    <!--Basic textarea-->
+                    <div class="md-form">
+                        <textarea type="text" id="form79textarea" class="md-textarea form-control" rows="3" required></textarea>
+                        <label for="form79textarea">Your feedback</label>
+                    </div>
+                    <button type="button" id="btn-send-review" class="btn btn-common">
+                        Send
+                        <i class="fa fa-paper-plane ml-1"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-primary"
+                            data-dismiss="modal">
+                        Cancel
+                    </button>
+                </form>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                <!-- User reviews -->
+                <div class="review-container">
+                    <div class="reviews">
+                        @foreach (var review in Model)
+                        {
+                            <div class="review">
+                                <div class="thumb">
+                                    <img class="img-fluid" src="~/assets/img/avatar/profile-anonimous.png" alt="">
+                                </div>
+                                <div class="body">
+                                    <h6>
+                                        @review.ReviewerName
+                                        <span class="stars">
+                                            @for (var i = 1; i <= 5; i++)
+                                            {
+                                                if (i <= review.Rating)
+                                                {
+                                                    <i class="lni-star-filled"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="lni-star"></i>
+                                                }
+                                            }
+                                        </span>
+                                    </h6>
+                                    <p class="post-time">@review.DateFormatted</p>
+                                    <p class="content" style="font-size: smaller">@review.Comment</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal: modalPoll -->

@@ -100,7 +100,7 @@
                             </li>
                             @for (int i = 1; i <= Model.Properties.TotalPages; i++)
                             {
-                                <li class="fav page-item">
+                                <li class="page-item">
                                     @if (Model.Properties.PageIndex == i)
                                     {
                                         <a class="page-link page-selected" asp-action="Index" asp-route-page="@i" asp-route-sortOptions="@Model.SortOption">@i</a>

@@ -171,7 +171,7 @@ $transition: all 0.3s ease-in-out;
 .btn{
   font-size: 14px;
   padding: 12px 32px;
-  border-radius: 30px;
+  border-radius: 3px;
   cursor: pointer;
   font-weight: 400;
   text-transform: uppercase;
@@ -207,7 +207,7 @@ $transition: all 0.3s ease-in-out;
   color: #fff;
   background-color: transparent;
   border: 2px solid #fff;
-  border-radius: 30px;
+  border-radius: 3px;
   padding: 10px 20px;
   &:hover{
     color: #fff;
@@ -291,7 +291,7 @@ a.back-to-top{
 	  line-height: 40px;
 	  color: #fff;
     background: $preset;
-	  border-radius: 30px;
+	  border-radius: 3px;
 	  text-align: center;
 	  -webkit-transition: all 0.3s ease-out 0s;
     -moz-transition: all 0.3s ease-out 0s;

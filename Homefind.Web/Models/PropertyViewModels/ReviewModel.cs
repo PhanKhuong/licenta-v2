@@ -9,13 +9,11 @@ namespace Homefind.Web.Models.PropertyViewModels
         public string Reviewer { get; set; }
         public string ReviewerName { get; set; }
         public string ReviewerEmail { get; set; }
-        public string Rating { get; set; }
+        public int Rating { get; set; }
         public string Description { get; set; }
         public string Comment { get; set; }
         public DateTime Date { get; set; }
         [NotMapped]
         public string DateFormatted { get; set; }
-        [NotMapped]
-        public int ReviewedProperty { get; set; }
     }
 }

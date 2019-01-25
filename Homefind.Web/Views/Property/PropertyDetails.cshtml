@@ -1,6 +1,9 @@
 ﻿@using Homefind.Core.DomainModels
+@using Homefind.Infrastructure.Identity
+@using Microsoft.AspNetCore.Identity
 
 @model EstateUnit
+@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "PropertyDetails";
@@ -10,10 +13,26 @@
     <script src="~/assets/js/map.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6vM8Z6929t6fNJvvXLe_r_yha2C_XAno"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6vM8Z6929t6fNJvvXLe_r_yha2C_XAno&libraries=places"></script>
+
+    <script src="~/assets/mdb/js/popper.min.js"></script>
+    <script src="~/assets/mdb/js/bootstrap.min.js"></script>
+    <script src="~/assets/mdb/js/mdb.js"></script>
+}
+
+@section Styles{
+    <link href="~/assets/mdb/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/mdb/css/mdb.min.css" rel="stylesheet" />
+    <link href="~/assets/css/main2.css" rel="stylesheet" />
 }
 
 <div id="content" class="section-padding">
     <div class="container">
+
+        <!--Modal reviews-->
+        <div id="review-component">
+            @await Component.InvokeAsync("Reviews", new { user = Model.PostedBy })
+        </div>
+
         <div class="property-details">
             <div class="row">
                 <div class="col-lg-4 col-md-12 col-xs-12">
@@ -233,20 +252,22 @@
                     <div class="agent-inner">
                         <div class="agent-title">
                             <div class="agent-photo">
-                                <a href="#"><img src="assets/img/productinfo/agent.jpg" alt=""></a>
+                                <a href="#"><img src="~/assets/img/avatar/profile-anonimous.png" alt=""></a>
                             </div>
                             <div class="agent-details">
-                                <h3><a href="#">Simon Heqburn</a></h3>
-                                <span><i class="lni-phone-handset"></i>(123) 123-456</span>
+                                <h3><a href="#">@((await UserManager.FindByNameAsync(Model.PostedBy)).DisplayName)</a></h3>
+                                <span><i class="lni-phone-handset"></i>@((await UserManager.FindByNameAsync(Model.PostedBy)).PhoneNumber)</span>
                             </div>
                         </div>
                         <input type="text" class="form-control" placeholder="Your Email">
                         <input type="text" class="form-control" placeholder="Your Phone">
+                        <input type="hidden" id="propertyOwner" asp-for="@Model.PostedBy">
                         <p>I'm interested in this property [ID 123456] and I'd like to know more details.</p>
-                        <a href='@Url.Action("Feedback", "Profile", new { ratedUser=Model.PostedBy, propertyId = Model.Id })'
-                           class="btn btn-common fullwidth mt-4">
-                            Leave feedback
-                        </a>
+                        <br />
+                        <button type="button" class="btn btn-common btn-block"
+                                data-toggle="modal" data-target="#modalPoll-1">
+                            View reviews <i class="far fa-comment-dots ml-1"></i>
+                        </button>
                     </div>
                 </div>
 

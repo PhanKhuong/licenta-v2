@@ -32,7 +32,7 @@ namespace Homefind.Web.Services
         {
             var reviewFilter = new ReviewFilter(userId);
             var reviews = await _reviewRepository.ListWithFilter(reviewFilter);
-            var reviewModels = _mapper.Map<IEnumerable<Review>, IEnumerable<ReviewModel>>(reviews);
+            var reviewModels = _mapper.Map<IEnumerable<Review>, IEnumerable<ReviewModel>>(reviews.OrderByDescending(r => r.Date));
 
             return PagedCollection<ReviewModel>.Create(reviewModels, pageIndex, pageSize);
         }

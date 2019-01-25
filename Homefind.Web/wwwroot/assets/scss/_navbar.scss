@@ -76,7 +76,7 @@
     color: #ffffff;
     background: transparent;
     padding: 3px 10px;
-    border-radius: 30px;
+    border-radius: 3px;
     font-size: 13px;
     line-height: 22px;
     margin-left: 5px;
@@ -154,7 +154,7 @@
    li.active a.nav-link {
       color: #fff!important;
       background: $preset;
-      border-radius: 30px;
+      border-radius: 3px;
   }
 }
 .dropdown-toggle::after{
@@ -235,7 +235,7 @@
   input{
       border: 1px solid #e5e5e5;
       padding: 7px 40px 7px 15px;
-      border-radius: 30px;
+      border-radius: 3px;
       -webkit-transition: all 0.3s linear;
       -moz-transition: all 0.3s linear;
       -o-transition: all 0.3s linear;

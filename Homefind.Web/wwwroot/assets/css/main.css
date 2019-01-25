@@ -131,7 +131,7 @@ ul li, ol li {
   top: 13px;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
-  background-color: #4064d7;
+  background-color: rgb(39, 74, 187);
 }
 
 .small-title {
@@ -162,10 +162,10 @@ hr {
 .btn {
   font-size: 14px;
   padding: 12px 32px;
-  border-radius: 30px;
+  border-radius: 0px;
   cursor: pointer;
   font-weight: 400;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   -webkit-transition: all 0.3s ease-out 0s;
   -moz-transition: all 0.3s ease-out 0s;
   -ms-transition: all 0.3s ease-out 0s;
@@ -181,7 +181,7 @@ hr {
 }
 
 .btn-common {
-  background-color: #4064d7;
+  background-color: rgb(39, 74, 187);
   position: relative;
   z-index: 1;
   color: #fff;
@@ -202,7 +202,7 @@ hr {
   color: #fff;
   background-color: transparent;
   border: 2px solid #fff;
-  border-radius: 30px;
+  border-radius: 3px;
   padding: 10px 20px;
 }
 
@@ -227,7 +227,7 @@ button:focus {
 }
 
 .icon-close, .icon-check {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 /* ---------------------------------- */
@@ -302,7 +302,7 @@ a.back-to-top i {
   height: 40px;
   line-height: 40px;
   color: #fff;
-  background: #4064d7;
+  background: rgb(39, 74, 187);
   border-radius: 30px;
   text-align: center;
   -webkit-transition: all 0.3s ease-out 0s;
@@ -365,7 +365,7 @@ a.back-to-top:hover, a.back-to-top:focus {
   height: 100%;
   border-radius: 100%;
   border: 7px solid transparent;
-  border-top-color: #4064d7;
+  border-top-color: rgb(39, 74, 187);
 }
 
 #loader-1:before {
@@ -450,7 +450,7 @@ a.back-to-top:hover, a.back-to-top:focus {
 }
 
 .page-banner a:hover {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .page-banner .crumbs-spacer i {
@@ -471,14 +471,14 @@ a.back-to-top:hover, a.back-to-top:focus {
 .pagination-container .pagination .page-item .page-link {
   margin: 0 10px;
   padding: 15px 20px;
-  color: #4064d7;
+  color: rgb(39, 74, 187);
   border-color: #f3f3f3;
   border-radius: 50%;
   background: #fff;
 }
 
 .pagination-container .pagination .page-item .page-link:hover {
-  background: #4064d7;
+  background: rgb(39, 74, 187);
   box-shadow: none;
   color: #fff;
 }
@@ -511,7 +511,7 @@ a.back-to-top:hover, a.back-to-top:focus {
 }
 
 .top-bar {
-  background: #4064d7;
+  background: rgb(39, 74, 187);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -598,7 +598,7 @@ a.back-to-top:hover, a.back-to-top:focus {
   color: #ffffff;
   background: transparent;
   padding: 3px 10px;
-  border-radius: 30px;
+  border-radius: 3px;
   font-size: 13px;
   line-height: 22px;
   margin-left: 5px;
@@ -615,7 +615,7 @@ a.back-to-top:hover, a.back-to-top:focus {
 
 .header-top-right .white-bg {
   background: #fff;
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .header-top-right .white-bg:hover {
@@ -652,7 +652,7 @@ a.back-to-top:hover, a.back-to-top:focus {
 }
 
 .top-nav-collapse .navbar-nav .nav-link:hover {
-  color: #4064d7 !important;
+  color: rgb(39, 74, 187) !important;
 }
 
 .top-nav-collapse .navbar-nav li.active a.nav-link {
@@ -679,7 +679,7 @@ a.back-to-top:hover, a.back-to-top:focus {
 
 .navbar-light .navbar-nav .nav-link:focus,
 .navbar-light .navbar-nav .nav-link:hover {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
   outline: none;
 }
 
@@ -689,8 +689,8 @@ a.back-to-top:hover, a.back-to-top:focus {
 
 .navbar li.active a.nav-link {
   color: #fff !important;
-  background: #4064d7;
-  border-radius: 30px;
+  background: rgb(39, 74, 187);
+  border-radius: 3px;
 }
 
 .dropdown-toggle::after {
@@ -708,7 +708,7 @@ a.back-to-top:hover, a.back-to-top:focus {
   z-index: 99;
   min-width: 210px;
   background-color: #fff;
-  border-top: 1px solid #4064d7;
+  border-top: 1px solid rgb(39, 74, 187);
   white-space: nowrap;
   animation: fadeIn 0.4s;
   -webkit-animation: fadeIn 0.4s;
@@ -761,7 +761,7 @@ a.back-to-top:hover, a.back-to-top:focus {
 .dropdown .dropdown-item:focus,
 .dropdown .dropdown-item:hover,
 .dropdown .dropdown-item.active {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
   text-decoration: none;
   background-color: #f8f9fa;
 }
@@ -781,7 +781,7 @@ a.back-to-top:hover, a.back-to-top:focus {
 .search-add input {
   border: 1px solid #e5e5e5;
   padding: 7px 40px 7px 15px;
-  border-radius: 30px;
+  border-radius: 3px;
   -webkit-transition: all 0.3s linear;
   -moz-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
@@ -791,7 +791,7 @@ a.back-to-top:hover, a.back-to-top:focus {
 .search-add input:focus {
   box-shadow: none;
   outline: none;
-  border-color: #4064d7;
+  border-color: rgb(39, 74, 187);
 }
 
 .search-add .search-btn {
@@ -811,11 +811,11 @@ a.back-to-top:hover, a.back-to-top:focus {
 }
 
 .slicknav_btn {
-  border-color: #4064d7;
+  border-color: rgb(39, 74, 187);
 }
 
 .slicknav_menu .slicknav_icon-bar {
-  background: #4064d7;
+  background: rgb(39, 74, 187);
 }
 
 /* only small tablets */
@@ -878,7 +878,7 @@ a.back-to-top:hover, a.back-to-top:focus {
   }
   .slicknav_nav .dropdown li a.active {
     background: #f8f9fa;
-    color: #4064d7;
+    color: rgb(39, 74, 187);
   }
   .slicknav_nav .dropdown li a:focus {
     outline: none;
@@ -947,7 +947,7 @@ intro section style
 .search-container .search-category-container select {
   background-color: transparent;
   border: 1px solid #e5e5e5;
-  border-radius: 30px;
+  border-radius: 3px;
   height: 48px;
   display: inline-block;
   -webkit-box-sizing: border-box;
@@ -1018,7 +1018,7 @@ select.classic {
 }
 
 .about .img-thumb:hover:before {
-  background-color: #4064d7;
+  background-color: rgb(39, 74, 187);
   opacity: 0.7;
 }
 
@@ -1102,7 +1102,7 @@ select.classic {
   color: #fff;
   border-radius: 2px;
   font-size: 12px;
-  border-radius: 30px;
+  border-radius: 3px;
   padding: 7px 18px;
   text-transform: uppercase;
   margin-bottom: 0px;
@@ -1111,7 +1111,7 @@ select.classic {
 }
 
 .label-inner .label-status {
-  background: #4064d7;
+  background: rgb(39, 74, 187);
 }
 
 .item-body {
@@ -1130,7 +1130,7 @@ select.classic {
 }
 
 .item-body .property-title a:hover {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .item-body .adderess {
@@ -1148,7 +1148,7 @@ select.classic {
 .item-body .pricin-list .property-price {
   font-size: 26px;
   font-weight: 700;
-  color: #4064d7;
+  color: rgb(39, 74, 187);
   margin-bottom: 15px;
 }
 
@@ -1234,7 +1234,7 @@ select.classic {
 }
 
 .img-box:hover:before {
-  background-color: #4064d7;
+  background-color: rgb(39, 74, 187);
   opacity: 0.7;
 }
 
@@ -1289,7 +1289,7 @@ select.classic {
   text-decoration: none;
   white-space: nowrap;
   font-weight: 500;
-  border-radius: 30px;
+  border-radius: 3px;
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -1328,7 +1328,7 @@ select.classic {
 }
 
 .product-filter .layout-switcher .active {
-  background-color: #4064d7;
+  background-color: rgb(39, 74, 187);
   color: #fff;
 }
 
@@ -1405,7 +1405,7 @@ select.classic {
   text-decoration: none;
   white-space: nowrap;
   font-weight: 500;
-  border-radius: 30px;
+  border-radius: 3px;
   width: 100%;
   appearance: none;
   -moz-appearance: none;
@@ -1499,7 +1499,7 @@ select.classic {
   margin-top: 5px;
   left: 0;
   border: 1px solid #e5e5e5;
-  border-radius: 30px;
+  border-radius: 10px;
   -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
   -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
   transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
@@ -1512,7 +1512,7 @@ select.classic {
 .checkboxes input[type=checkbox]:checked + label:before {
   content: "\e938";
   font-family: 'LineIcons' !important;
-  color: #4064d7;
+  color: rgb(39, 74, 187);
   display: inline-block;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
   font-size: 16px;
@@ -1584,7 +1584,7 @@ Property wrapper Style
   font-size: 16px;
   line-height: 42px;
   text-align: center;
-  background: #4064d7;
+  background: rgb(39, 74, 187);
   color: #ffffff;
   border-radius: 50%;
   display: inline-block;
@@ -1647,7 +1647,7 @@ Property wrapper Style
 
 .property-features li i {
   margin-right: 5px;
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .accordion-fp .card {
@@ -1710,7 +1710,7 @@ Property wrapper Style
   width: 40px;
   line-height: 40px;
   text-align: center;
-  background: #4064d7;
+  background: rgb(39, 74, 187);
   color: #ffffff;
   border-radius: 50%;
   z-index: 99;
@@ -1753,7 +1753,7 @@ Property wrapper Style
 }
 
 .widget-button:hover {
-  background: #4064d7;
+  background: rgb(39, 74, 187);
   color: #fff;
 }
 
@@ -1856,7 +1856,7 @@ Property wrapper Style
 .listing-content .listing-content {
   position: relative;
   width: 100%;
-  background-color: #4064d7;
+  background-color: rgb(39, 74, 187);
   transition: all 0.4s;
   -webkit-transition: all 0.4s;
   -moz-transition: all 0.4s;
@@ -1906,7 +1906,7 @@ Property wrapper Style
 }
 
 .listing-badges .featured {
-  background-color: #4064d7;
+  background-color: rgb(39, 74, 187);
   float: left;
   transform: rotate(-45deg);
   left: -67px;
@@ -1948,12 +1948,12 @@ Property wrapper Style
 }
 
 #listing-carousel .owl-controls .owl-buttons .owl-prev:hover {
-  background: #4064d7;
+  background: rgb(39, 74, 187);
   color: #fff;
 }
 
 #listing-carousel .owl-controls .owl-buttons .owl-next:hover {
-  background: #4064d7;
+  background: rgb(39, 74, 187);
   color: #fff;
 }
 
@@ -2043,7 +2043,7 @@ Property wrapper Style
 
 .dashborad-box .item .icon span {
   font-size: 32px;
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .dashborad-box .item .info {
@@ -2089,7 +2089,7 @@ Property wrapper Style
 }
 
 .listing-table .table thead tr .edit a span {
-  color: #4064d7 !important;
+  color: rgb(39, 74, 187) !important;
 }
 
 .listing-table .table thead tr th {
@@ -2127,13 +2127,13 @@ Property wrapper Style
 }
 
 .messages .message .body h6 .badge {
-  background: #4064d7;
+  background: rgb(39, 74, 187);
   color: #ffffff;
 }
 
 .messages .message .body .post-time {
   margin-bottom: 0;
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .messages .message .body .controller {
@@ -2152,7 +2152,7 @@ Property wrapper Style
 }
 
 .messages .message .body .controller ul li a:hover {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .review {
@@ -2192,7 +2192,7 @@ Property wrapper Style
 
 .review .body .post-time {
   margin-bottom: 0;
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .review .body .controller {
@@ -2211,7 +2211,7 @@ Property wrapper Style
 }
 
 .review .body .controller ul li a:hover {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .password-section {
@@ -2220,7 +2220,7 @@ Property wrapper Style
 
 .password-section h6 {
   margin-bottom: 10px;
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .user-profile-box {
@@ -2286,13 +2286,13 @@ Property wrapper Style
 
 .user-profile-box .detail ul li .active {
   background: #fafafa;
-  color: #4064d7;
+  color: rgb(39, 74, 187);
   font-weight: 500;
 }
 
 .user-profile-box .detail ul li a:hover {
   background: #fafafa;
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .my-address {
@@ -2370,7 +2370,7 @@ Property wrapper Style
 
 .my-properties table tbody tr td.actions .edit {
   float: left;
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .my-properties table tbody tr td.actions .edit i {
@@ -2442,7 +2442,7 @@ select {
   box-shadow: none;
   border: 1px solid #f3f3f3;
   background: #fff;
-  border-radius: 30px;
+  border-radius: 3px;
   width: 100% !important;
   cursor: pointer;
 }
@@ -2523,8 +2523,8 @@ select:focus {
 }
 
 .controls .active {
-  color: #4064d7 !important;
-  border-color: #4064d7;
+  color: rgb(39, 74, 187) !important;
+  border-color: rgb(39, 74, 187);
   background: transparent;
 }
 
@@ -2573,7 +2573,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
   height: 50px;
   display: inline-block;
   line-height: 50px;
-  background: #4064d7;
+  background: rgb(39, 74, 187);
   border-radius: 50%;
   transform: scale(0, 0);
   -webkit-transform: scale(0, 0);
@@ -2650,7 +2650,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
   font-size: 36px;
   text-align: center;
   margin-bottom: 30px;
-  color: #4064d7;
+  color: rgb(39, 74, 187);
   border-radius: 50%;
   -webkit-transform: scale(1);
   -moz-transform: scale(1);
@@ -2678,7 +2678,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
 }
 
 .services-item .services-content h3 a:hover {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .services-item:hover {
@@ -2732,7 +2732,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
   font-size: 32px;
   text-align: center;
   margin-bottom: 30px;
-  color: #4064d7;
+  color: rgb(39, 74, 187);
   transition: all 0.3s ease-in-out 0s;
   -moz-transition: all 0.3s ease-in-out 0s;
   -webkit-transition: all 0.3s ease-in-out 0s;
@@ -2751,7 +2751,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
 }
 
 .featured-bg .featured-item h3 a:hover {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 /* Team Item */
@@ -2866,7 +2866,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
 }
 
 .team-item .info-text h3 a:hover {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .team-item .info-text p {
@@ -2944,7 +2944,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
 }
 
 .client-info .info-text h2 a:hover {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .client-info .info-text h4 {
@@ -2979,9 +2979,9 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
   margin: 2px 4px;
   filter: alpha(opacity=50);
   opacity: 1;
-  border-radius: 30px;
+  border-radius: 3px;
   background: #fff;
-  border: 2px solid #4064d7;
+  border: 2px solid rgb(39, 74, 187);
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
   transition: all 0.4s ease-in-out;
   -moz-transition: all 0.4s ease-in-out;
@@ -2990,7 +2990,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
 }
 
 .owl-theme .owl-controls .owl-page.active span, .owl-theme .owl-controls.clickable .owl-page:hover span {
-  background: #4064d7;
+  background: rgb(39, 74, 187);
 }
 
 /* Clents Logo Area */
@@ -3039,9 +3039,9 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
   font-size: 14px;
   text-transform: uppercase;
   padding: 7px 17px;
-  background-color: #4064d7;
+  background-color: rgb(39, 74, 187);
   color: #fff;
-  border-radius: 30px;
+  border-radius: 3px;
   margin: 0px auto;
   -webkit-transform: translateY(-20px);
   -moz-transform: translateY(-20px);
@@ -3069,7 +3069,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
   width: 45px;
   left: 42%;
   bottom: -15px;
-  background-color: #4064d7;
+  background-color: rgb(39, 74, 187);
 }
 
 .blog-item .descr h3 a {
@@ -3087,7 +3087,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
 }
 
 .blog-item .descr h3 a:hover {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .blog-item .descr .text {
@@ -3109,7 +3109,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
 }
 
 .blog-item .blog-footer .prop-user a:hover {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .blog-item .blog-footer span {
@@ -3152,7 +3152,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
 }
 
 .blog-post .content h2 a:hover {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .blog-post .content p {
@@ -3196,7 +3196,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
 }
 
 .blog-post .post-meta li a:hover {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .sidebar .search-blog-input .input {
@@ -3225,7 +3225,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
 }
 
 .sidebar .widget-text h5 a:hover {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .sidebar .widget-text span {
@@ -3436,7 +3436,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
   position: absolute;
   top: 15px;
   right: 0;
-  color: #4064d7;
+  color: rgb(39, 74, 187);
   border-radius: 0px;
   font-size: 14px;
   -webkit-transition: all 0.4s ease;
@@ -3446,7 +3446,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
 }
 
 .reply-link:hover {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 #respond h3 {
@@ -3500,7 +3500,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
   font-size: 12px;
   color: #fff;
   padding: 7px 12px;
-  background: #4064d7;
+  background: rgb(39, 74, 187);
   margin: 4px 2px;
   border-radius: 4px;
   transition: all 0.4s ease-in-out;
@@ -3545,7 +3545,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
 }
 
 .contact-right-area .contact-right .contact-icon {
-  background: #4064d7;
+  background: rgb(39, 74, 187);
   color: #fff;
   border-radius: 50%;
   font-size: 20px;
@@ -3594,7 +3594,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
   background: #ffffff;
   padding: 8px 20px;
   border: 1px solid #e5e5e5;
-  border-radius: 30px;
+  border-radius: 3px;
   font-weight: 400;
   transition: all 500ms ease;
   -webkit-transition: all 500ms ease;
@@ -3603,7 +3603,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
 }
 
 .form-control:focus {
-  border-color: #4064d7;
+  border-color: rgb(39, 74, 187);
   outline: 0;
   box-shadow: none;
 }
@@ -3651,7 +3651,7 @@ textarea {
 }
 
 .page-login-form .form-links li a:hover {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .input-icon {
@@ -3659,7 +3659,7 @@ textarea {
 }
 
 .input-icon i {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
   padding-right: 10px;
   font-size: 15px;
   left: 12px;
@@ -3791,7 +3791,7 @@ textarea {
   height: 52px;
   border-radius: 0;
   background: transparent;
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 #copyright {
@@ -3810,7 +3810,7 @@ textarea {
 }
 
 #copyright p a:hover {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .social-icon a {
@@ -3888,7 +3888,7 @@ textarea {
   background: #fff;
   border-radius: 50%;
   font-size: 36px;
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 .counter-section .counter p {
@@ -3931,7 +3931,7 @@ textarea {
   padding: 12px 35px 12px 15px;
   display: inline-block;
   width: 100%;
-  background-color: #4064d7;
+  background-color: rgb(39, 74, 187);
   color: #ffffff;
   position: relative;
   text-decoration: none;
@@ -4030,7 +4030,7 @@ textarea {
 }
 
 .pricing-table .table-header {
-  background: #4064d7;
+  background: rgb(39, 74, 187);
   padding: 30px 0;
   color: #fff;
 }
@@ -4098,7 +4098,7 @@ textarea {
 }
 
 .pricing-table .plan-info p strong i {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
   margin-right: 5px;
 }
 
@@ -4194,7 +4194,7 @@ textarea {
 }
 
 #main-slide .carousel-item .carousel-caption .heading span {
-  color: #4064d7;
+  color: rgb(39, 74, 187);
 }
 
 #main-slide .carousel-item .carousel-caption p {
@@ -4256,7 +4256,7 @@ textarea {
   border: 2px solid #fff;
   height: 45px;
   display: block;
-  border-radius: 30px;
+  border-radius: 3px;
   background: transparent;
   color: #fff;
   -webkit-transition: all 500ms ease;
@@ -4281,7 +4281,7 @@ textarea {
 
 .action-edit {
     width: 50%;
-    color: #4064d7;
+    color: rgb(39, 74, 187);
     display: inline;
     margin-right: 1rem;
     cursor: pointer;
@@ -4296,7 +4296,7 @@ textarea {
 }
 
 .page-selected {
-    background-color: #4064d7 !important;
+    background-color: rgb(39, 74, 187) !important;
     color: #fff !important;
 }
 
@@ -4314,7 +4314,7 @@ textarea {
 .nearby-item {
     float: left;
     margin-left: 10px;
-    color: #4064d7;
+    color: rgb(39, 74, 187);
     cursor: pointer;
 }
 

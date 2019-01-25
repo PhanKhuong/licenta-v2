@@ -31,26 +31,14 @@ namespace Homefind.Web.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Feedback(string ratedUser, int propertyId)
-        {
-            var model = new ReviewModel()
-            {
-                RatedUserId = ratedUser,
-                ReviewedProperty = propertyId
-            };
-
-            return View(model);
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Feedback(ReviewModel review)
+        public async Task<IActionResult> Feedback([FromBody]ReviewModel review)
         {
             var reviewModel = new ReviewModel
             {
                 Date = DateTime.Now,
                 Reviewer = User.Identity.Name,
-                ReviewerName = review.ReviewerName,
+                ReviewerName = (await _userManager.FindByNameAsync(User.Identity.Name)).DisplayName,
                 RatedUserId = review.RatedUserId,
                 Comment = review.Comment,
                 Description = review.Description,
@@ -60,7 +48,7 @@ namespace Homefind.Web.Controllers
 
             await _profileViewModelService.AddReview(reviewModel);
 
-            return RedirectToAction("PropertyDetails", "Property", new { propertyId = review.ReviewedProperty, redirectAction = "alert"});
+            return ViewComponent("Reviews", new { user = reviewModel.RatedUserId });
         }
 
         [HttpPost]
