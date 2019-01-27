@@ -96,6 +96,10 @@ namespace Homefind.Infrastructure.Data
                 entity.Property(e => e.ZipCode)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.HasOne<EstateUnit>()
+                    .WithOne()
+                    .HasForeignKey<EstateLocation>(d => d.Id);
             });
 
             modelBuilder.Entity<EstateType>(entity =>
@@ -129,10 +133,6 @@ namespace Homefind.Infrastructure.Data
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.EstateLocation)
-                    .WithMany()
-                    .HasForeignKey(d => d.EstateLocationId);
-
                 entity.HasOne(d => d.EstateType)
                     .WithMany()
                     .HasForeignKey(d => d.EstateTypeId);
@@ -144,6 +144,10 @@ namespace Homefind.Infrastructure.Data
                 entity.HasOne(d => d.EstateFeature)
                     .WithOne()
                     .HasForeignKey<EstateFeature>(d => d.Id);
+
+                entity.HasOne(d => d.EstateLocation)
+                    .WithOne()
+                    .HasForeignKey<EstateLocation>(d => d.Id);
             });
 
             modelBuilder.Entity<Favourites>(entity =>

@@ -4,6 +4,19 @@
     ViewData["Title"] = "SubmitProperty";
 }
 
+@section Scripts{
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpPWjqZSUIVw2EA2y3NGccb9PX8U3G1_M&libraries=places"></script>
+    <script src="~/Scripts/location.js"></script>
+    <script src="~/Scripts/imageUploader.js"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpPWjqZSUIVw2EA2y3NGccb9PX8U3G1_M&libraries=places&callback=initAutocomplete"
+            async defer></script>
+}
+
+@section Styles{
+    <link href="~/assets/css/imageUploader.css" rel="stylesheet" />
+}
+
 <section class="user-page submit-property section-padding">
     <div class="container">
         <div class="row">
@@ -13,6 +26,13 @@
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc. Semper ac dolor vitae accumsan.</p>
                 </div>
 
+                @*<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Thank you!</strong> Your property was successfully submited.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>*@
+
                 <div class="submit-form">
                     <form asp-action="Submit" asp-controller="Property" method="post" enctype="multipart/form-data">
                         <h3 class="heading">Basic Information</h3>
@@ -20,7 +40,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Property Title</label>
-                                    <input asp-for="Title" type="text" class="form-control" placeholder="Property Title">
+                                    <input asp-for="Title" type="text" class="form-control" placeholder="Property Title" required>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
@@ -37,21 +57,19 @@
                                     <label>Type</label>
                                     <select class="classic"
                                             asp-for="EstateTypeId"
-                                            asp-items="@(new SelectList(ViewBag.PropertyTypes, "Id", "TypeName"))">
-                                        <option>Choose a type</option>
-                                    </select>
+                                            asp-items="@(new SelectList(ViewBag.PropertyTypes, "Id", "TypeName"))"></select>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6">
                                 <div class="form-group">
                                     <label>Price</label>
-                                    <input asp-for="Price" class="form-control" placeholder="USD">
+                                    <input asp-for="Price" class="form-control" placeholder="USD" required>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6">
                                 <div class="form-group">
                                     <label>Area/Location</label>
-                                    <input asp-for="CarpetArea" class="form-control" placeholder="SqFt">
+                                    <input asp-for="CarpetArea" class="form-control" placeholder="SqFt" required>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6">
@@ -80,8 +98,10 @@
                         <h3 class="heading">Property Gallery</h3>
                         <div class="row mb-3">
                             <div class="col-lg-12">
-                                <div id="drop-file" class="drop-file mb-5">
-                                    <input asp-for="Images" name="images" type="file" multiple class="drop-message"/>
+                                <fieldset class="form-group">
+                                    <input class="form-control" asp-for="Images" type="file" id="images" name="images" multiple required>
+                                </fieldset>
+                                <div class="image-container">
                                 </div>
                             </div>
                         </div>
@@ -89,34 +109,26 @@
                         <div class="row mb-3">
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
-                                    <label>Postal Code</label>
-                                    <input id="postal-codes" type="text" name="postal-code" class="form-control" placeholder="Postal Code">
+                                    <label>Address</label>
+                                    <input asp-for="Address" id="autocomplete" type="text" onFocus="geolocate()" name="address" class="form-control" placeholder="Address" required>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
-                                    <label>Address</label>
-                                    <input type="text" name="address" class="form-control" placeholder="Address">
+                                    <label>Postal Code</label>
+                                    <input id="postal_code" asp-for="ZipCode" type="text" class="form-control" disabled="disabled" placeholder="Postal Code">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>City</label>
-                                    <select class="classic"
-                                            asp-for="City"
-                                            asp-items="@(new SelectList(ViewBag.Cities))">
-                                        <option>Select city</option>
-                                    </select>
+                                    <input id="locality" class="form-control" asp-for="City" disabled="disabled" placeholder="City" required />
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>Country</label>
-                                    <select class="classic"
-                                            asp-for="Country"
-                                            asp-items="@(new SelectList(ViewBag.Countries))">
-                                        <option>Select Country</option>
-                                    </select>
+                                    <input id="country" class="form-control" asp-for="Country" disabled="disabled" placeholder="Country" required />
                                 </div>
                             </div>
                         </div>
@@ -126,7 +138,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group message">
                                     <label>Detailed Information</label>
-                                    <textarea asp-for="Description" class="form-control" placeholder="Detailed Information"></textarea>
+                                    <textarea asp-for="Description" class="form-control" placeholder="Detailed Information" required></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4">
@@ -215,9 +227,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <input type="submit" value="Create" class="btn btn-common" />
-                        </div>
+                        <input type="submit" value="Create" class="btn btn-common" />
                     </form>
                 </div>
 
@@ -225,8 +235,4 @@
         </div>
     </div>
 </section>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 

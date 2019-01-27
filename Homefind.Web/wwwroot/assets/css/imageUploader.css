@@ -1,0 +1,39 @@
+﻿.image-container {
+    width: 100%;
+    border: 1px solid #ddd;
+    min-height: 180px;
+    padding: 5px 5px 0px 5px;
+    position: relative;
+    overflow: auto;
+}
+
+    .image-container > .preview-image:first-child {
+        height: 185px;
+        width: 185px;
+        position: relative;
+        margin-right: 5px;
+    }
+
+    .image-container > .preview-image {
+        height: 90px;
+        width: 90px;
+        position: relative;
+        margin-right: 5px;
+        float: left;
+        margin-bottom: 5px;
+    }
+
+        .image-container > .preview-image > .image-zone {
+            width: 100%;
+            height: 100%;
+        }
+
+            .image-container > .preview-image > .image-zone > img {
+                width: 100%;
+                height: 100%;
+            }
+
+.preview-image:hover > .image-zone {
+    cursor: move;
+    opacity: .5;
+}

@@ -23,8 +23,10 @@ namespace Homefind.Web.Models.PropertyViewModels
         public string Status { get; set; }
         public int EstateTypeId { get; set; }
         public int EstateLocationId { get; set; }
+        public string Address { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
+        public string ZipCode { get; set; }
         public bool HasCarParking { get; set; }
         public bool IsFurnished { get; set; }
         public bool HasAirConditioning { get; set; }

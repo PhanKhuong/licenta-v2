@@ -11,10 +11,11 @@ namespace Homefind.Web.MapperConfig
         public DomainProfile()
         {
             CreateMap<SubmitPropertyModel, EstateFeature>();
+            CreateMap<SubmitPropertyModel, EstateLocation>();
             CreateMap<SubmitPropertyModel, EstateUnit>()
                 .ForMember(x => x.EstateFeature, opt => opt.MapFrom(s => s))
                 .ForMember(x => x.EstateImages, opt => opt.Ignore())
-                .ForMember(x => x.EstateLocation, opt => opt.Ignore())
+                .ForMember(x => x.EstateLocation, opt => opt.MapFrom(s => s))
                 .ForMember(x => x.EstateType, opt => opt.Ignore());
 
             CreateMap<EstateType, PropertyInfoModel>();

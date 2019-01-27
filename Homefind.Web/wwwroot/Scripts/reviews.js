@@ -2,14 +2,6 @@
     AddSendFeedbackEventHandler();
 });
 
-function ShowLoader() {
-    $("#preloader").fadeIn();
-}
-
-function HideLoader() {
-    $("#preloader").fadeOut();
-}
-
 function AddSendFeedbackEventHandler() {
     $("#btn-send-review").click(function () {
         SendFeedback();

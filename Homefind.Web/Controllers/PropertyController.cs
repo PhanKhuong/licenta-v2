@@ -115,15 +115,6 @@ namespace Homefind.Web.Controllers
             return new FileStreamResult(ms, imageThumb.ContentType);
         }
 
-        public async Task<JsonResult> AutocompleteLocations(string typeName)
-        {
-            var propertyTypes = await PropertyCacheHelper.GetOrSetCacheEntry(_propertyViewModelService, _cache, CacheKey.Property);
-
-            var filteredResult = propertyTypes.Cast<EstateType>().Where(x => x.TypeName.ToUpper().Contains(typeName.ToUpper()));
-
-            return Json(filteredResult);
-        }
-
         [HttpGet]
         public IActionResult Filter()
         {
