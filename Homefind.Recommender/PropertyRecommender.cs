@@ -1,6 +1,6 @@
 ﻿using Homefind.Core.DomainModels;
-using Homefind.Core.Filters;
 using Homefind.Core.Interfaces;
+using Homefind.Recommender.Interfaces;
 using Homefind.Recommender.Models;
 using NReco.CF.Taste.Impl.Recommender;
 using NReco.CF.Taste.Impl.Similarity;

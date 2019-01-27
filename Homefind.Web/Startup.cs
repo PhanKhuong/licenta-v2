@@ -3,6 +3,7 @@ using Homefind.Core.Interfaces;
 using Homefind.Infrastructure.Data;
 using Homefind.Infrastructure.Identity;
 using Homefind.Recommender;
+using Homefind.Recommender.Interfaces;
 using Homefind.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

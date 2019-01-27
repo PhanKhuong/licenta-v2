@@ -1,7 +1,7 @@
 ﻿using Homefind.Core.DomainModels;
 using Homefind.Core.Filters;
-using Homefind.Core.Interfaces;
 using Homefind.Infrastructure.Identity;
+using Homefind.Recommender.Interfaces;
 using Homefind.Web.Extensions;
 using Homefind.Web.Models.PropertyViewModels;
 using Homefind.Web.Services;

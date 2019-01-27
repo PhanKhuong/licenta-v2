@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Homefind.Core.Interfaces
+namespace Homefind.Recommender.Interfaces
 {
     public interface IPropertyRecommender
     {
