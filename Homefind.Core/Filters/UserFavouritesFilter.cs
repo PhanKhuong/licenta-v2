@@ -12,5 +12,13 @@ namespace Homefind.Core.Filters
             Includes.Add(x => x.EstateUnit.EstateImages);
             Includes.Add(x => x.EstateUnit.EstateLocation);
         }
+
+        public UserFavouritesFilter(long userName)
+            : base(x => userName != 0 && x.UserIdNumeric == userName)
+        {
+            Includes.Add(x => x.EstateUnit);
+            Includes.Add(x => x.EstateUnit.EstateImages);
+            Includes.Add(x => x.EstateUnit.EstateLocation);
+        }
     }
 }

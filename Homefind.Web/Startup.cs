@@ -1,9 +1,9 @@
-﻿using Homefind.Core.Interfaces;
-using Homefind.Core.Services;
-using AutoMapper;
-using Homefind.Web.Services;
+﻿using AutoMapper;
+using Homefind.Core.Interfaces;
 using Homefind.Infrastructure.Data;
 using Homefind.Infrastructure.Identity;
+using Homefind.Recommender;
+using Homefind.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -50,10 +50,10 @@ namespace Homefind.Web
 
             // Add application services
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped<IPropertyService, PropertyService>();
             services.AddScoped<IPropertyViewModelService, PropertyViewModelService>();
             services.AddScoped<IProfileViewModelService, ProfileViewModelService>();
             services.AddScoped<IPropertyRepository, PropertyRepository>();
+            services.AddScoped<IPropertyRecommender, PropertyRecommender>();
 
             services.AddTransient<IEmailSender, EmailSender>();
 

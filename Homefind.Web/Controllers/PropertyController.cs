@@ -1,9 +1,12 @@
 ﻿using Homefind.Core.DomainModels;
 using Homefind.Core.Filters;
+using Homefind.Core.Interfaces;
+using Homefind.Infrastructure.Identity;
 using Homefind.Web.Extensions;
 using Homefind.Web.Models.PropertyViewModels;
 using Homefind.Web.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
@@ -20,12 +23,18 @@ namespace Homefind.Web.Controllers
     {
         private readonly IMemoryCache _cache;
         private readonly IPropertyViewModelService _propertyViewModelService;
+        private readonly IPropertyRecommender _propertyRecommender;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public PropertyController(IPropertyViewModelService propertyViewModelService,
-                                  IMemoryCache cache)
+        public PropertyController(IMemoryCache cache,
+                                  IPropertyViewModelService propertyViewModelService,
+                                  IPropertyRecommender propertyRecommender,
+                                  UserManager<ApplicationUser> userManager)
         {
             _cache = cache;
             _propertyViewModelService = propertyViewModelService;
+            _propertyRecommender = propertyRecommender;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -73,6 +82,9 @@ namespace Homefind.Web.Controllers
         public async Task<IActionResult> Submit()
         {
             await SetCacheEntries();
+
+            //var user = (await _userManager.FindByNameAsync(User.Identity.Name)).UserIdNumeric;
+            //var recommended = await _propertyRecommender.Recommend(user);
 
             return View();
         }
@@ -138,6 +150,7 @@ namespace Homefind.Web.Controllers
                     {
                         EstateUnitId = propertyId,
                         UserId = User.Identity.Name,
+                        UserIdNumeric = (await _userManager.FindByNameAsync(User.Identity.Name)).UserIdNumeric,
                         DateAdded = DateTime.Today
                     });
                     break;

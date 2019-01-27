@@ -6,7 +6,7 @@ namespace Homefind.Core.DomainModels
 {
     public partial class EstateUnit : BaseEntity
     {
-        public int EstateTypeId { get; set; }
+        public long EstateTypeId { get; set; }
         public string PostedBy { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

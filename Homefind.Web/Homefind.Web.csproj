@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Homefind.Infrastructure\Homefind.Infrastructure.csproj" />
+    <ProjectReference Include="..\Homefind.Recommender\Homefind.Recommender.csproj" />
   </ItemGroup>
 
   <ItemGroup>

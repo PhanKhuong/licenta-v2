@@ -9,5 +9,7 @@ namespace Homefind.Core.Interfaces
     public interface IPropertyRepository : IRepository<EstateUnit>
     {
         Task<IEnumerable<EstateUnit>> ListAllWithEntities();
+
+        Task<IEnumerable<EstateUnit>> GetListOfPropertiesById(IList<long> ids);
     }
 }

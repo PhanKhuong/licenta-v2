@@ -2,7 +2,7 @@
 {
     public partial class EstateImage : BaseEntity
     {
-        public int EstateUnitId { get; set; }
+        public long EstateUnitId { get; set; }
 
         public string Name { get; set; }
 

@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homefind.Web", "Homefind.Web\Homefind.Web.csproj", "{98221493-0F9F-431E-A096-EA5727C1FE7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Homefind.Web", "Homefind.Web\Homefind.Web.csproj", "{98221493-0F9F-431E-A096-EA5727C1FE7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homefind.Core", "Homefind.Core\Homefind.Core.csproj", "{EF4F6329-CE7F-4B82-8BAD-54C344E01CA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Homefind.Core", "Homefind.Core\Homefind.Core.csproj", "{EF4F6329-CE7F-4B82-8BAD-54C344E01CA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homefind.Infrastructure", "Homefind.Infrastructure\Homefind.Infrastructure.csproj", "{A1FFABF8-9869-4613-B651-FADAB6A9D374}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Homefind.Infrastructure", "Homefind.Infrastructure\Homefind.Infrastructure.csproj", "{A1FFABF8-9869-4613-B651-FADAB6A9D374}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homefind.Recommender", "Homefind.Recommender\Homefind.Recommender.csproj", "{901DD1EE-3BF3-4335-9E1E-8405FE53C88D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{A1FFABF8-9869-4613-B651-FADAB6A9D374}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1FFABF8-9869-4613-B651-FADAB6A9D374}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1FFABF8-9869-4613-B651-FADAB6A9D374}.Release|Any CPU.Build.0 = Release|Any CPU
+		{901DD1EE-3BF3-4335-9E1E-8405FE53C88D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{901DD1EE-3BF3-4335-9E1E-8405FE53C88D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{901DD1EE-3BF3-4335-9E1E-8405FE53C88D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{901DD1EE-3BF3-4335-9E1E-8405FE53C88D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
