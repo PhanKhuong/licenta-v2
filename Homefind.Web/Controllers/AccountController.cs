@@ -244,7 +244,7 @@ namespace Homefind.Web.Controllers
             await _signInManager.SignOutAsync();
 
             _logger.LogInformation("User logged out.");
-            return RedirectToAction(nameof(PropertyController.Index), "Property");
+            return RedirectToAction(nameof(PropertyController.Home), "Property");
         }
 
         [HttpPost]
@@ -452,7 +452,7 @@ namespace Homefind.Web.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(PropertyController.Index), "Property");
+                return RedirectToAction(nameof(PropertyController.Home), "Property");
             }
         }
 

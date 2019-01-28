@@ -53,11 +53,22 @@ namespace Homefind.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateProfile(ApplicationUser userProfileModel)
+        public async Task<IActionResult> UpdateProfile(UserViewModel user)
         {
-            var updatedUser = await _userManager.UpdateAsync(userProfileModel);
+            var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
 
-            return View();
+            if (!string.IsNullOrEmpty(user.Name))
+                appUser.DisplayName = user.Name;
+            if (user.UserType.HasValue)
+                appUser.UserType = user.UserType.Value;
+            if (!string.IsNullOrEmpty(user.Email))
+                appUser.Email = user.Email;
+            if (!string.IsNullOrEmpty(user.PhoneNumber))
+                appUser.PhoneNumber = user.PhoneNumber;
+
+            var updatedUser = await _userManager.UpdateAsync(appUser);
+
+            return RedirectToAction(nameof(MyProfile));
         }
 
         [HttpGet]
