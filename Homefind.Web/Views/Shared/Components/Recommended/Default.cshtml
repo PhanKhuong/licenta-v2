@@ -21,7 +21,7 @@
                     <div class="property-wrap">
                         <div class="property-item">
                             <div class="item-thumb">
-                                <a class="hover-effect" href="@Url.Action("PropertyDetails", "Property", new { propertyId = recommended.Id })">
+                                <a class="hover-effect" href="@Url.Action("Details", "Property", new { propertyId = recommended.Id })">
                                     <img class="img-fluid" src='@Url.Action("ViewImage", "Property", new { imageId = recommended.EstateImages.First().Id })' alt="">
                                 </a>
                                 <div class="label-inner">

@@ -42,17 +42,12 @@
                                 </a>
                             </li>
                             <li>
-                                <a asp-controller="Profile" asp-action="MyProfile">
+                                <a asp-controller="Profile" asp-action="Profile">
                                     <i class="lni-user"></i>Profile
                                 </a>
                             </li>
-                            @*<li>
-                                    <a href="#">
-                                        <i class="lni-home"></i>My Properties
-                                    </a>
-                                </li>*@
                             <li>
-                                <a asp-controller="Profile" asp-action="MyFavourites" class="active">
+                                <a asp-controller="Profile" asp-action="Favourites" class="active">
                                     <i class="lni-heart"></i>Favorited Properties
                                 </a>
                             </li>
@@ -61,11 +56,6 @@
                                     <i class="lni-plus"></i>Submit New Property
                                 </a>
                             </li>
-                            @*<li>
-                                    <a href="#">
-                                        <i class="lni-lock"></i>Change Password
-                                    </a>
-                                </li>*@
                         </ul>
                     </div>
                 </div>
@@ -121,7 +111,7 @@
                     </form>
 
                     @* pagination *@
-                    <form method="get" asp-controller="Profile" asp-action="MyFavourites">
+                    <form method="get" asp-controller="Profile" asp-action="Favourites">
                         <div class="pagination-container">
                             <nav>
                                 <ul class="pagination">
@@ -178,4 +168,3 @@
         </div>
     </div>
 </section>
-<!-- Ueser Section End -->

@@ -27,7 +27,7 @@ namespace Homefind.Web.Controllers
             _userManager = userManager;
         }
 
-        public ActionResult MyProfile()
+        public ActionResult Profile()
         {
             return View();
         }
@@ -68,11 +68,11 @@ namespace Homefind.Web.Controllers
 
             var updatedUser = await _userManager.UpdateAsync(appUser);
 
-            return RedirectToAction(nameof(MyProfile));
+            return RedirectToAction(nameof(Profile));
         }
 
         [HttpGet]
-        public async Task<IActionResult> MyFavourites(int page)
+        public async Task<IActionResult> Favourites(int page)
         {
             var favourites = await _propertyViewModelService
                .ListFavourites(User.Identity.Name, page == 0 ? 1 : page, Constants.ItemsPerPage);
@@ -98,21 +98,6 @@ namespace Homefind.Web.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> EditListing(int id)
-        {
-            try
-            {
-
-
-                return View();
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         [HttpPost]
         public async Task<IActionResult> DeleteFavourite(int id)
         {
@@ -120,18 +105,12 @@ namespace Homefind.Web.Controllers
             {
                 await _propertyViewModelService.RemoveFromFavourites(id, User.Identity.Name);
 
-                return RedirectToAction(nameof(MyFavourites));
+                return RedirectToAction(nameof(Favourites));
             }
             catch
             {
                 return View();
             }
-        }
-
-        [HttpGet]
-        public IActionResult Favourites(string user, int pageNumber)
-        {
-            return ViewComponent("Favourites", new { page = pageNumber });
         }
     }
 }

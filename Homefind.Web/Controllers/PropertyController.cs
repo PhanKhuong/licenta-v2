@@ -122,6 +122,21 @@ namespace Homefind.Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            try
+            {
+
+
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        [HttpGet]
         public FileStreamResult ViewImage(int imageId)
         {
             var imageThumb = _propertyViewModelService.GetImageById(imageId);
@@ -169,7 +184,7 @@ namespace Homefind.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> PropertyDetails(int propertyId)
+        public async Task<IActionResult> Details(int propertyId)
         {
             var propertyDetailsModel = await _propertyViewModelService.GetProperty(propertyId, User.Identity.Name);
 

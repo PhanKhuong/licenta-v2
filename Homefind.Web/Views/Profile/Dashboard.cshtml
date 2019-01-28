@@ -1,6 +1,4 @@
-﻿@using Homefind.Web.Extensions;
-@using Homefind.Core.DomainModels;
-@using Homefind.Web.Models.ProfileViewModels;
+﻿@using Homefind.Web.Models.ProfileViewModels;
 
 @model DashboardViewModel
 
@@ -45,12 +43,12 @@
                                 </a>
                             </li>
                             <li>
-                                <a asp-controller="Profile" asp-action="MyProfile">
+                                <a asp-controller="Profile" asp-action="Profile">
                                     <i class="lni-user"></i>Profile
                                 </a>
                             </li>
                             <li>
-                                <a asp-controller="Profile" asp-action="MyFavourites">
+                                <a asp-controller="Profile" asp-action="Favourites">
                                     <i class="lni-heart"></i>Favorited Properties
                                 </a>
                             </li>

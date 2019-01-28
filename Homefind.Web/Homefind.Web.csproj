@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Profile\MyProfile.cshtml">
+    <Content Update="Views\Profile\Profile.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Profile\Dashboard.cshtml">
