@@ -27,6 +27,7 @@ namespace Homefind.Infrastructure.Data
         {
             return await _context.Set<EstateUnit>()
                .Include(x => x.EstateLocation)
+               .Include(x => x.EstateImages)
                .AsQueryable()
                .Where(x => ids.Contains(x.Id))
                .ToListAsync();

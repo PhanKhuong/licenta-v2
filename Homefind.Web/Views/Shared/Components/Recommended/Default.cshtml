@@ -22,14 +22,14 @@
                         <div class="property-item">
                             <div class="item-thumb">
                                 <a class="hover-effect" href="@Url.Action("PropertyDetails", "Property", new { propertyId = recommended.Id })">
-                                    <img class="img-fluid" src="assets/img/property/house-1.jpg" alt="">
+                                    <img class="img-fluid" src='@Url.Action("ViewImage", "Property", new { imageId = recommended.EstateImages.First().Id })' alt="">
                                 </a>
                                 <div class="label-inner">
                                     <span class="label-status label bg-red">@recommended.Reason</span>
                                 </div>
                             </div>
                             <div class="item-body">
-                                <h3 class="property-title"><a href="property.html">@recommended.Title</a></h3>
+                                <h5 class="property-title">@recommended.Title</h5>
                                 <div class="adderess"><i class="lni-map-marker"></i> @recommended.EstateLocation.Address</div>
                                 <div class="pricin-list">
                                     <div class="property-price">
