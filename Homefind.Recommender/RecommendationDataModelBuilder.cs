@@ -8,9 +8,8 @@ namespace Homefind.Recommender
 {
     static class RecommendationDataModelBuilder
     {
-        internal static IDataModel BuildModel(IList<UserItem> userItems)
+        internal static IDataModel BuildModel(IList<UserItem> userItems, bool isReviewBased)
         {
-            var isRatingBased = false;
             FastByIDMap<IList<IPreference>> userPreferencesMap = new FastByIDMap<IList<IPreference>>();
 
             foreach (var userItem in userItems)
@@ -22,7 +21,7 @@ namespace Homefind.Recommender
                     userPreferencesMap.Put(userItem.UserId, userPreferences);
                 }
 
-                if (isRatingBased)
+                if (isReviewBased)
                 {
                     userPreferences.Add(new GenericPreference(userItem.UserId, userItem.ItemId, userItem.Rating));
                 }
@@ -36,7 +35,7 @@ namespace Homefind.Recommender
             foreach (var entry in userPreferencesMap.EntrySet())
             {
                 var prefList = (List<IPreference>)entry.Value;
-                resultUserPreferences.Put(entry.Key, isRatingBased ?
+                resultUserPreferences.Put(entry.Key, isReviewBased ?
                     new GenericUserPreferenceArray(prefList) :
                     (IPreferenceArray)new BooleanUserPreferenceArray(prefList));
             }

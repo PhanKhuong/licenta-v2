@@ -33,7 +33,7 @@ namespace Homefind.Recommender
             }).ToList();
             var currentUserPreferences = userItems.Where(ui => ui.UserId == user).Select(ui => ui.ItemId).ToArray();
 
-            var baseModel = RecommendationDataModelBuilder.BuildModel(userItems);
+            var baseModel = RecommendationDataModelBuilder.BuildModel(userItems, isReviewBased:false);
             var modelForPreferences = RecommendationDataModelBuilder
                 .BuildModelForUserPreferences(baseModel, user, currentUserPreferences);
 
