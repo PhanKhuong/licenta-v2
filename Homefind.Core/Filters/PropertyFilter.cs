@@ -15,6 +15,7 @@ namespace Homefind.Core.Filters
                     && (!filterSpecs.PriceFrom.HasValue || x.Price >= filterSpecs.PriceFrom)
                     && (!filterSpecs.PriceTo.HasValue || x.Price <= filterSpecs.PriceTo)
                     && (string.IsNullOrEmpty(filterSpecs.City) || filterSpecs.City == Constants.Constants.SelectAllCities || x.EstateLocation.City == filterSpecs.City)
+                    && (string.IsNullOrEmpty(filterSpecs.Address) || x.EstateLocation.Address.Contains(filterSpecs.Address))
                     && (filterSpecs.Reason == ListingType.All || x.Reason == filterSpecs.Reason)
                     && (!Convert.ToBoolean(filterSpecs.HasCarParking) || x.EstateFeature.HasCarParking)
                     && (!Convert.ToBoolean(filterSpecs.IsFurnished) || x.EstateFeature.IsFurnished)

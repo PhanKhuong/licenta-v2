@@ -15,6 +15,7 @@ namespace Homefind.Core.Filters
         public int? AreaTo { get; set; }
         public int? PriceFrom { get; set; }
         public int? PriceTo { get; set; }
+        public string Address { get; set; }
         public string City { get; set; }
         public string Status { get; set; }
         public string HasCarParking { get; set; }

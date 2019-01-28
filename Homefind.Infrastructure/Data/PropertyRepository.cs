@@ -25,7 +25,11 @@ namespace Homefind.Infrastructure.Data
 
         public async Task<IEnumerable<EstateUnit>> GetListOfPropertiesById(IList<long> ids)
         {
-             return await _context.Set<EstateUnit>().AsQueryable().Where(x => ids.Contains(x.Id)).ToListAsync();
+            return await _context.Set<EstateUnit>()
+               .Include(x => x.EstateLocation)
+               .AsQueryable()
+               .Where(x => ids.Contains(x.Id))
+               .ToListAsync();
         }
     }
 }

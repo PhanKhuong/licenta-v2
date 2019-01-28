@@ -43,8 +43,10 @@ namespace Homefind.Web.Controllers
         [Route("")]
         [Route("Property")]
         [Route("Property/Home")]
-        public IActionResult Home()
+        public async Task<IActionResult> Home()
         {
+            await SetCacheEntries();
+
             return View();
         }
 

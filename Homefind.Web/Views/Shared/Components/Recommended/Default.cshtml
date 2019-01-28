@@ -1,0 +1,53 @@
+﻿@using Homefind.Web.Extensions
+@using Homefind.Core.DomainModels
+
+@model IEnumerable<EstateUnit>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="section-title-header text-center">
+                <p>View All</p>
+                <h2 class="section-title">Recommended listings</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @foreach (var recommended in Model)
+        {
+            <div class="col-lg-4 col-md-6 col-xs-12">
+                <div class="property-main">
+                    <div class="property-wrap">
+                        <div class="property-item">
+                            <div class="item-thumb">
+                                <a class="hover-effect" href="property.html">
+                                    <img class="img-fluid" src="assets/img/property/house-1.jpg" alt="">
+                                </a>
+                                <div class="label-inner">
+                                    <span class="label-status label bg-red">@recommended.Reason</span>
+                                </div>
+                            </div>
+                            <div class="item-body">
+                                <h3 class="property-title"><a href="property.html">@recommended.Title</a></h3>
+                                <div class="adderess"><i class="lni-map-marker"></i> @recommended.EstateLocation.Address</div>
+                                <div class="pricin-list">
+                                    <div class="property-price">
+                                        <span>$@recommended.Price</span>
+                                    </div>
+                                    <p><span>@recommended.Bedrooms bds</span> . <span>@recommended.Bathrooms ba</span> . <span>@recommended.CarpetArea Sqft</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="col-12">
+            <div class="text-center">
+                <a href="listing.html" class="btn btn-common">Browse All</a>
+            </div>
+        </div>
+    </div>
+</div>

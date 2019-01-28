@@ -1,6 +1,16 @@
-﻿
-@{
-    
+﻿@using Homefind.Web.Models.PropertyViewModels
+@using  Homefind.Core.Constants
+@using Microsoft.AspNetCore.Identity
+@using Homefind.Infrastructure.Identity
+
+@inject UserManager<ApplicationUser> UserManager
+
+@model ListWithFilterModel
+
+@section Scripts{
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpPWjqZSUIVw2EA2y3NGccb9PX8U3G1_M&libraries=places&callback=initAutocomplete"
+            async defer></script>
+    <script src="~/Scripts/autocomplete.js"></script>
 }
 
 <!-- Intro Section Start -->
@@ -12,20 +22,20 @@
                     <h4 class="intro-sub-heading">Find Your Dream Apartment!</h4>
                     <h2>Find Best Properties<br> in One Place</h2>
                     <div class="content">
-                        <form>
+                        <form method="post" asp-action="Index" asp-controller="Property">
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-xs-12">
                                     <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="Enter Property Name, Keywords or Adress">
+                                        <input asp-for="FilterSpecification.Address" id="autocomplete" class="form-control" type="text" placeholder="Enter City, street Keywords or Adress">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 col-xs-12">
                                     <div class="search-category-container">
                                         <label class="styled-select">
-                                            <select class="classic">
-                                                <option>All Actions</option>
-                                                <option>Rentals (12)</option>
-                                                <option>Sales (17)</option>
+                                            <select asp-for="FilterSpecification.Reason" class="classic">
+                                                <option value="@ListingType.All">@EnumHelper.GetDescription(ListingType.All)</option>
+                                                <option value="@ListingType.Rental">@EnumHelper.GetDescription(ListingType.Rental)</option>
+                                                <option value="@ListingType.Selling">@EnumHelper.GetDescription(ListingType.Selling)</option>
                                             </select>
                                         </label>
                                     </div>
@@ -33,16 +43,9 @@
                                 <div class="col-lg-3 col-md-6 col-xs-12">
                                     <div class="search-category-container">
                                         <label class="styled-select">
-                                            <select class="classic">
-                                                <option>All Types</option>
-                                                <option>Apartments (3)</option>
-                                                <option>Houses (2)</option>
-                                                <option>Condos (1)</option>
-                                                <option>Industrial (2)</option>
-                                                <option>Land (3)</option>
-                                                <option>Offices (1)</option>
-                                                <option>Retail (2)</option>
-                                                <option>Villas (1)</option>
+                                            <select asp-for="FilterSpecification.Type" class="classic"
+                                                    asp-items="@(new SelectList(ViewBag.PropertyTypes, "Id", "TypeName"))">
+                                                <option>@Constants.SelectAllTypes</option>
                                             </select>
                                         </label>
                                     </div>
@@ -50,14 +53,9 @@
                                 <div class="col-lg-3 col-md-6 col-xs-12">
                                     <div class="search-category-container">
                                         <label class="styled-select">
-                                            <select class="classic">
-                                                <option>All Cities</option>
-                                                <option>New York</option>
-                                                <option>California</option>
-                                                <option>Washington</option>
-                                                <option>Chicago</option>
-                                                <option>Phoenix</option>
-                                                <option>Birmingham</option>
+                                            <select asp-for="FilterSpecification.City" class="classic"
+                                                    asp-items="@(new SelectList(ViewBag.Cities))">
+                                                <option>@Constants.SelectAllCities</option>
                                             </select>
                                         </label>
                                     </div>
@@ -65,48 +63,36 @@
                                 <div class="col-lg-3 col-md-6 col-xs-12">
                                     <div class="search-category-container">
                                         <label class="styled-select">
-                                            <select class="classic">
-                                                <option>Bedrooms</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                                <option>6</option>
-                                                <option>7</option>
-                                                <option>8</option>
+                                            <select asp-for="FilterSpecification.Bedrooms" class="classic"
+                                                    asp-items="@(new SelectList(Constants.SelectBeds))">
+                                                <option>Bedroom</option>
                                             </select>
                                         </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row range-slider">
+                                <div class="col-lg-3 col-md-12 col-xs-12">
+                                    <div class="search-category-container">
+                                        <label class="styled-select">
+                                            <select asp-for="FilterSpecification.Bathrooms" class="classic"
+                                                    asp-items="@(new SelectList(Constants.SelectBaths))">
+                                                <option>Bathroom</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-xs-12">
+                                    <!-- Page contents -->
+                                    <input asp-for="FilterSpecification.PriceFrom" type="text" id="range" value="" name="range" />
+                                </div>
+                                <div class="col-lg-3 col-md-12 col-xs-12">
+                                    <div class="text-right btn-section">
+                                        <button type="submit" class="btn btn-common"><i class="lni-search"></i> Search</button>
                                     </div>
                                 </div>
                             </div>
                         </form>
-                        <div class="row range-slider">
-                            <div class="col-lg-3 col-md-12 col-xs-12">
-                                <div class="search-category-container">
-                                    <label class="styled-select">
-                                        <select class="classic">
-                                            <option>All Area</option>
-                                            <option>San Jose</option>
-                                            <option>Salt Lake City</option>
-                                            <option>Las Vegas</option>
-                                            <option>Boston</option>
-                                            <option>Tampa</option>
-                                            <option>Orlando</option>
-                                        </select>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-12 col-xs-12">
-                                <!-- Page contents -->
-                                <input type="text" id="range" value="" name="range" />
-                            </div>
-                            <div class="col-lg-3 col-md-12 col-xs-12">
-                                <div class="text-right btn-section">
-                                    <button type="button" class="btn btn-common"><i class="lni-search"></i> Search</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -116,179 +102,7 @@
 <!-- Intro Section End -->
 <!-- Property Section Start -->
 <section class="property section-padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title-header text-center">
-                    <p>View All</p>
-                    <h2 class="section-title">Popular Listings</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-xs-12">
-                <div class="property-main">
-                    <div class="property-wrap">
-                        <div class="property-item">
-                            <div class="item-thumb">
-                                <a class="hover-effect" href="property.html">
-                                    <img class="img-fluid" src="assets/img/property/house-1.jpg" alt="">
-                                </a>
-                                <div class="label-inner">
-                                    <span class="label-status label bg-red">For Sale</span>
-                                </div>
-                            </div>
-                            <div class="item-body">
-                                <h3 class="property-title"><a href="property.html">Amazing oceanfront apartment</a></h3>
-                                <div class="adderess"><i class="lni-map-marker"></i> Drive Street, Los Angeles, US</div>
-                                <div class="pricin-list">
-                                    <div class="property-price">
-                                        <span>$1,500</span>
-                                    </div>
-                                    <p><span>4 bds</span> . <span>4 ba</span> . <span>2500 Sqft</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-xs-12">
-                <div class="property-main">
-                    <div class="property-wrap">
-                        <div class="property-item">
-                            <div class="item-thumb">
-                                <a class="hover-effect" href="property.html">
-                                    <img class="img-fluid" src="assets/img/property/house-2.jpg" alt="">
-                                </a>
-                                <div class="label-inner">
-                                    <span class="label-status label">For Rent</span>
-                                </div>
-                            </div>
-                            <div class="item-body">
-                                <h3 class="property-title"><a href="property.html">Family Condo</a></h3>
-                                <div class="adderess"><i class="lni-map-marker"></i> Louis, Missouri, US</div>
-                                <div class="pricin-list">
-                                    <div class="property-price">
-                                        <span>$27,00</span>
-                                    </div>
-                                    <p><span>6 bds</span> . <span>8 ba</span> . <span>2600 Sqft</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-xs-12">
-                <div class="property-main">
-                    <div class="property-wrap">
-                        <div class="property-item">
-                            <div class="item-thumb">
-                                <a class="hover-effect" href="property.html">
-                                    <img class="img-fluid" src="assets/img/property/house-3.jpg" alt="">
-                                </a>
-                                <div class="label-inner">
-                                    <span class="label-status label bg-yellow">New</span>
-                                </div>
-                            </div>
-                            <div class="item-body">
-                                <h3 class="property-title"><a href="property.html">Guaranteed modern home</a></h3>
-                                <div class="adderess"><i class="lni-map-marker"></i> Avenue C, New York, US</div>
-                                <div class="pricin-list">
-                                    <div class="property-price">
-                                        <span>$1,750</span>
-                                    </div>
-                                    <p><span>8 bds</span> . <span>8 ba</span> . <span>3000 Sqft</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-xs-12">
-                <div class="property-main">
-                    <div class="property-wrap">
-                        <div class="property-item">
-                            <div class="item-thumb">
-                                <a class="hover-effect" href="property.html">
-                                    <img class="img-fluid" src="assets/img/property/house-4.jpg" alt="">
-                                </a>
-                                <div class="label-inner">
-                                    <span class="label-status label">For Rent</span>
-                                </div>
-                            </div>
-                            <div class="item-body">
-                                <h3 class="property-title"><a href="property.html">Family home for sale</a></h3>
-                                <div class="adderess"><i class="lni-map-marker"></i> Sacramento, Chicago, US</div>
-                                <div class="pricin-list">
-                                    <div class="property-price">
-                                        <span>$1,400</span>
-                                    </div>
-                                    <p><span>2 bds</span> . <span>2 ba</span> . <span>2200 Sqft</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-xs-12">
-                <div class="property-main">
-                    <div class="property-wrap">
-                        <div class="property-item">
-                            <div class="item-thumb">
-                                <a class="hover-effect" href="property.html">
-                                    <img class="img-fluid" src="assets/img/property/house-5.jpg" alt="">
-                                </a>
-                                <div class="label-inner">
-                                    <span class="label-status label bg-yellow">New</span>
-                                </div>
-                            </div>
-                            <div class="item-body">
-                                <h3 class="property-title"><a href="property.html">Amazing oceanfront apartment</a></h3>
-                                <div class="adderess"><i class="lni-map-marker"></i> 53 W 88th St, Dallas, US</div>
-                                <div class="pricin-list">
-                                    <div class="property-price">
-                                        <span>$1,750</span>
-                                    </div>
-                                    <p><span>6 bds</span> . <span>6 ba</span> . <span>2700 Sqft</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-xs-12">
-                <div class="property-main">
-                    <div class="property-wrap">
-                        <div class="property-item">
-                            <div class="item-thumb">
-                                <a class="hover-effect" href="property.html">
-                                    <img class="img-fluid" src="assets/img/property/house-6.jpg" alt="">
-                                </a>
-                                <div class="label-inner">
-                                    <span class="label-status label bg-red">For Sale</span>
-                                </div>
-                            </div>
-                            <div class="item-body">
-                                <h3 class="property-title"><a href="property.html">Luxury home for sale</a></h3>
-                                <div class="adderess"><i class="lni-map-marker"></i> 365 Webber Street, Washington</div>
-                                <div class="pricin-list">
-                                    <div class="property-price">
-                                        <span>$1,800</span>
-                                    </div>
-                                    <p><span>5 bds</span> . <span>7 ba</span> . <span>2800 Sqft</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="text-center">
-                    <a href="listing.html" class="btn btn-common">Browse All</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    @await Component.InvokeAsync("Recommended", new { user = User.Identity.Name })
 </section>
 <!-- Property Section End -->
 <!-- Team Section Start -->
