@@ -94,7 +94,7 @@ namespace Homefind.Web
                 routes.MapRoute(
                     name: "Default",
                     template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "Property", action = "Index" });
+                    defaults: new { controller = "Property", action = "Home" });
             });
         }
     }

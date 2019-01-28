@@ -1,4 +1,5 @@
-﻿using Homefind.Core.DomainModels;
+﻿using Homefind.Core.Constants;
+using Homefind.Core.DomainModels;
 using System;
 using System.Collections.Generic;
 
@@ -11,6 +12,7 @@ namespace Homefind.Web.Models.PropertyViewModels
             Images = new List<EstateImage>();
         }
 
+        public ListingType Reason { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public int Price { get; set; }

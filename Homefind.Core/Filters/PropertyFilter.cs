@@ -1,8 +1,6 @@
-﻿using Homefind.Core.DomainModels;
+﻿using Homefind.Core.Constants;
+using Homefind.Core.DomainModels;
 using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
 
 namespace Homefind.Core.Filters
 {
@@ -16,8 +14,8 @@ namespace Homefind.Core.Filters
                     && (!filterSpecs.AreaTo.HasValue || x.CarpetArea <= filterSpecs.AreaTo)
                     && (!filterSpecs.PriceFrom.HasValue || x.Price >= filterSpecs.PriceFrom)
                     && (!filterSpecs.PriceTo.HasValue || x.Price <= filterSpecs.PriceTo)
-                    && (string.IsNullOrEmpty(filterSpecs.City) || filterSpecs.City == "All Cities" || x.EstateLocation.City == filterSpecs.City)
-                    && (string.IsNullOrEmpty(filterSpecs.Status) || filterSpecs.Status == "Any Status" || x.Status == filterSpecs.Status)
+                    && (string.IsNullOrEmpty(filterSpecs.City) || filterSpecs.City == Constants.Constants.SelectAllCities || x.EstateLocation.City == filterSpecs.City)
+                    && (filterSpecs.Reason == ListingType.All || x.Reason == filterSpecs.Reason)
                     && (!Convert.ToBoolean(filterSpecs.HasCarParking) || x.EstateFeature.HasCarParking)
                     && (!Convert.ToBoolean(filterSpecs.IsFurnished) || x.EstateFeature.IsFurnished)
                     && (!Convert.ToBoolean(filterSpecs.HasAirConditioning) || x.EstateFeature.HasAirConditioning)

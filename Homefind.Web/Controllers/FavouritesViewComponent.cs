@@ -1,4 +1,5 @@
-﻿using Homefind.Web.Extensions;
+﻿using Homefind.Core.Constants;
+using Homefind.Web.Extensions;
 using Homefind.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -20,7 +21,6 @@ namespace Homefind.Web.Controllers
                 .ListFavourites(user != null ? user : User.Identity.Name, page == 0 ? 1 : page, Constants.ItemsPerPage);
 
             return View(favourites);
-            ///Views/Profile/Components/Favourites/Default.cshtml
         }
     }
 }

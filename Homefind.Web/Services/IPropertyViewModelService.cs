@@ -1,4 +1,5 @@
-﻿using Homefind.Core.DomainModels;
+﻿using Homefind.Core.Constants;
+using Homefind.Core.DomainModels;
 using Homefind.Core.Filters;
 using Homefind.Infrastructure.Identity;
 using Homefind.Web.Extensions;

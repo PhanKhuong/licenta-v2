@@ -1,4 +1,5 @@
-﻿@model Homefind.Web.Models.PropertyViewModels.SubmitPropertyModel
+﻿@using Homefind.Core.Constants
+@model Homefind.Web.Models.PropertyViewModels.SubmitPropertyModel
 
 @{
     ViewData["Title"] = "SubmitProperty";
@@ -27,11 +28,11 @@
                 </div>
 
                 @*<div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Thank you!</strong> Your property was successfully submited.
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>*@
+                        <strong>Thank you!</strong> Your property was successfully submited.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>*@
 
                 <div class="submit-form">
                     <form asp-action="Submit" asp-controller="Property" method="post" enctype="multipart/form-data">
@@ -46,9 +47,9 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>Status</label>
-                                    <select class="classic">
-                                        <option>For Sale</option>
-                                        <option>For Rent</option>
+                                    <select asp-for="Reason" class="classic">
+                                        <option value="@ListingType.Rental">@EnumHelper.GetDescription(ListingType.Rental)</option>
+                                        <option value="@ListingType.Selling">@EnumHelper.GetDescription(ListingType.Selling)</option>
                                     </select>
                                 </div>
                             </div>

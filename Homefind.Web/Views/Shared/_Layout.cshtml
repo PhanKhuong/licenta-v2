@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Homefind.Core.Constants
+
+<!DOCTYPE html>
 <html>
 <head>
     <!-- Required meta tags -->
@@ -64,7 +66,7 @@
                         <span class="navbar-toggler-icon"></span>
                         <span class="lin-menu"></span>
                     </button>
-                    <a class="navbar-brand" href="@Url.Action("Index", "Property")"><img src="~/assets/img/logo.png" alt=""></a>
+                    <a class="navbar-brand" href="@Url.Action("Home", "Property")"><img src="~/assets/img/logo.png" alt=""></a>
                 </div>
                 <div class="collapse navbar-collapse" id="main-navbar">
                     <ul class="navbar-nav mr-auto w-100 justify-content-center">
@@ -73,8 +75,8 @@
                                 Listing <i class="fa fa-angle-down"></i>
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">For Rent</a>
-                                <a class="dropdown-item" href="#">For Sale</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Property", new { listingType = ListingType.Rental })">For Rent</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Property", new { listingType = ListingType.Selling })">For Sale</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -114,9 +116,8 @@
     </header>
     <!-- Header Area wrapper End -->
 
-    <div class="container body-content">
+    <div >
         @RenderBody()
-        <hr />
     </div>
 
     <!-- Footer Section Start -->

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Homefind.Core.Constants;
 
 namespace Homefind.Web.Services
 {
@@ -57,7 +58,8 @@ namespace Homefind.Web.Services
         {
             var property = _mapper.Map<EstateUnit>(propertyModel);
             property.PostedBy = user;
-            property.Status = "1";
+            property.Reason = propertyModel.Reason;
+            property.Status = "0";
             property.DatePosted = DateTime.Today;
             property.DateAvailable = DateTime.Today;
             property.EstateImages = propertyModel.Images;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Homefind.Core.Constants;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,6 +7,7 @@ namespace Homefind.Core.Filters
 {
     public class PropertyFilterSpecification
     {
+        public ListingType Reason { get; set; }
         public int? Type { get; set; }
         public int? Bedrooms { get; set; }
         public int? Bathrooms { get; set; }

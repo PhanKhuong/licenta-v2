@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
-namespace Homefind.Web.Extensions
+namespace Homefind.Core.Constants
 {
     public class Constants
     {
@@ -22,6 +22,18 @@ namespace Homefind.Web.Extensions
         [Description("Price high to low")] HighestPrice,
         [Description("Newest properties")] Newest,
         [Description("Oldest properties")] Oldest
+    }
+
+    public enum ListingType
+    {
+        [Description("For Rent")]
+        Rental = 1,
+
+        [Description("For Sale")]
+        Selling = 2,
+
+        [Description("Any Status")]
+        All = 3
     }
 
     public enum ToggleFavouritesAction

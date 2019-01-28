@@ -1,5 +1,5 @@
 ﻿@using Homefind.Web.Models.PropertyViewModels
-@using Homefind.Web.Extensions
+@using Homefind.Core.Constants
 
 @model ListWithFilterModel
 
@@ -64,7 +64,7 @@
                                             <img class="img-fluid" src='@Url.Action("ViewImage", "Property", new { imageId = property.AvatarImageId })' alt="">
                                         </a>
                                         <div class="label-inner">
-                                            <span class="label-status label bg-red">For Sale</span>
+                                            <span class="label-status label bg-red">@EnumHelper.GetDescription(property.Reason)</span>
                                         </div>
                                     </div>
                                     <div class="item-body">
@@ -92,8 +92,11 @@
                     <nav>
                         <ul class="pagination">
                             <li class="page-item">
-                                <a class="btn btn-common @ViewData["HasPrevious"]" asp-action="Index"
-                                   asp-route-page="@(Model.Properties.PageIndex - 1)" asp-route-sortOptions="@Model.SortOption">
+                                <a class="btn btn-common @ViewData["HasPrevious"]"
+                                   asp-action="Index"
+                                   asp-route-page="@(Model.Properties.PageIndex - 1)"
+                                   asp-route-sortOptions="@Model.SortOption"
+                                   asp-route-listingType="@Model.FilterSpecification.Reason">
                                     <i class="lni-chevron-left"></i> Previous
                                 </a>
                             </li>
@@ -103,17 +106,28 @@
                                 <li class="page-item">
                                     @if (Model.Properties.PageIndex == i)
                                     {
-                                        <a class="page-link page-selected" asp-action="Index" asp-route-page="@i" asp-route-sortOptions="@Model.SortOption">@i</a>
+                                        <a class="page-link page-selected"
+                                           asp-action="Index"
+                                           asp-route-page="@i"
+                                           asp-route-sortOptions="@Model.SortOption"
+                                           asp-route-listingType="@Model.FilterSpecification.Reason">@i</a>
                                     }
                                     else
                                     {
-                                        <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-sortOptions="@Model.SortOption">@i</a>
+                                        <a class="page-link"
+                                           asp-action="Index"
+                                           asp-route-page="@i"
+                                           asp-route-sortOptions="@Model.SortOption"
+                                           asp-route-listingType="@Model.FilterSpecification.Reason">@i</a>
                                     }
                                 </li>
                             }
                             <li class="page-item">
-                                <a class="btn btn-common @ViewData["HasNext"]" asp-action="Index"
-                                   asp-route-page="@(Model.Properties.PageIndex + 1)" asp-route-sortOptions="@Model.SortOption">
+                                <a class="btn btn-common @ViewData["HasNext"]"
+                                   asp-action="Index"
+                                   asp-route-page="@(Model.Properties.PageIndex + 1)"
+                                   asp-route-sortOptions="@Model.SortOption"
+                                   asp-route-listingType="@Model.FilterSpecification.Reason">
                                     Next
                                     <i class="lni-chevron-right"></i>
                                 </a>
@@ -131,10 +145,10 @@
                         <form asp-action="Index" asp-controller="Property">
                             <div class="row with-forms">
                                 <div class="col-md-12">
-                                    <select asp-for="FilterSpecification.Status" class="classic">
-                                        <option>@Constants.SelectAnyStatus</option>
-                                        <option>For Sale</option>
-                                        <option>For Rent</option>
+                                    <select asp-for="FilterSpecification.Reason" class="classic">
+                                        <option value="@ListingType.All">@EnumHelper.GetDescription(ListingType.All)</option>
+                                        <option value="@ListingType.Rental">@EnumHelper.GetDescription(ListingType.Rental)</option>
+                                        <option value="@ListingType.Selling">@EnumHelper.GetDescription(ListingType.Selling)</option>
                                     </select>
                                 </div>
                             </div>

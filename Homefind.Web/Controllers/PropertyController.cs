@@ -1,4 +1,5 @@
-﻿using Homefind.Core.DomainModels;
+﻿using Homefind.Core.Constants;
+using Homefind.Core.DomainModels;
 using Homefind.Core.Filters;
 using Homefind.Infrastructure.Identity;
 using Homefind.Recommender.Interfaces;
@@ -37,28 +38,33 @@ namespace Homefind.Web.Controllers
             _userManager = userManager;
         }
 
+
         [HttpGet]
         [Route("")]
         [Route("Property")]
+        [Route("Property/Home")]
+        public IActionResult Home()
+        {
+            return View();
+        }
+
+        [HttpGet]
         [Route("Property/Index")]
-        public async Task<IActionResult> Index(int page, SortOptions sortOptions = SortOptions.Newest)
+        public async Task<IActionResult> Index(int page,
+                                               SortOptions sortOptions = SortOptions.Newest,
+                                               ListingType listingType = ListingType.All)
         {
             var model = new ListWithFilterModel();
-            model.SortOption = sortOptions;
-
             var cachedFilters = HttpContext.Session.GetString("filters");
             if (cachedFilters != null)
             {
                 model.FilterSpecification = JsonConvert.DeserializeObject<PropertyFilterSpecification>(cachedFilters);
-                model.Properties = await _propertyViewModelService
-                    .ListProperties(model.FilterSpecification, page == 0 ? 1 : page, Constants.ItemsPerPage, model.SortOption);
             }
-            else
-            {
-                model.FilterSpecification = new PropertyFilterSpecification();
-                model.Properties = await _propertyViewModelService
-                    .ListProperties(page == 0 ? 1 : page, Constants.ItemsPerPage, model.SortOption);
-            }
+            model.SortOption = sortOptions;
+            model.FilterSpecification.Reason = listingType;
+
+            model.Properties = await _propertyViewModelService
+                .ListProperties(model.FilterSpecification, page == 0 ? 1 : page, Constants.ItemsPerPage, model.SortOption);
 
             await SetCacheEntries();
 
@@ -66,16 +72,11 @@ namespace Homefind.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(ListWithFilterModel model)
+        public IActionResult Index(ListWithFilterModel model)
         {
             HttpContext.Session.SetString("filters", JsonConvert.SerializeObject(model.FilterSpecification));
 
-            model.Properties = await _propertyViewModelService
-                .ListProperties(model.FilterSpecification, Constants.FirstPage, Constants.ItemsPerPage, SortOptions.Newest);
-
-            await SetCacheEntries();
-
-            return View(model);
+            return RedirectToAction(nameof(Index), new { page=Constants.FirstPage, sortOptions=SortOptions.Newest, listingType=model.FilterSpecification.Reason });
         }
 
         [HttpGet]
