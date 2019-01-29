@@ -6,7 +6,7 @@
 }
 
 @section Scripts{
-    <script src="~/Scripts/imageUploader.js"></script>
+    <script src="~/Scripts/submission-form.js"></script>
 }
 
 @section Styles{
@@ -22,12 +22,9 @@
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc. Semper ac dolor vitae accumsan.</p>
                 </div>
 
-                @*<div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>Thank you!</strong> Your property was successfully submited.
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>*@
+                <div id="notification-wrapper">
+                    <input id="notification-message" type="hidden" value="@ViewBag.notification" />
+                </div>
 
                 <div class="submit-form">
                     <form asp-action="Edit" asp-controller="Property" method="post" enctype="multipart/form-data">
@@ -62,7 +59,7 @@
                                     <input class="form-control" asp-for="EstateImages" type="file" id="images" name="images" multiple required>
                                 </fieldset>
                                 <div class="image-container">
-                                    @foreach(var image in Model.EstateImages)
+                                    @foreach (var image in Model.EstateImages)
                                     {
                                         <div class="preview-image">
                                             <div class="image-zone">

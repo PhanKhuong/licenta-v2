@@ -82,12 +82,11 @@ namespace Homefind.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Submit()
+        public async Task<IActionResult> Submit(NotificationType notification = NotificationType.None)
         {
-            await SetCacheEntries();
+            ViewBag.notification = notification;
 
-            //var user = (await _userManager.FindByNameAsync(User.Identity.Name)).UserIdNumeric;
-            //var recommended = await _propertyRecommender.Recommend(user);
+            await SetCacheEntries();
 
             return View();
         }
@@ -95,16 +94,25 @@ namespace Homefind.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Submit(SubmitPropertyModel model, ICollection<IFormFile> images)
         {
-            model.Images = ProcessImageFileData(images);
+            var notification = NotificationType.Success;
+            try
+            {
+                model.Images = ProcessImageFileData(images);
 
-            await _propertyViewModelService.AddProperty(model, User.Identity.Name);
+                await _propertyViewModelService.AddProperty(model, User.Identity.Name);
+            }
+            catch
+            {
+                notification = NotificationType.Error;
+            }
 
-            return RedirectToAction(nameof(Submit));
+            return RedirectToAction(nameof(Submit), new { notification });
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id, NotificationType notification = NotificationType.None)
         {
+            ViewBag.notification = notification;
             var property = await _propertyViewModelService.GetProperty(id, User.Identity.Name);
 
             return View(property);
@@ -113,11 +121,19 @@ namespace Homefind.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EstateUnit editModel, ICollection<IFormFile> images)
         {
-            editModel.EstateImages = ProcessImageFileData(images);
+            var notification = NotificationType.Success;
+            try
+            {
+                editModel.EstateImages = ProcessImageFileData(images);
 
-            await _propertyViewModelService.UpdateProperty(editModel);
+                await _propertyViewModelService.UpdateProperty(editModel);
+            }
+            catch
+            {
+                notification = NotificationType.Error;
+            }
 
-            return RedirectToAction(nameof(Edit), new { id = editModel.Id });
+            return RedirectToAction(nameof(Edit), new { id = editModel.Id, notification });
         }
 
         [HttpGet]
@@ -162,7 +178,6 @@ namespace Homefind.Web.Controllers
                 default:
                     break;
             }
-
 
             return 1;
         }

@@ -36,6 +36,13 @@ namespace Homefind.Core.Constants
         All = 3
     }
 
+    public enum NotificationType
+    {
+        Success,
+        Error,
+        None
+    }
+
     public enum ToggleFavouritesAction
     {
         Add,
