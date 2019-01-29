@@ -10,7 +10,7 @@
 @section Scripts{
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpPWjqZSUIVw2EA2y3NGccb9PX8U3G1_M&libraries=places&callback=initAutocomplete"
             async defer></script>
-    <script src="~/Scripts/autocomplete.js"></script>
+    <script src="~/Scripts/home.js"></script>
 }
 
 <!-- Intro Section Start -->
@@ -84,7 +84,9 @@
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-xs-12">
                                     <!-- Page contents -->
-                                    <input asp-for="FilterSpecification.PriceFrom" type="text" id="range" value="" name="range" />
+                                    <input id="hdn-price-from" type="hidden" asp-for="FilterSpecification.PriceFrom" />
+                                    <input id="hdn-price-to" type="hidden" asp-for="FilterSpecification.PriceTo" />
+                                    <input type="text" id="range" value="" name="range" />
                                 </div>
                                 <div class="col-lg-3 col-md-12 col-xs-12">
                                     <div class="text-right btn-section">
