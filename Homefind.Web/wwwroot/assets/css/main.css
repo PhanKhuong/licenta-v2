@@ -1122,10 +1122,6 @@ select.classic {
     color: white;
 }
 
-.far.fa-heart svg {
-    color: red;
-}
-
 .item-body {
     padding: 20px;
     width: 100%;
