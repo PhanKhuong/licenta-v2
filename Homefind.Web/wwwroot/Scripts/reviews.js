@@ -1,12 +1,6 @@
 ﻿jQuery(document).ready(function ($) {
-    AddSendFeedbackEventHandler();
+    $("#btn-send-review").on('click', SendFeedback);
 });
-
-function AddSendFeedbackEventHandler() {
-    $("#btn-send-review").click(function () {
-        SendFeedback();
-    });
-}
 
 function GetFeedbackModel() {
     var rating = $("input[name='group1']:checked").val();
@@ -23,7 +17,7 @@ function GetFeedbackModel() {
 function SendFeedback() {
     var model = GetFeedbackModel();
     if (!model.Comment) {
-        ShowReviewAlert(GetErrorAlert());
+        Notify('Error', 'Please fill in the feedback section.');
         return;
     }
 
@@ -43,41 +37,11 @@ function SendFeedback() {
             $('#modalPoll-1').modal('show');
             AddSendFeedbackEventHandler();
             HideLoader();
-            ShowReviewAlert(GetSuccessAlert());
+            Notify('Success', 'Your feedback was sent!');
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
             alert(thrownError);
         }
     });
-}
-
-function GetSuccessAlert() {
-    return '<div class="alert alert-success">' +
-        '<button type="button" class="close" data-dismiss="alert">' +
-        '&times;</button>Your feedback was sent!</div>';
-}
-
-function GetErrorAlert() {
-    return '<div class="alert alert-danger">' +
-        '<button type="button" class="close" data-dismiss="alert">' +
-        '&times;</button>Please fill in the feedback section.</div>';
-}
-
-function ShowReviewAlert(alert) {
-    $("#review-alert").animate({
-        height: '+=72px'
-    }, 300);
-
-    $(alert).hide().appendTo('#review-alert').fadeIn(1000);
-
-    $(".alert").delay(3000).fadeOut(
-        "normal",
-        function () {
-            $(this).remove();
-        });
-
-    $("#review-alert").delay(4000).animate({
-        height: '-=72px'
-    }, 300);
 }

@@ -100,3 +100,33 @@ function RemoveFromFavourites() {
         }
     });
 }
+
+function Notify(alertType, message) {
+    if (alertType === "Success") {
+        $("#notification-wrapper").html(NotifySuccess(message));
+    }
+    else if (alertType === "Error") {
+        $("#notification-wrapper").html(NotifyError(message));
+    }
+    else {
+        $("#notification-wrapper").empty();
+    }
+
+    $("#notification-wrapper").fadeIn().delay(5000).fadeOut();
+}
+
+function NotifySuccess(message) {
+    return "<div class='alert alert-success alert-dismissible fade show' role='alert'>" +
+        "<strong>Thank you!</strong> " + message +
+        "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+        "<span aria-hidden='true'>&times;</span>" +
+        "</button></div>";
+}
+
+function NotifyError(message) {
+    return "<div class='alert alert-danger alert-dismissible fade show' role='alert'>" +
+        "<strong>Oops!</strong> " + message +
+        "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+        "<span aria-hidden='true'>&times;</span>" +
+        "</button></div>";
+}

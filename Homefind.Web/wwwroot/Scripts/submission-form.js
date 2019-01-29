@@ -3,38 +3,21 @@
 
     $(".image-container").sortable();
 
-    Notify();
+    ShowNotification();
 });
 
-function Notify() {
+function ShowNotification() {
     var input = $("#notification-message").val();
-    if (input === "Success") {
-        $("#notification-wrapper").html(NotifySuccess());
+    switch (input) {
+        case 'Error':
+            Notify(input, 'An error occured while saving your listing.');
+            break;
+        case 'Success':
+            Notify(input, 'Your listing was successfully saved.');
+            break;
+        default:
+            return;
     }
-    else if (input === "Error") {
-        $("#notification-wrapper").html(NotifyError());
-    }
-    else {
-        $("#notification-wrapper").empty();
-    }
-
-    $("#notification-wrapper").fadeIn().delay(5000).fadeOut();
-}
-
-function NotifySuccess() {
-    return "<div class='alert alert-success alert-dismissible fade show' role='alert'>" +
-        "<strong>Thank you!</strong> Your listing was successfully saved." +
-        "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
-        "<span aria-hidden='true'>&times;</span>" +
-        "</button></div>";
-}
-
-function NotifyError() {
-    return "<div class='alert alert-danger alert-dismissible fade show' role='alert'>" +
-        "<strong>Oops!</strong> An error occured while saving your listing." +
-        "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
-        "<span aria-hidden='true'>&times;</span>" +
-        "</button></div>";
 }
 
 var num = 1;
