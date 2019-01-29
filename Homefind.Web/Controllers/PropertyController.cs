@@ -78,7 +78,7 @@ namespace Homefind.Web.Controllers
         {
             HttpContext.Session.SetString("filters", JsonConvert.SerializeObject(model.FilterSpecification));
 
-            return RedirectToAction(nameof(Index), new { page=Constants.FirstPage, sortOptions=SortOptions.Newest, listingType=model.FilterSpecification.Reason });
+            return RedirectToAction(nameof(Index), new { page = Constants.FirstPage, sortOptions = SortOptions.Newest, listingType = model.FilterSpecification.Reason });
         }
 
         [HttpGet]
@@ -95,26 +95,7 @@ namespace Homefind.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Submit(SubmitPropertyModel model, ICollection<IFormFile> images)
         {
-            foreach (var uploadedImage in images)
-            {
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    uploadedImage.OpenReadStream().CopyTo(ms);
-
-                    Image image = Image.FromStream(ms);
-
-                    EstateImage imageEntity = new EstateImage()
-                    {
-                        Name = uploadedImage.Name,
-                        Data = ms.ToArray(),
-                        Width = image.Width,
-                        Height = image.Height,
-                        ContentType = uploadedImage.ContentType
-                    };
-
-                    model.Images.Add(imageEntity);
-                }
-            }
+            model.Images = ProcessImageFileData(images);
 
             await _propertyViewModelService.AddProperty(model, User.Identity.Name);
 
@@ -124,16 +105,19 @@ namespace Homefind.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            try
-            {
+            var property = await _propertyViewModelService.GetProperty(id, User.Identity.Name);
 
+            return View(property);
+        }
 
-                return View();
-            }
-            catch
-            {
-                return View();
-            }
+        [HttpPost]
+        public async Task<IActionResult> Edit(EstateUnit editModel, ICollection<IFormFile> images)
+        {
+            editModel.EstateImages = ProcessImageFileData(images);
+
+            await _propertyViewModelService.UpdateProperty(editModel);
+
+            return RedirectToAction(nameof(Edit), new { id = editModel.Id });
         }
 
         [HttpGet]
@@ -207,6 +191,34 @@ namespace Homefind.Web.Controllers
             if (propertyId != 0)
                 return _propertyViewModelService.GetPropertyLocationAddress(propertyId);
             else return string.Empty;
+        }
+
+        public ICollection<EstateImage> ProcessImageFileData(ICollection<IFormFile> images)
+        {
+            var processedImages = new List<EstateImage>();
+
+            foreach (var uploadedImage in images)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    uploadedImage.OpenReadStream().CopyTo(ms);
+
+                    Image image = Image.FromStream(ms);
+
+                    EstateImage imageEntity = new EstateImage()
+                    {
+                        Name = uploadedImage.Name,
+                        Data = ms.ToArray(),
+                        Width = image.Width,
+                        Height = image.Height,
+                        ContentType = uploadedImage.ContentType
+                    };
+
+                    processedImages.Add(imageEntity);
+                }
+            }
+
+            return processedImages;
         }
     }
 }

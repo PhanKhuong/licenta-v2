@@ -17,6 +17,7 @@ namespace Homefind.Web.Services
         private readonly IMapper _mapper;
         private readonly IRepository<Favourites> _favouritesRepository;
         private readonly IRepository<EstateType> _propertyTypesRepository;
+        private readonly IRepository<EstateFeature> _featureRepository;
         private readonly IRepository<EstateLocation> _locationRepository;
         private readonly IRepository<EstateImage> _imageRepository;
         private readonly IRepository<Review> _reviewRepository;
@@ -29,6 +30,7 @@ namespace Homefind.Web.Services
             IRepository<EstateLocation> locationRepository,
             IRepository<EstateImage> imageRepository,
             IRepository<Review> reviewRepository,
+            IRepository<EstateFeature> featureRepository,
             IPropertyRepository propertyRepository)
         {
             _mapper = mapper;
@@ -38,6 +40,7 @@ namespace Homefind.Web.Services
             _locationRepository = locationRepository;
             _imageRepository = imageRepository;
             _reviewRepository = reviewRepository;
+            _featureRepository = featureRepository;
         }
 
         public async Task<IEnumerable<EstateType>> GetPropertyTypes()
@@ -161,6 +164,28 @@ namespace Homefind.Web.Services
                 default:
                     return unsorted;
             }
+        }
+
+        public async Task UpdateProperty(EstateUnit editModel)
+        {
+            var existing = _propertyRepository.GetById(editModel.Id);
+            existing.Title = editModel.Title;
+            existing.Price = editModel.Price;
+            existing.Reason = editModel.Reason;
+            existing.Description = editModel.Description;
+
+            var existingFeature = _featureRepository.GetById(existing.Id);
+            await _featureRepository.Delete(existingFeature);
+            existing.EstateFeature = editModel.EstateFeature;
+
+            var existingImages = (await _imageRepository.ListWithFilter(new PropertyImageFilter(existing.Id))).ToArray();
+            for (int i = 0; i < existingImages.Count(); i++)
+            {
+                await _imageRepository.Delete(existingImages[i]);
+            }
+            existing.EstateImages = editModel.EstateImages;
+
+            _propertyRepository.Update(existing);
         }
     }
 }

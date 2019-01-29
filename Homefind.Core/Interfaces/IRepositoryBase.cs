@@ -6,7 +6,7 @@ namespace Homefind.Core.Interfaces
 {
     public interface IRepository<T> where T : BaseEntity
     {
-        T GetById(int id);
+        T GetById(long id);
         T GetSingleByFilter(IFilter<T> filter);
         Task<IEnumerable<T>> ListAll();
         Task<IEnumerable<T>> ListWithFilter(IFilter<T> filter);

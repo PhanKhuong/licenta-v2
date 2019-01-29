@@ -6,6 +6,7 @@
 
 var num = 1;
 function readImage() {
+    $(".image-container").empty();
     if (window.File && window.FileList && window.FileReader) {
         var files = event.target.files;
         var output = $(".image-container");

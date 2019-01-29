@@ -1,5 +1,5 @@
 ﻿@using Homefind.Core.Constants
-@model Homefind.Web.Models.PropertyViewModels.SubmitPropertyModel
+@model Homefind.Core.DomainModels.EstateUnit
 
 @{
     ViewData["Title"] = "SubmitProperty";
@@ -30,7 +30,7 @@
                     </div>*@
 
                 <div class="submit-form">
-                    <form asp-action="Submit" asp-controller="Property" method="post" enctype="multipart/form-data">
+                    <form asp-action="Edit" asp-controller="Property" method="post" enctype="multipart/form-data">
                         <h3 class="heading">Basic Information</h3>
                         <div class="row mb-3">
                             <div class="col-md-12">
@@ -48,46 +48,10 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6">
-                                <div class="form-group">
-                                    <label>Type</label>
-                                    <select class="classic"
-                                            asp-for="EstateTypeId"
-                                            asp-items="@(new SelectList(ViewBag.PropertyTypes, "Id", "TypeName"))"></select>
-                                </div>
-                            </div>
                             <div class="col-lg-3 col-md-6">
                                 <div class="form-group">
                                     <label>Price</label>
                                     <input asp-for="Price" class="form-control" placeholder="USD" required>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="form-group">
-                                    <label>Area/Location</label>
-                                    <input asp-for="CarpetArea" class="form-control" placeholder="SqFt" required>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="form-group">
-                                    <label>Bedrooms</label>
-                                    <select asp-for="Bedrooms" class="classic">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="form-group">
-                                    <label>Bathroom</label>
-                                    <select asp-for="Bathrooms" class="classic">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -95,36 +59,17 @@
                         <div class="row mb-3">
                             <div class="col-lg-12">
                                 <fieldset class="form-group">
-                                    <input class="form-control" asp-for="Images" type="file" id="images" name="images" multiple required>
+                                    <input class="form-control" asp-for="EstateImages" type="file" id="images" name="images" multiple required>
                                 </fieldset>
                                 <div class="image-container">
-                                </div>
-                            </div>
-                        </div>
-                        <h3 class="heading">Location</h3>
-                        <div class="row mb-3">
-                            <div class="col-lg-6 col-md-6">
-                                <div class="form-group">
-                                    <label>Address</label>
-                                    <input asp-for="Address" id="autocomplete" type="text" onFocus="geolocate()" name="address" class="form-control" placeholder="Address" required>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                                <div class="form-group">
-                                    <label>Postal Code</label>
-                                    <input id="postal_code" asp-for="ZipCode" type="text" class="form-control" disabled="disabled" placeholder="Postal Code">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                                <div class="form-group">
-                                    <label>City</label>
-                                    <input id="locality" class="form-control" asp-for="City" disabled="disabled" placeholder="City" required />
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                                <div class="form-group">
-                                    <label>Country</label>
-                                    <input id="country" class="form-control" asp-for="Country" disabled="disabled" placeholder="Country" required />
+                                    @foreach(var image in Model.EstateImages)
+                                    {
+                                        <div class="preview-image">
+                                            <div class="image-zone">
+                                                <img src='@Url.Action("ViewImage", "Property", new { imageId = image.Id })' />
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -137,18 +82,6 @@
                                     <textarea asp-for="Description" class="form-control" placeholder="Detailed Information" required></textarea>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4">
-                                <div class="form-group">
-                                    <label>Building Age (optional)</label>
-                                    <select class="classic">
-                                        <option>0-5 Years</option>
-                                        <option>0-10 Years</option>
-                                        <option>0-15 Years</option>
-                                        <option>0-20 Years</option>
-                                        <option>0-25 Years</option>
-                                    </select>
-                                </div>
-                            </div>
                         </div>
 
                         <h3 class="heading">Features (optional)</h3>
@@ -156,19 +89,19 @@
                             <div class="col-lg-4 col-md-4">
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input asp-for="HasCarParking" class="form-check-input" type="checkbox" id="free-parking">
+                                        <input asp-for="EstateFeature.HasCarParking" class="form-check-input" type="checkbox" id="free-parking">
                                         <label class="form-check-label" for="free-parking">Car parking</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input asp-for="HasInternet" class="form-check-input" type="checkbox" id="has-internet">
+                                        <input asp-for="EstateFeature.HasInternet" class="form-check-input" type="checkbox" id="has-internet">
                                         <label class="form-check-label" for="has-internet">Internet</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input asp-for="HasTv" class="form-check-input" type="checkbox" id="has-tv">
+                                        <input asp-for="EstateFeature.HasTv" class="form-check-input" type="checkbox" id="has-tv">
                                         <label class="form-check-label" for="has-tv">TV</label>
                                     </div>
                                 </div>
@@ -176,13 +109,13 @@
                             <div class="col-lg-4 col-md-4">
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input asp-for="IsFurnished" class="form-check-input" type="checkbox" id="is-furnished">
+                                        <input asp-for="EstateFeature.IsFurnished" class="form-check-input" type="checkbox" id="is-furnished">
                                         <label class="form-check-label" for="is-furnished">Furnished</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input asp-for="HasAirConditioning" class="form-check-input" type="checkbox" id="air-condition">
+                                        <input asp-for="EstateFeature.HasAirConditioning" class="form-check-input" type="checkbox" id="air-condition">
                                         <label class="form-check-label" for="air-condition">Air conditioning</label>
                                     </div>
                                 </div>
@@ -190,36 +123,15 @@
                             <div class="col-lg-4 col-md-4">
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input asp-for="HasSwimmingPool" class="form-check-input" type="checkbox" id="swimming-pool">
+                                        <input asp-for="EstateFeature.HasSwimmingPool" class="form-check-input" type="checkbox" id="swimming-pool">
                                         <label class="form-check-label" for="swimming-pool">Swimming pool</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input asp-for="ArePetsAllowed" class="form-check-input" type="checkbox" id="allow-pets">
+                                        <input asp-for="EstateFeature.ArePetsAllowed" class="form-check-input" type="checkbox" id="allow-pets">
                                         <label class="form-check-label" for="allow-pets">Pets allowed</label>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h3 class="heading">Contact Details</h3>
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4">
-                                <div class="form-group">
-                                    <label>Name</label>
-                                    <input type="text" name="name" class="form-control" placeholder="Name">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4">
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="email" name="email" class="form-control" placeholder="Email">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4">
-                                <div class="form-group">
-                                    <label>Phone</label>
-                                    <input type="text" name="name" class="form-control" placeholder="Phone">
                                 </div>
                             </div>
                         </div>

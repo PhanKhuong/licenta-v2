@@ -33,7 +33,7 @@ namespace Homefind.Infrastructure.Data
             await _context.SaveChangesAsync();
         }
 
-        public T GetById(int id)
+        public T GetById(long id)
         {
             return _context.Set<T>().First(x => x.Id == id);
         }

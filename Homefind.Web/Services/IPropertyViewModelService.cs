@@ -20,6 +20,7 @@ namespace Homefind.Web.Services
         Task RemoveFromFavourites(int propertyId, string username);
         Task AddProperty(SubmitPropertyModel propertyModel, string user);
         Task<EstateUnit> GetProperty(int propertyId, string userName);
+        Task UpdateProperty(EstateUnit editModel);
         EstateImage GetImageById(int imageId);
         Task<PagedCollection<EstateUnit>> GetUserListing(string userName, int pageNumber, int itemsPerPage);
         string GetPropertyLocationAddress(int propertyId);
