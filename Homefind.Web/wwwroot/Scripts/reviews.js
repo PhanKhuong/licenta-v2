@@ -35,7 +35,7 @@ function SendFeedback() {
             $("#review-component").empty();
             $("#review-component").append(data);
             $('#modalPoll-1').modal('show');
-            AddSendFeedbackEventHandler();
+            $("#btn-send-review").on('click', SendFeedback);
             HideLoader();
             Notify('Success', 'Your feedback was sent!');
         },
