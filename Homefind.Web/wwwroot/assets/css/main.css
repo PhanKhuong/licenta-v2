@@ -1114,9 +1114,21 @@ select.classic {
   background: rgb(39, 74, 187);
 }
 
+.label-inner-heart {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 3;
+    color: white;
+}
+
+.far.fa-heart svg {
+    color: red;
+}
+
 .item-body {
-  padding: 20px;
-  width: 100%;
+    padding: 20px;
+    width: 100%;
 }
 
 .item-body .property-title {
@@ -4275,8 +4287,8 @@ textarea {
     pointer-events: none;
 }
 
-.fa-heart-red{
-    color: orangered;
+.fa-heart-red {
+    color: #f50057;
 }
 
 .action-edit {

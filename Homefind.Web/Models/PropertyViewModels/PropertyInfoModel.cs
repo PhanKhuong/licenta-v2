@@ -1,8 +1,4 @@
 ﻿using Homefind.Core.Constants;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Homefind.Web.Models.PropertyViewModels
 {
@@ -19,5 +15,6 @@ namespace Homefind.Web.Models.PropertyViewModels
         public string City { get; set; }
         public string Address { get; set; }
         public int AvatarImageId { get; set; }
+        public bool IsMarkedAsFavourite { get; set; }
     }
 }

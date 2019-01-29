@@ -73,7 +73,7 @@
                                         <span class="lni-map-marker"></span>
                                     </div>
                                     <div class="info">
-                                        <h6 class="number">12</h6>
+                                        <h6 class="number">@Model.Listings.TotalItems</h6>
                                         <p class="type">Listing</p>
                                     </div>
                                 </div>
@@ -84,19 +84,8 @@
                                         <span class="lni-thumbs-up"></span>
                                     </div>
                                     <div class="info">
-                                        <h6 class="number">30</h6>
+                                        <h6 class="number">@Model.Reviews.TotalItems</h6>
                                         <p class="type">Review</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="item">
-                                    <div class="icon">
-                                        <span class="lni-comments"></span>
-                                    </div>
-                                    <div class="info">
-                                        <h6 class="number">18</h6>
-                                        <p class="type">Messages</p>
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +101,7 @@
                                     <tr>
                                         <th>Listing Name</th>
                                         <th>Date Posted</th>
-                                        <th>Rating</th>
+                                        <th>Price</th>
                                         <th>Status</th>
                                         <th>Edit</th>
                                     </tr>
@@ -122,17 +111,9 @@
                                     {
                                         <tr>
                                             <td>@listing.Title</td>
-                                            <td>@listing.DatePosted.ToShortDateString()</td>
-                                            <td class="rating"><span>4.3</span></td>
-                                            <td class="status">
-                                                @if (listing.Status == "1")
-                                                {
-                                                    <span class=" active">Active</span>}
-                                                else
-                                                {
-                                                    <span class=" active">Inactive</span>
-                                                }
-                                            </td>
+                                            <td>@listing.DatePosted.ToString("MMM dd yyyy")</td>
+                                            <td class="rating"><span>@listing.Price.ToString("C")</span></td>
+                                            <td class="status">@listing.Reason.ToString()</td>
                                             <td class="edit">
                                                 <a asp-action="Edit" asp-controller="Property"
                                                    asp-route-id="@listing.Id"><span class="lni-pencil"></span></a>
@@ -200,11 +181,17 @@
                                         <h6>
                                             @review.ReviewerName
                                             <span class="stars">
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star"></i>
-                                                <i class="lni-star"></i>
+                                                @for (var i = 1; i <= 5; i++)
+                                                {
+                                                    if (i <= review.Rating)
+                                                    {
+                                                        <i class="lni-star-filled"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="lni-star"></i>
+                                                    }
+                                                }
                                             </span>
                                         </h6>
                                         <p class="post-time">@review.DateFormatted</p>

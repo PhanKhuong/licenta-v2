@@ -3,7 +3,7 @@
 $(document).ready(function () {
     PassDataToFavouritesConfirmationModal();
 
-    $('#btnAddToFavourites').on('click', AddToFavourites);
+    $('.favourites-widget').on('click', AddToFavourites);
 
     $("#btnRemoveFromFavourites").on('click', RemoveFromFavourites);
 
@@ -56,27 +56,34 @@ function PassDataToFavouritesConfirmationModal() {
 }
 
 function AddToFavourites() {
-    $("#btnAddToFavourites").addClass("is-disabled");
+    var propertyId = $('#modelId', this);
+    var isFavourite = $("#isFavourite", this);
+    var heartIcon = $(".fa-heart", this);
+
+    ShowLoader();
+
+    var id = propertyId.val();
     var action = "Add";
-    if ($("#isFavourite").val() === "True") {
+    if (isFavourite.val() === "True") {
         action = "Remove";
-        $("#isFavourite").val("False");
+        isFavourite.val("False");
     }
     else {
-        $("#isFavourite").val("True");
+        isFavourite.val("True");
     }
 
     $.ajax({
         type: "POST",
         url: "/Property/ToggleFavourite",
-        data: { propertyId: $('#modelId').val(), action: action },
+        data: { propertyId: id, action: action },
         dataType: "json",
         success: function (data) {
-            $("#btnAddToFavourites").removeClass("is-disabled");
+            HideLoader();
+
             if (action === "Add")
-                $(".fa-heart").addClass("fa-heart-red");
+                heartIcon.addClass("fa-heart-red");
             else
-                $(".fa-heart").removeClass("fa-heart-red");
+                heartIcon.removeClass("fa-heart-red");
         }
     });
 }

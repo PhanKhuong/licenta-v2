@@ -68,6 +68,13 @@ namespace Homefind.Web.Controllers
             model.Properties = await _propertyViewModelService
                 .ListProperties(model.FilterSpecification, page == 0 ? 1 : page, Constants.ItemsPerPage, model.SortOption);
 
+            var favourites = await _propertyViewModelService.ListFavourites(User.Identity.Name, Constants.FirstPage, int.MaxValue);
+
+            model.Properties.ForEach(p =>
+            {
+                p.IsMarkedAsFavourite = favourites.Any(f => f.EstateUnitId == p.Id);
+            });
+
             await SetCacheEntries();
 
             return View(model);

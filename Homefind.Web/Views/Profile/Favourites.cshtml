@@ -73,7 +73,7 @@
                                     <th></th>
                                     <th>Date Added</th>
                                     <th>Views</th>
-                                    <th>Actions</th>
+                                    <th>Remove</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -90,10 +90,10 @@
                                             <div class="inner">
                                                 <a href="#"><h2>@favourite.Title</h2></a>
                                                 <figure><i class="lni-map-marker"></i> @($"{favourite.Address}, {favourite.City}")</figure>
-                                                <div class="tag price">$ @favourite.Price</div>
+                                                <div class="tag price">@favourite.Price.ToString("C")</div>
                                             </div>
                                         </td>
-                                        <td>@favourite.DateAdded.ToShortDateString()</td>
+                                        <td>@favourite.DateAdded.ToString("MMM dd yyyy")</td>
                                         <td>@favourite.Views</td>
                                         <td class="actions">
                                             <div class="action-delete">

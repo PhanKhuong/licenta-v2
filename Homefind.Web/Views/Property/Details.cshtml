@@ -64,7 +64,9 @@
                             <li><span>$@Model.Price</span></li>
                             <li><a href="#"><i class="lni-bookmark-alt"></i></a></li>
                             <li>
-                                <a id="btnAddToFavourites">
+                                <a class="favourites-widget">
+                                    <input type="hidden" id="modelId" asp-for="Id" />
+                                    <input type="hidden" id="isFavourite" asp-for="IsMarkedAsFavourite" />
                                     @if (!Model.IsMarkedAsFavourite)
                                     {
                                         <i class="fas fa-heart"></i>
@@ -236,8 +238,6 @@
                     <button class="widget-button"><i class="lni-printer"></i></button>
                     <button id="addFav" class="widget-button"><i class="lni-star"></i></button>
                     <button class="widget-button"><i class="lni-zip"></i></button>
-                    <input type="hidden" id="modelId" asp-for="Id" />
-                    <input type="hidden" id="isFavourite" asp-for="IsMarkedAsFavourite" />
                     <div class="clearfix"></div>
                 </div>
 

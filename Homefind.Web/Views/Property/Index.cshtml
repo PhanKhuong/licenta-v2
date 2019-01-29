@@ -63,6 +63,18 @@
                                         <a class="hover-effect" href='@Url.Action("Details", "Property", new { propertyId = property.Id })'>
                                             <img class="img-fluid" src='@Url.Action("ViewImage", "Property", new { imageId = property.AvatarImageId })' alt="">
                                         </a>
+                                        <div class="label-inner-heart favourites-widget">
+                                            <input type="hidden" id="modelId" asp-for="@property.Id" />
+                                            <input type="hidden" id="isFavourite" asp-for="@property.IsMarkedAsFavourite" />
+                                            @if (!property.IsMarkedAsFavourite)
+                                            {
+                                                <i class="fas fa-heart fa-2x"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fas fa-heart fa-2x fa-heart-red"></i>
+                                            }
+                                        </div>
                                         <div class="label-inner">
                                             <span class="label-status label bg-red">@EnumHelper.GetDescription(property.Reason)</span>
                                         </div>
