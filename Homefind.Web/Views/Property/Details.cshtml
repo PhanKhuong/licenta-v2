@@ -1,6 +1,7 @@
 ﻿@using Homefind.Core.DomainModels
 @using Homefind.Infrastructure.Identity
 @using Microsoft.AspNetCore.Identity
+@using Homefind.Core.Constants
 
 @model EstateUnit
 @inject UserManager<ApplicationUser> UserManager
@@ -38,7 +39,7 @@
             <div class="row">
                 <div class="col-lg-4 col-md-12 col-xs-12">
                     <div class="info">
-                        <h3>@Model.Title <span class="badge">sale</span></h3>
+                        <h3>@Model.Title <span class="badge">@EnumHelper.GetDescription(Model.Reason)</span></h3>
                         <p class="address"><i class="lni-map-marker"></i> @Model.EstateLocation.Address</p>
                     </div>
                 </div>
@@ -61,7 +62,7 @@
                 <div class="col-lg-4 col-md-12 col-xs-12">
                     <div class="others">
                         <ul>
-                            <li><span>$@Model.Price</span></li>
+                            <li><span>@Model.Price.ToString("C")</span></li>
                             <li><a href="#"><i class="lni-bookmark-alt"></i></a></li>
                             <li>
                                 <a class="favourites-widget">
@@ -336,22 +337,30 @@
                 <div class="widget">
                     <h3 class="sidebar-title">Mortgage Calculator</h3>
                     <form class="mortgage-calc">
-                        <p class="tip-content">Set This Property Price</p>
-                        <div class="calc-input">
-                            <input type="text" class="form-control" name="amount" placeholder="Sale Price" required="">
-                            <label>$</label>
+                        <p class="tip-content">Set this property price</p>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="amount" placeholder="Sale price" required>
                         </div>
-                        <div class="calc-input">
-                            <input type="text" class="form-control" placeholder="Down Payment">
-                            <label class="fa fa-usd">$</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Down payment" required>
                         </div>
-                        <div class="calc-input">
-                            <input type="text" class="form-control" placeholder="Loan Term (Years)" required="">
-                            <label class="lni-calendar"></label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Loan term (Years)" required>
                         </div>
-                        <div class="calc-input">
-                            <input type="text" class="form-control" placeholder="Interest Rate" required="">
-                            <label>%</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-percent"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Interest rate" required>
                         </div>
                         <button class="btn btn-common">Calculate</button>
                     </form>
