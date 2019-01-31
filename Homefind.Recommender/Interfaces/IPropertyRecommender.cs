@@ -6,6 +6,6 @@ namespace Homefind.Recommender.Interfaces
 {
     public interface IPropertyRecommender
     {
-        Task<IEnumerable<EstateUnit>> Recommend(long user);
+        Task<IEnumerable<EstateUnit>> Recommend(long user, int items);
     }
 }

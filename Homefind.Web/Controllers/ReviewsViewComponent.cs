@@ -1,7 +1,5 @@
-﻿using Homefind.Web.Extensions;
-using Homefind.Web.Services;
+﻿using Homefind.Web.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Homefind.Web.Controllers

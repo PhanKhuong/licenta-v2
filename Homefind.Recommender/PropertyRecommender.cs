@@ -23,7 +23,7 @@ namespace Homefind.Recommender
             _favouritesRepository = favouritesRepository;
         }
 
-        public async Task<IEnumerable<EstateUnit>> Recommend(long user)
+        public async Task<IEnumerable<EstateUnit>> Recommend(long user, int items)
         {
             var userFavourites = await _favouritesRepository.ListAll();
             var userItems = userFavourites.Select(uf => new UserItem()
@@ -41,7 +41,7 @@ namespace Homefind.Recommender
 
             var recommender = new GenericBooleanPrefItemBasedRecommender(modelForPreferences, similarity);
 
-            var recommendedItems = recommender.Recommend(user, 10, null);
+            var recommendedItems = recommender.Recommend(user, items, null);
 
             return await GetRecommendedProperties(recommendedItems);
         }

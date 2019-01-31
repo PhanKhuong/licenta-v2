@@ -11,7 +11,7 @@ namespace Homefind.Web.Extensions
         public int TotalItems { get; private set; }
         public int ItemsPerPage { get; private set; }
 
-        public PagedCollection(List<T> items, int count, int pageIndex, int pageSize)
+        private PagedCollection(List<T> items, int count, int pageIndex, int pageSize)
         {
             PageIndex = pageIndex;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
