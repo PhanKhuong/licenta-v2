@@ -6,6 +6,7 @@ using Homefind.Recommender.Interfaces;
 using Homefind.Web.Extensions;
 using Homefind.Web.Models.PropertyViewModels;
 using Homefind.Web.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -88,6 +89,7 @@ namespace Homefind.Web.Controllers
             return RedirectToAction(nameof(Index), new { page = Constants.FirstPage, sortOptions = SortOptions.Newest, listingType = model.FilterSpecification.Reason });
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Submit(NotificationType notification = NotificationType.None)
         {
@@ -116,6 +118,7 @@ namespace Homefind.Web.Controllers
             return RedirectToAction(nameof(Submit), new { notification });
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Edit(int id, NotificationType notification = NotificationType.None)
         {

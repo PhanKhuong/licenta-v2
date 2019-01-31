@@ -5,6 +5,7 @@ using Homefind.Web.Extensions;
 using Homefind.Web.Models.ProfileViewModels;
 using Homefind.Web.Models.PropertyViewModels;
 using Homefind.Web.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -27,6 +28,7 @@ namespace Homefind.Web.Controllers
             _userManager = userManager;
         }
 
+        [Authorize]
         public ActionResult Profile()
         {
             return View();
@@ -71,6 +73,7 @@ namespace Homefind.Web.Controllers
             return RedirectToAction(nameof(Profile));
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Favourites(int page)
         {
@@ -80,6 +83,7 @@ namespace Homefind.Web.Controllers
             return View(favourites);
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Dashboard(int listingPage, int reviewPage)
         {
