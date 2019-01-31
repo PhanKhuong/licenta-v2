@@ -11,11 +11,10 @@
 }
 
 @section Scripts{
-    <script src="~/assets/js/map.js"></script>
-    <script src="~/Scripts/reviews.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6vM8Z6929t6fNJvvXLe_r_yha2C_XAno"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6vM8Z6929t6fNJvvXLe_r_yha2C_XAno&libraries=places"></script>
 
+    <script src="~/assets/js/map.js"></script>
+    <script src="~/Scripts/reviews.js"></script>
     <script src="~/assets/mdb/js/popper.min.js"></script>
     <script src="~/assets/mdb/js/bootstrap.min.js"></script>
     <script src="~/assets/mdb/js/mdb.js"></script>
@@ -206,6 +205,10 @@
                 <!-- Widget -->
                 <div class="widget mb2">
                     <div class="widget-wrap">
+                        <button class="widget-button"><i class="fas fa-car"></i></button>
+                        <span>Traffic</span>
+                    </div>
+                    <div class="widget-wrap">
                         <button class="widget-button"><i class="fas fa-graduation-cap"></i></button>
                         <span>Schools</span>
                     </div>
@@ -226,7 +229,7 @@
 
                 <div class="inner-box location-map">
                     <h2 class="desc-title">Location On Map</h2>
-                    <div id="conatiner-map"></div>
+                    <div id="map-container"></div>
                 </div>
 
             </div>
