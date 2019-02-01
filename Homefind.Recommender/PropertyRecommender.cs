@@ -25,7 +25,7 @@ namespace Homefind.Recommender
 
         public async Task<IEnumerable<EstateUnit>> Recommend(long user, int items)
         {
-            var userFavourites = await _favouritesRepository.ListAll();
+            var userFavourites = await _favouritesRepository.ListAllAsync();
             var userItems = userFavourites.Select(uf => new UserItem()
             {
                 UserId = uf.UserIdNumeric,
@@ -49,7 +49,7 @@ namespace Homefind.Recommender
         private async Task<IEnumerable<EstateUnit>> GetRecommendedProperties(IList<IRecommendedItem> recommendedItems)
         {
             var recommendedItemsIds = recommendedItems.Select(ri => ri.GetItemID()).ToList();
-            var recommendedProperties = await _propertyRepository.GetListOfPropertiesById(recommendedItemsIds);
+            var recommendedProperties = await _propertyRepository.GetListOfPropertiesByIdAsync(recommendedItemsIds);
 
             return recommendedProperties;
         }

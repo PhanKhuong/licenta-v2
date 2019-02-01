@@ -1,58 +1,59 @@
-﻿using Homefind.Core.DomainModels;
+﻿using AutoMapper;
+using Homefind.Core.Constants;
+using Homefind.Core.DomainModels;
 using Homefind.Core.Filters;
 using Homefind.Core.Interfaces;
-using AutoMapper;
+using Homefind.Infrastructure.Data;
 using Homefind.Web.Extensions;
 using Homefind.Web.Models.PropertyViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Homefind.Core.Constants;
 
 namespace Homefind.Web.Services
 {
     public class PropertyViewModelService : IPropertyViewModelService
     {
         private readonly IMapper _mapper;
-        private readonly IRepository<Favourites> _favouritesRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IFavouriteRepository _favouritesRepository;
         private readonly IRepository<EstateType> _propertyTypesRepository;
         private readonly IRepository<EstateFeature> _featureRepository;
         private readonly IRepository<EstateLocation> _locationRepository;
         private readonly IRepository<EstateImage> _imageRepository;
-        private readonly IRepository<Review> _reviewRepository;
         private readonly IPropertyRepository _propertyRepository;
 
 
         public PropertyViewModelService(IMapper mapper,
-            IRepository<Favourites> favouritesRepository,
+            IUnitOfWork unitOfWork,
+            IFavouriteRepository favouritesRepository,
             IRepository<EstateType> propertyTypesRepository,
             IRepository<EstateLocation> locationRepository,
             IRepository<EstateImage> imageRepository,
-            IRepository<Review> reviewRepository,
             IRepository<EstateFeature> featureRepository,
             IPropertyRepository propertyRepository)
         {
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
             _propertyRepository = propertyRepository;
             _favouritesRepository = favouritesRepository;
             _propertyTypesRepository = propertyTypesRepository;
             _locationRepository = locationRepository;
             _imageRepository = imageRepository;
-            _reviewRepository = reviewRepository;
             _featureRepository = featureRepository;
         }
 
         public async Task<IEnumerable<EstateType>> GetPropertyTypes()
         {
-            var types = _propertyTypesRepository.ListAll();
+            var types = _propertyTypesRepository.ListAllAsync();
 
             return await types;
         }
 
         public async Task<IEnumerable<EstateLocation>> GetEstateLocations()
         {
-            var locations = await _locationRepository.ListAll();
+            var locations = await _locationRepository.ListAllAsync();
 
             return locations;
         }
@@ -67,22 +68,13 @@ namespace Homefind.Web.Services
             property.DateAvailable = DateTime.Today;
             property.EstateImages = propertyModel.Images;
 
-            await _propertyRepository.Add(property);
-        }
-
-        public async Task<PagedCollection<FavouritesModel>> ListFavourites(string userName, int pageNumber, int itemsPerPage)
-        {
-            var rootItems = await _favouritesRepository.ListWithFilter(new UserFavouritesFilter(userName));
-
-            var items = _mapper.Map<IEnumerable<Favourites>, IEnumerable<FavouritesModel>>(rootItems);
-            var paginatedItems = PagedCollection<FavouritesModel>.Create(items, pageNumber, itemsPerPage);
-
-            return paginatedItems;
+            await _propertyRepository.AddAsync(property);
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task<PagedCollection<EstateUnit>> GetUserListing(string userName, int pageNumber, int itemsPerPage)
         {
-            var items = await _propertyRepository.ListWithFilter(new UserListingsFilter(userName));
+            var items = await _propertyRepository.GetUserPropertiesAsync(userName);
             var paginatedItems = PagedCollection<EstateUnit>.Create(items, pageNumber, itemsPerPage);
 
             return paginatedItems;
@@ -90,7 +82,7 @@ namespace Homefind.Web.Services
 
         public async Task<PagedCollection<PropertyInfoModel>> ListProperties(PropertyFilterSpecification filter, int pageNumber, int itemsPerPage, SortOptions sortOptions)
         {
-            var rootItems = await _propertyRepository.ListWithFilter(new PropertyFilter(filter));
+            var rootItems = await _propertyRepository.ListWithFilterAsync(new PropertyFilter(filter));
             rootItems = GetSortedProperties(rootItems, sortOptions);
 
             var items = _mapper.Map<IEnumerable<EstateUnit>, IEnumerable<PropertyInfoModel>>(rootItems);
@@ -101,7 +93,7 @@ namespace Homefind.Web.Services
 
         public async Task<PagedCollection<PropertyInfoModel>> ListProperties(int pageNumber, int itemsPerPage, SortOptions sortOptions)
         {
-            var rootItems = await _propertyRepository.ListAllWithEntities();
+            var rootItems = await _propertyRepository.ListAllWithEntitiesAsync();
             rootItems = GetSortedProperties(rootItems, sortOptions);
 
             var items = _mapper.Map<IEnumerable<EstateUnit>, IEnumerable<PropertyInfoModel>>(rootItems);
@@ -112,39 +104,22 @@ namespace Homefind.Web.Services
 
         public async Task<EstateUnit> GetProperty(int propertyId, string userName)
         {
-            var property = _propertyRepository.GetSingleByFilter(new SinglePropertyFilter(propertyId));
-            var favourite = await _favouritesRepository.ListWithFilter(new UserFavouritesFilter(userName));
-
-            property.IsMarkedAsFavourite = favourite.Any(x => x.EstateUnitId == propertyId);
+            var property = await _propertyRepository.GetByIdWithEntitiesAsync(propertyId);
+            property.IsMarkedAsFavourite = _favouritesRepository.IsFavouriteForUser(propertyId, userName);
 
             return property;
         }
 
-        public EstateImage GetImageById(int imageId)
+        public async Task<EstateImage> GetImageById(int imageId)
         {
-            var image = _imageRepository.GetById(imageId);
+            var image = await _imageRepository.GetByIdAsync(imageId);
 
             return image;
         }
 
-        public async Task<Favourites> AddToFavourites(Favourites favourite)
+        public async Task<string> GetPropertyLocationAddress(int propertyId)
         {
-            return await _favouritesRepository.Add(favourite);
-        }
-
-        public async Task RemoveFromFavourites(int propertyId, string username)
-        {
-            var userFavourites = await _favouritesRepository.ListWithFilter(new UserFavouritesFilter(username));
-            var favourite = userFavourites.FirstOrDefault(x => x.EstateUnitId == propertyId);
-            if (favourite != null)
-            {
-                await _favouritesRepository.Delete(favourite);
-            }
-        }
-
-        public string GetPropertyLocationAddress(int propertyId)
-        {
-            var location = _locationRepository.GetById(propertyId);
+            var location = await _locationRepository.GetByIdAsync(propertyId);
 
             return location.Address;
         }
@@ -168,24 +143,29 @@ namespace Homefind.Web.Services
 
         public async Task UpdateProperty(EstateUnit editModel)
         {
-            var existing = _propertyRepository.GetById(editModel.Id);
+            var existing = await _propertyRepository.GetByIdWithEntitiesAsync(editModel.Id);
+
             existing.Title = editModel.Title;
             existing.Price = editModel.Price;
             existing.Reason = editModel.Reason;
             existing.Description = editModel.Description;
 
-            var existingFeature = _featureRepository.GetById(existing.Id);
-            await _featureRepository.Delete(existingFeature);
+            _featureRepository.Delete(existing.EstateFeature);
             existing.EstateFeature = editModel.EstateFeature;
 
-            var existingImages = (await _imageRepository.ListWithFilter(new PropertyImageFilter(existing.Id))).ToArray();
-            for (int i = 0; i < existingImages.Count(); i++)
+            if (editModel.EstateImages != null && editModel.EstateImages.Any())
             {
-                await _imageRepository.Delete(existingImages[i]);
+                var existingImagesArray = existing.EstateImages.ToArray();
+                for (int i = 0; i < existingImagesArray.Length; i++)
+                {
+                    _imageRepository.Delete(existingImagesArray[i]);
+                }
+
+                existing.EstateImages = editModel.EstateImages;
             }
-            existing.EstateImages = editModel.EstateImages;
 
             _propertyRepository.Update(existing);
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 }

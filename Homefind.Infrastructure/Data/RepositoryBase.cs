@@ -1,65 +1,48 @@
 ﻿using Homefind.Core.DomainModels;
 using Homefind.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Homefind.Infrastructure.Data
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
-        protected readonly EstateDbContext _context;
+        protected readonly IUnitOfWork _unitOfWork;
 
-        public Repository(EstateDbContext context)
+        public Repository(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<T> Add(T entity)
+        public async Task<T> AddAsync(T entity)
         {
-            _context.Set<T>().Add(entity);
-            await _context.SaveChangesAsync();
+            await _unitOfWork.Context.Set<T>().AddAsync(entity);
 
             return entity;
         }
 
-        public async Task Delete(T entity)
+        public void Delete(T entity)
         {
-            _context.Set<T>().Remove(entity);
-            await _context.SaveChangesAsync();
+            _unitOfWork.Context.Set<T>().Remove(entity);
         }
 
-        public T GetById(long id)
+        public async Task<T> GetByIdAsync(long id)
         {
-            return _context.Set<T>().First(x => x.Id == id);
+            return await _unitOfWork.Context.Set<T>().FirstAsync(x => x.Id == id);
         }
 
-        public T GetSingleByFilter(IFilter<T> filter)
+        public async Task<IEnumerable<T>> ListAllAsync()
+        {
+            return await _unitOfWork.Context.Set<T>().ToListAsync();
+        }
+
+        public async Task<IEnumerable<T>> ListWithFilterAsync(IFilter<T> filter)
         {
             //Include subset collections in result query
             var listWithIncludedSubsets = filter.Includes
-                .Aggregate(_context.Set<T>().AsQueryable(),
-                    (item, subset) => item.Include(subset));
-
-            //Apply filter criteria
-            return listWithIncludedSubsets
-                .Where(filter.Criteria).SingleOrDefault();
-        }
-
-        public async Task<IEnumerable<T>> ListAll()
-        {
-            return await _context.Set<T>().ToListAsync();
-        }
-
-        public async Task<IEnumerable<T>> ListWithFilter(IFilter<T> filter)
-        {
-            //Include subset collections in result query
-            var listWithIncludedSubsets = filter.Includes
-                .Aggregate(_context.Set<T>().AsQueryable(),
+                .Aggregate(_unitOfWork.Context.Set<T>().AsQueryable(),
                     (item, subset) => item.Include(subset));
 
             //Apply filter criteria
@@ -69,8 +52,7 @@ namespace Homefind.Infrastructure.Data
 
         public void Update(T entity)
         {
-            _context.Set<T>().Update(entity);
-            _context.SaveChanges();
+            _unitOfWork.Context.Set<T>().Update(entity);
         }
     }
 }

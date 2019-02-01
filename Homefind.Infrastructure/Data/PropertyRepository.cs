@@ -9,13 +9,28 @@ namespace Homefind.Infrastructure.Data
 {
     public class PropertyRepository : Repository<EstateUnit>, IPropertyRepository
     {
-        public PropertyRepository(EstateDbContext context) : base(context)
+        public PropertyRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 
-        public async Task<IEnumerable<EstateUnit>> ListAllWithEntities()
+        public async Task<EstateUnit> GetByIdWithEntitiesAsync(long id)
         {
-            return await _context.Set<EstateUnit>()
+            return await _unitOfWork.Context.Set<EstateUnit>()
+                .Include(eu => eu.EstateLocation)
+                .Include(eu => eu.EstateFeature)
+                .Include(eu => eu.EstateImages)
+                .Include(eu => eu.EstateType)
+                .FirstOrDefaultAsync(eu => eu.Id == id);
+        }
+
+        public async Task<IEnumerable<EstateUnit>> GetUserPropertiesAsync(string user)
+        {
+            return await _unitOfWork.Context.Set<EstateUnit>().Where(eu => eu.PostedBy == user).ToListAsync();
+        }
+
+        public async Task<IEnumerable<EstateUnit>> ListAllWithEntitiesAsync()
+        {
+            return await _unitOfWork.Context.Set<EstateUnit>()
                 .Include(x => x.EstateFeature)
                 .Include(x => x.EstateImages)
                 .Include(x => x.EstateLocation)
@@ -23,9 +38,9 @@ namespace Homefind.Infrastructure.Data
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<EstateUnit>> GetListOfPropertiesById(IList<long> ids)
+        public async Task<IEnumerable<EstateUnit>> GetListOfPropertiesByIdAsync(IList<long> ids)
         {
-            return await _context.Set<EstateUnit>()
+            return await _unitOfWork.Context.Set<EstateUnit>()
                .Include(x => x.EstateLocation)
                .Include(x => x.EstateImages)
                .AsQueryable()

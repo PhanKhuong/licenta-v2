@@ -25,16 +25,19 @@ namespace Homefind.Web.Controllers
     {
         private readonly IMemoryCache _cache;
         private readonly IPropertyViewModelService _propertyViewModelService;
+        private readonly IProfileViewModelService _profileViewModelService;
         private readonly IPropertyRecommender _propertyRecommender;
         private readonly UserManager<ApplicationUser> _userManager;
 
         public PropertyController(IMemoryCache cache,
                                   IPropertyViewModelService propertyViewModelService,
+                                  IProfileViewModelService profileViewModelService,
                                   IPropertyRecommender propertyRecommender,
                                   UserManager<ApplicationUser> userManager)
         {
             _cache = cache;
             _propertyViewModelService = propertyViewModelService;
+            _profileViewModelService = profileViewModelService;
             _propertyRecommender = propertyRecommender;
             _userManager = userManager;
         }
@@ -69,7 +72,7 @@ namespace Homefind.Web.Controllers
             model.Properties = await _propertyViewModelService
                 .ListProperties(model.FilterSpecification, page == 0 ? 1 : page, Constants.ItemsPerPage, model.SortOption);
 
-            var favourites = await _propertyViewModelService.ListFavourites(User.Identity.Name, Constants.FirstPage, int.MaxValue);
+            var favourites = await _profileViewModelService.ListFavourites(User.Identity.Name, Constants.FirstPage, int.MaxValue);
 
             model.Properties.ForEach(p =>
             {
@@ -147,9 +150,9 @@ namespace Homefind.Web.Controllers
         }
 
         [HttpGet]
-        public FileStreamResult ViewImage(int imageId)
+        public async Task<FileStreamResult> ViewImage(int imageId)
         {
-            var imageThumb = _propertyViewModelService.GetImageById(imageId);
+            var imageThumb = await _propertyViewModelService.GetImageById(imageId);
             MemoryStream ms = new MemoryStream(imageThumb.Data);
 
             return new FileStreamResult(ms, imageThumb.ContentType);
@@ -174,7 +177,7 @@ namespace Homefind.Web.Controllers
             switch (action)
             {
                 case ToggleFavouritesAction.Add:
-                    await _propertyViewModelService.AddToFavourites(new Favourites
+                    await _profileViewModelService.AddToFavourites(new Favourites
                     {
                         EstateUnitId = propertyId,
                         UserId = User.Identity.Name,
@@ -183,7 +186,7 @@ namespace Homefind.Web.Controllers
                     });
                     break;
                 case ToggleFavouritesAction.Remove:
-                    await _propertyViewModelService.RemoveFromFavourites(propertyId, User.Identity.Name);
+                    await _profileViewModelService.RemoveFromFavourites(propertyId, User.Identity.Name);
                     break;
                 default:
                     break;
@@ -211,10 +214,10 @@ namespace Homefind.Web.Controllers
         }
 
         [HttpGet]
-        public string GetPropertyLocationAddress(int propertyId)
+        public async Task<string> GetPropertyLocationAddress(int propertyId)
         {
             if (propertyId != 0)
-                return _propertyViewModelService.GetPropertyLocationAddress(propertyId);
+                return await _propertyViewModelService.GetPropertyLocationAddress(propertyId);
             else return string.Empty;
         }
 

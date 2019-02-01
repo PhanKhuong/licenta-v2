@@ -77,7 +77,7 @@ namespace Homefind.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Favourites(int page)
         {
-            var favourites = await _propertyViewModelService
+            var favourites = await _profileViewModelService
                .ListFavourites(User.Identity.Name, page == 0 ? 1 : page, Constants.ItemsPerPage);
 
             return View(favourites);
@@ -107,7 +107,7 @@ namespace Homefind.Web.Controllers
         {
             try
             {
-                await _propertyViewModelService.RemoveFromFavourites(id, User.Identity.Name);
+                await _profileViewModelService.RemoveFromFavourites(id, User.Identity.Name);
 
                 return RedirectToAction(nameof(Favourites));
             }

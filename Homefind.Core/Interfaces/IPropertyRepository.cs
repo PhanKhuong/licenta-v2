@@ -1,15 +1,17 @@
 ﻿using Homefind.Core.DomainModels;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Homefind.Core.Interfaces
 {
     public interface IPropertyRepository : IRepository<EstateUnit>
     {
-        Task<IEnumerable<EstateUnit>> ListAllWithEntities();
+        Task<EstateUnit> GetByIdWithEntitiesAsync(long id);
 
-        Task<IEnumerable<EstateUnit>> GetListOfPropertiesById(IList<long> ids);
+        Task<IEnumerable<EstateUnit>> GetUserPropertiesAsync(string user);
+
+        Task<IEnumerable<EstateUnit>> ListAllWithEntitiesAsync();
+
+        Task<IEnumerable<EstateUnit>> GetListOfPropertiesByIdAsync(IList<long> ids);
     }
 }
