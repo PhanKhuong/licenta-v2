@@ -81,14 +81,16 @@
                                 {
                                     <tr>
                                         <td class="image">
-                                            <a href="#">
+                                            <a href='@Url.Action("Details", "Property", new { propertyId = favourite.EstateUnitId })'>
                                                 <img alt="image" src='@Url.Action("ViewImage", "Property", new { imageId = favourite.AvatarImageId })'
                                                      class="img-fluid">
                                             </a>
                                         </td>
                                         <td>
                                             <div class="inner">
-                                                <a href="#"><h2>@favourite.Title</h2></a>
+                                                <a href='@Url.Action("Details", "Property", new { propertyId = favourite.EstateUnitId })'>
+                                                    <h2>@favourite.Title</h2>
+                                                </a>
                                                 <figure><i class="lni-map-marker"></i> @($"{favourite.Address}, {favourite.City}")</figure>
                                                 <div class="tag price">@favourite.Price.ToString("C")</div>
                                             </div>
