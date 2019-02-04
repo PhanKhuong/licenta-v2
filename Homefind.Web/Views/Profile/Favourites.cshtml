@@ -1,5 +1,9 @@
 ﻿@using Homefind.Web.Extensions
 @using Homefind.Web.Models.PropertyViewModels
+@using Microsoft.AspNetCore.Identity
+@using Homefind.Infrastructure.Identity;
+
+@inject UserManager<ApplicationUser> UserManager
 
 @model PagedCollection<FavouritesModel>
 
@@ -29,9 +33,9 @@
                 <div class="user-profile-box">
                     <!--header -->
                     <div class="header clearfix">
-                        <h2>@User.Identity.Name</h2>
+                        <h2>@((await UserManager.GetUserAsync(User)).DisplayName)</h2>
                         <h4>Real Estate Agent</h4>
-                        <img src="~/assets/img/avatar/profile-anonimous.png" alt="avatar" class="img-fluid profile-img">
+                        <img src="~/assets/img/avatar/male-avatar.jpg" alt="avatar" class="img-fluid profile-img">
                     </div>
                     <!-- Detail -->
                     <div class="detail clearfix">
@@ -71,8 +75,7 @@
                                 <tr>
                                     <th>Property</th>
                                     <th></th>
-                                    <th>Date Added</th>
-                                    <th>Views</th>
+                                    <th style="width:150px">Date Added</th>
                                     <th>Remove</th>
                                 </tr>
                             </thead>
@@ -96,7 +99,6 @@
                                             </div>
                                         </td>
                                         <td>@favourite.DateAdded.ToString("MMM dd yyyy")</td>
-                                        <td>@favourite.Views</td>
                                         <td class="actions">
                                             <div class="action-delete">
                                                 <i class="far fa-trash-alt" data-toggle="modal" data-target="#modalConfirmRemoveFavourite"

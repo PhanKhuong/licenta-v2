@@ -100,60 +100,6 @@
                     <p>@Model.Description</p>
                 </div>
 
-                <div class="inner-box short-info">
-                    <h2 class="desc-title">Quick Summary</h2>
-                    <ul class="additional-details">
-                        <li>
-                            <strong>AC:</strong>
-                            <span>Central</span>
-                        </li>
-                        <li>
-                            <strong>ACRES:</strong>
-                            <span>0.14</span>
-                        </li>
-                        <li>
-                            <strong>ACRES SOURCE:</strong>
-                            <span>Assessor</span>
-                        </li>
-                        <li>
-                            <strong>AP #:</strong>
-                            <span>2639-017-020</span>
-                        </li>
-                        <li>
-                            <strong>APPLIANCES:</strong>
-                            <span>Cooktop - Gas, Dishwasher, Freestanding Gas Range, Garbage Disposal</span>
-                        </li>
-                        <li>
-                            <strong>BATHROOM DESCRIPTION:</strong>
-                            <span>Remodeled, Skylight(s), Tile Walls</span>
-                        </li>
-                        <li>
-                            <strong>DOORS &amp; WINDOWS:</strong>
-                            <span>Double Pane Windows, Skylights</span>
-                        </li>
-                        <li>
-                            <strong>FIREPLACE DESCRIPTION:</strong>
-                            <span>Brick</span>
-                        </li>
-                        <li>
-                            <strong>FIREPLACE FUEL:</strong>
-                            <span>Uses Both Gas &amp; Wood</span>
-                        </li>
-                        <li>
-                            <strong>FIREPLACE LOCATION:</strong>
-                            <span>Living Room</span>
-                        </li>
-                        <li>
-                            <strong>FLOORS:</strong>
-                            <span>Carpet - Partial, Ceramic Tile</span>
-                        </li>
-                        <li>
-                            <strong>PLUMBING:</strong>
-                            <span>Full Copper Plumbing</span>
-                        </li>
-                    </ul>
-                </div>
-
                 <div class="inner-box featured">
                     <h2 class="desc-title">Details</h2>
                     <ul class="property-features">
@@ -202,29 +148,33 @@
                     </ul>
                 </div>
 
-                <!-- Widget -->
-                <div class="widget mb2">
-                    <div class="widget-wrap">
-                        <button class="widget-button"><i class="fas fa-car"></i></button>
-                        <span>Traffic</span>
+                <div class="inner-box featured">
+                    <h2 class="desc-title">Points of interest</h2>
+
+                    <!-- Widget -->
+                    <div class="widget mb2">
+                        <div class="widget-wrap">
+                            <button class="widget-button"><i class="fas fa-car"></i></button>
+                            <span>Traffic</span>
+                        </div>
+                        <div class="widget-wrap">
+                            <button class="widget-button"><i class="fas fa-graduation-cap"></i></button>
+                            <span>Schools</span>
+                        </div>
+                        <div class="widget-wrap">
+                            <button class="widget-button"><i class="fas fa-utensils"></i></button>
+                            <span>Restaurants</span>
+                        </div>
+                        <div class="widget-wrap">
+                            <button class="widget-button"><i class="fas fa-dollar-sign"></i></button>
+                            <span>Banks</span>
+                        </div>
+                        <div class="widget-wrap">
+                            <button class="widget-button"><i class="fas fa-shopping-cart"></i></button>
+                            <span>Supermarkets</span>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="widget-wrap">
-                        <button class="widget-button"><i class="fas fa-graduation-cap"></i></button>
-                        <span>Schools</span>
-                    </div>
-                    <div class="widget-wrap">
-                        <button class="widget-button"><i class="fas fa-utensils"></i></button>
-                        <span>Restaurants</span>
-                    </div>
-                    <div class="widget-wrap">
-                        <button class="widget-button"><i class="fas fa-dollar-sign"></i></button>
-                        <span>Banks</span>
-                    </div>
-                    <div class="widget-wrap">
-                        <button class="widget-button"><i class="fas fa-shopping-cart"></i></button>
-                        <span>Supermarkets</span>
-                    </div>
-                    <div class="clearfix"></div>
                 </div>
 
                 <div class="inner-box location-map">
@@ -236,30 +186,23 @@
 
             <!--Sidebar-->
             <aside id="sidebar" class="col-lg-4 col-md-12 col-xs-12 right-sidebar">
-                <!-- Widget -->
-                <div class="widget mb2">
-                    <button class="widget-button"><i class="lni-printer"></i></button>
-                    <button id="addFav" class="widget-button"><i class="lni-star"></i></button>
-                    <button class="widget-button"><i class="lni-zip"></i></button>
-                    <div class="clearfix"></div>
-                </div>
 
                 <!-- Property Agent Widget -->
                 <div class="widget mt3">
                     <div class="agent-inner">
                         <div class="agent-title">
                             <div class="agent-photo">
-                                <a href="#"><img src="~/assets/img/avatar/profile-anonimous.png" alt=""></a>
+                                <a href="#"><img src="~/assets/img/avatar/male-avatar.jpg" alt=""></a>
                             </div>
                             <div class="agent-details">
                                 <h3><a href="#">@((await UserManager.FindByNameAsync(Model.PostedBy)).DisplayName)</a></h3>
                                 <span><i class="lni-phone-handset"></i>@((await UserManager.FindByNameAsync(Model.PostedBy)).PhoneNumber)</span>
                             </div>
                         </div>
-                        <input type="text" class="form-control" placeholder="Your Email">
-                        <input type="text" class="form-control" placeholder="Your Phone">
+                        <input type="text" class="form-control" placeholder="Email"
+                               value="@((await UserManager.FindByNameAsync(Model.PostedBy)).Email)" disabled>
                         <input type="hidden" id="propertyOwner" asp-for="@Model.PostedBy">
-                        <p>I'm interested in this property [ID 123456] and I'd like to know more details.</p>
+                        <p>If you had an experience with this owner, don't hesitate to leave a feedback below.</p>
                         <br />
                         <button type="button" class="btn btn-common btn-block"
                                 data-toggle="modal" data-target="#modalPoll-1">
@@ -275,7 +218,7 @@
                         <div class="item">
                             <div class="listing-item">
                                 <a href="#" class="listing-img-container">
-                                    <img src="assets/img/productinfo/listing1.jpg" alt="">
+                                    <img src="~/assets/img/featured-1.jpeg" alt="">
                                     <div class="listing-badges">
                                         <span class="featured">Featured</span>
                                         <span>For Sale</span>
@@ -335,138 +278,8 @@
                     </div>
                 </div>
 
-                <!-- Mortgage widget -->
-                <div class="widget">
-                    <h3 class="sidebar-title">Mortgage Calculator</h3>
-                    <form class="mortgage-calc">
-                        <p class="tip-content">Set this property price</p>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-                            </div>
-                            <input type="text" class="form-control" name="amount" placeholder="Sale price" required>
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Down payment" required>
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Loan term (Years)" required>
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-percent"></i></span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Interest rate" required>
-                        </div>
-                        <button class="btn btn-common">Calculate</button>
-                    </form>
-                </div>
-
-                <!-- Social Media -->
-                <div class="widget widget-social">
-                    <h3 class="sidebar-title">Social Media</h3>
-                    <ul class="social-icons">
-                        <li><a class="twitter" href="#"><i class="lni-twitter-filled"></i></a></li>
-                        <li><a class="facebook" href="#"><i class="lni-facebook-filled"></i></a></li>
-                        <li><a class="google" href="#"><i class="lni-google-plus"></i></a></li>
-                        <li><a class="linkedin" href="#"><i class="lni-linkedin-filled"></i></a></li>
-                    </ul>
-                </div>
-
             </aside>
             <!--End sidebar-->
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="desc-title">Similar Properties</h2>
-            </div>
-            <div class="col-lg-4 col-md-6 col-xs-12">
-                <div class="property-main">
-                    <div class="property-wrap">
-                        <div class="property-item">
-                            <div class="item-thumb">
-                                <a class="hover-effect" href="property.html">
-                                    <img class="img-fluid" src="assets/img/property/house-1.jpg" alt="">
-                                </a>
-                                <div class="label-inner">
-                                    <span class="label-status label bg-red">For Sale</span>
-                                </div>
-                            </div>
-                            <div class="item-body">
-                                <h3 class="property-title"><a href="property.html">Amazing oceanfront apartment</a></h3>
-                                <div class="adderess"><i class="lni-map-marker"></i> Drive Street, Los Angeles, US</div>
-                                <div class="pricin-list">
-                                    <div class="property-price">
-                                        <span>$1,500</span>
-                                    </div>
-                                    <p><span>4 bds</span> . <span>4 ba</span> . <span>2500 Sqft</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-xs-12">
-                <div class="property-main">
-                    <div class="property-wrap">
-                        <div class="property-item">
-                            <div class="item-thumb">
-                                <a class="hover-effect" href="property.html">
-                                    <img class="img-fluid" src="assets/img/property/house-2.jpg" alt="">
-                                </a>
-                                <div class="label-inner">
-                                    <span class="label-status label">For Rent</span>
-                                </div>
-                            </div>
-                            <div class="item-body">
-                                <h3 class="property-title"><a href="property.html">Family Condo</a></h3>
-                                <div class="adderess"><i class="lni-map-marker"></i> Louis, Missouri, US</div>
-                                <div class="pricin-list">
-                                    <div class="property-price">
-                                        <span>$27,00</span>
-                                    </div>
-                                    <p><span>6 bds</span> . <span>8 ba</span> . <span>2600 Sqft</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-xs-12">
-                <div class="property-main">
-                    <div class="property-wrap">
-                        <div class="property-item">
-                            <div class="item-thumb">
-                                <a class="hover-effect" href="property.html">
-                                    <img class="img-fluid" src="assets/img/property/house-3.jpg" alt="">
-                                </a>
-                                <div class="label-inner">
-                                    <span class="label-status label bg-yellow">New</span>
-                                </div>
-                            </div>
-                            <div class="item-body">
-                                <h3 class="property-title"><a href="property.html">Guaranteed modern home</a></h3>
-                                <div class="adderess"><i class="lni-map-marker"></i> Avenue C, New York, US</div>
-                                <div class="pricin-list">
-                                    <div class="property-price">
-                                        <span>$1,750</span>
-                                    </div>
-                                    <p><span>8 bds</span> . <span>8 ba</span> . <span>3000 Sqft</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 

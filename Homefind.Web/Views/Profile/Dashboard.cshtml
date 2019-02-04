@@ -1,4 +1,8 @@
 ﻿@using Homefind.Web.Models.ProfileViewModels;
+@using Microsoft.AspNetCore.Identity;
+@using Homefind.Infrastructure.Identity;
+
+@inject UserManager<ApplicationUser> UserManager
 
 @model DashboardViewModel
 
@@ -30,9 +34,9 @@
                 <div class="user-profile-box">
                     <!--header -->
                     <div class="header clearfix">
-                        <h2>@User.Identity.Name</h2>
+                        <h2>@((await UserManager.GetUserAsync(User)).DisplayName)</h2>
                         <h4>Real Estate Agent</h4>
-                        <img src="~/assets/img/avatar/profile-anonimous.png" alt="avatar" class="img-fluid profile-img">
+                        <img src="~/assets/img/avatar/male-avatar.jpg" alt="avatar" class="img-fluid profile-img">
                     </div>
                     <!-- Detail -->
                     <div class="detail clearfix">
@@ -175,7 +179,7 @@
                             {
                                 <div class="review">
                                     <div class="thumb">
-                                        <img class="img-fluid" src="~/assets/img/avatar/profile-anonimous.png" alt="">
+                                        <img class="img-fluid" src="~/assets/img/avatar/male-avatar.jpg" alt="">
                                     </div>
                                     <div class="body">
                                         <h6>

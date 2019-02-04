@@ -1,10 +1,9 @@
-﻿@using System.Collections.Generic
-@using System.Linq
-@using Microsoft.AspNetCore.Http
-@using Microsoft.AspNetCore.Http.Authentication
-@using Homefind.Infrastructure.Identity
+﻿@using Homefind.Infrastructure.Identity
 @using Homefind.Web.Models.AccountViewModels;
 @using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore.Authentication
+
+@inject IAuthenticationSchemeProvider SchemeProvider
 
 @model LoginViewModel
 @inject SignInManager<ApplicationUser> SignInManager
@@ -43,6 +42,12 @@
                             <input type="password" asp-for="Password" class="form-control" placeholder="Password" required>
                         </div>
                         <button type="submit" class="btn btn-common log-btn">Sign In</button>
+                        @*<button type="submit" class="btn btn-danger log-btn" style="background-color: rgb(217,48,37)">
+                            <i class="fab fa-google-plus-square"></i> Sign in with Google
+                        </button>
+                        <button type="submit" class="btn btn-primary log-btn" style="background-color: rgb(66,103,178)">
+                            <i class="fab fa-facebook"></i> Sign in with Facebook
+                        </button>*@
                     </form>
                     <ul class="form-links">
                         <li class="text-center"><a href='@Url.Action("Register", "Account")'>Don't have an account?</a></li>

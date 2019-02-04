@@ -100,10 +100,10 @@
             <!-- Mobile Menu Start -->
             <ul class="mobile-menu">
                 <li>
-                    <a href="#">Blog</a>
+                    <a href="@Url.Action("Index", "Property", new { listingType = ListingType.All })">Listing</a>
                     <ul class="dropdown">
-                        <li><a href="#">Blog Page</a></li>
-                        <li><a href="#">Blog Single Page</a></li>
+                        <li><a href="@Url.Action("Index", "Property", new { listingType = ListingType.Rental })">For Rent</a></li>
+                        <li><a href="@Url.Action("Index", "Property", new { listingType = ListingType.Selling })">For Sale</a></li>
                     </ul>
                 </li>
                 <li>
