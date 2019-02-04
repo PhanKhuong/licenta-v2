@@ -228,23 +228,23 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    $(".fa-graduation-cap").click(function () {
+    $(".fa-graduation-cap").closest(".widget-wrap").click(function () {
         findNearbyPlaces('school');
     });
 
-    $(".fa-utensils").click(function () {
+    $(".fa-utensils").closest(".widget-wrap").click(function () {
         findNearbyPlaces('restaurant');
     });
 
-    $(".fa-dollar-sign").click(function () {
+    $(".fa-dollar-sign").closest(".widget-wrap").click(function () {
         findNearbyPlaces('atm');
     });
 
-    $(".fa-shopping-cart").click(function () {
+    $(".fa-shopping-cart").closest(".widget-wrap").click(function () {
         findNearbyPlaces('supermarket');
     });
 
-    $(".fa-car").click(function () {
+    $(".fa-car").closest(".widget-wrap").click(function () {
         setTrafficLayer();
     });
 
