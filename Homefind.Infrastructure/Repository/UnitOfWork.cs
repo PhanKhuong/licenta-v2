@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Homefind.Infrastructure.Data
+namespace Homefind.Infrastructure.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {

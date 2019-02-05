@@ -3,7 +3,6 @@ using Homefind.Web.Services;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Homefind.Web.Extensions
@@ -26,8 +25,6 @@ namespace Homefind.Web.Extensions
                         break;
                     case CacheKey.Location:
                         result = await propertyViewModelService.GetEstateLocations();
-                        break;
-                    default:
                         break;
                 }
 

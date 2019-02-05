@@ -18,8 +18,8 @@ namespace Homefind.Web.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
 
         public ProfileController(IPropertyViewModelService propertyViewModelService,
-            IProfileViewModelService profileViewModelService,
-            UserManager<ApplicationUser> userManager)
+                                 IProfileViewModelService profileViewModelService,
+                                 UserManager<ApplicationUser> userManager)
         {
             _propertyViewModelService = propertyViewModelService;
             _profileViewModelService = profileViewModelService;

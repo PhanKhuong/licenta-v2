@@ -1,9 +1,7 @@
-﻿using System;
-using Homefind.Core.DomainModels;
+﻿using Homefind.Core.DomainModels;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Homefind.Infrastructure.Data
+namespace Homefind.Infrastructure.Repository
 {
     public partial class EstateDbContext : DbContext
     {

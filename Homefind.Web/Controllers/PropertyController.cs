@@ -68,7 +68,9 @@ namespace Homefind.Web.Controllers
             model.Properties = await _propertyViewModelService
                 .ListProperties(model.FilterSpecification, page == 0 ? 1 : page, Constants.ItemsPerPage, model.SortOption);
 
-            var favourites = await _profileViewModelService.ListFavourites(User.Identity.Name, Constants.FirstPage, int.MaxValue);
+            var favourites = await _profileViewModelService.ListFavourites(User.Identity.Name,
+                Constants.FirstPage,
+                int.MaxValue);
 
             model.Properties.ForEach(p =>
             {
@@ -211,7 +213,10 @@ namespace Homefind.Web.Controllers
         public async Task<string> GetPropertyLocationAddress(int propertyId)
         {
             if (propertyId != 0)
+            {
                 return await _propertyViewModelService.GetPropertyLocationAddress(propertyId);
+            }
+
             return string.Empty;
         }
 

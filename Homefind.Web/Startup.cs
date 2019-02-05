@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Homefind.Core.Interfaces;
-using Homefind.Infrastructure.Data;
 using Homefind.Infrastructure.Identity;
 using Homefind.Recommender;
 using Homefind.Recommender.Interfaces;
@@ -12,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Homefind.Infrastructure.Repository;
 
 namespace Homefind.Web
 {

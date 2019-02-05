@@ -3,7 +3,7 @@
 $(document).ready(function () {
     PassDataToFavouritesConfirmationModal();
 
-    $('.favourites-widget').on('click', AddToFavourites);
+    $('.favourites-widget').on('click', ToggleFavouriteAction);
 
     $("#btnRemoveFromFavourites").on('click', RemoveFromFavourites);
 
@@ -55,7 +55,7 @@ function PassDataToFavouritesConfirmationModal() {
     });
 }
 
-function AddToFavourites() {
+function ToggleFavouriteAction() {
     var propertyId = $('#modelId', this);
     var isFavourite = $("#isFavourite", this);
     var heartIcon = $(".fa-heart", this);

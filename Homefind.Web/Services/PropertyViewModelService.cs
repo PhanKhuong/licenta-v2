@@ -3,13 +3,13 @@ using Homefind.Core.Constants;
 using Homefind.Core.DomainModels;
 using Homefind.Core.Filters;
 using Homefind.Core.Interfaces;
-using Homefind.Infrastructure.Data;
 using Homefind.Web.Extensions;
 using Homefind.Web.Models.PropertyViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Homefind.Infrastructure.Repository;
 
 namespace Homefind.Web.Services
 {
