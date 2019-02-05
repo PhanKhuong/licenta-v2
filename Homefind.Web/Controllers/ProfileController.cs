@@ -1,7 +1,5 @@
 ﻿using Homefind.Core.Constants;
-using Homefind.Core.DomainModels;
 using Homefind.Infrastructure.Identity;
-using Homefind.Web.Extensions;
 using Homefind.Web.Models.ProfileViewModels;
 using Homefind.Web.Models.PropertyViewModels;
 using Homefind.Web.Services;
@@ -68,7 +66,7 @@ namespace Homefind.Web.Controllers
             if (!string.IsNullOrEmpty(user.PhoneNumber))
                 appUser.PhoneNumber = user.PhoneNumber;
 
-            var updatedUser = await _userManager.UpdateAsync(appUser);
+            await _userManager.UpdateAsync(appUser);
 
             return RedirectToAction(nameof(Profile));
         }

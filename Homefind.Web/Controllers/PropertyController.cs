@@ -2,7 +2,6 @@
 using Homefind.Core.DomainModels;
 using Homefind.Core.Filters;
 using Homefind.Infrastructure.Identity;
-using Homefind.Recommender.Interfaces;
 using Homefind.Web.Extensions;
 using Homefind.Web.Models.PropertyViewModels;
 using Homefind.Web.Services;
@@ -26,19 +25,16 @@ namespace Homefind.Web.Controllers
         private readonly IMemoryCache _cache;
         private readonly IPropertyViewModelService _propertyViewModelService;
         private readonly IProfileViewModelService _profileViewModelService;
-        private readonly IPropertyRecommender _propertyRecommender;
         private readonly UserManager<ApplicationUser> _userManager;
 
         public PropertyController(IMemoryCache cache,
                                   IPropertyViewModelService propertyViewModelService,
                                   IProfileViewModelService profileViewModelService,
-                                  IPropertyRecommender propertyRecommender,
                                   UserManager<ApplicationUser> userManager)
         {
             _cache = cache;
             _propertyViewModelService = propertyViewModelService;
             _profileViewModelService = profileViewModelService;
-            _propertyRecommender = propertyRecommender;
             _userManager = userManager;
         }
 
@@ -167,7 +163,7 @@ namespace Homefind.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Filter(PropertyFilterSpecification filterSpecification)
         {
-            var result = await _propertyViewModelService.ListProperties(filterSpecification, 1, Constants.ItemsPerPage, SortOptions.Newest);
+            await _propertyViewModelService.ListProperties(filterSpecification, 1, Constants.ItemsPerPage, SortOptions.Newest);
 
             return View();
         }
@@ -187,8 +183,6 @@ namespace Homefind.Web.Controllers
                     break;
                 case ToggleFavouritesAction.Remove:
                     await _profileViewModelService.RemoveFromFavourites(propertyId, User.Identity.Name);
-                    break;
-                default:
                     break;
             }
 
@@ -218,7 +212,7 @@ namespace Homefind.Web.Controllers
         {
             if (propertyId != 0)
                 return await _propertyViewModelService.GetPropertyLocationAddress(propertyId);
-            else return string.Empty;
+            return string.Empty;
         }
 
         public ICollection<EstateImage> ProcessImageFileData(ICollection<IFormFile> images)
