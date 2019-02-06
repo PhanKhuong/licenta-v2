@@ -16,7 +16,7 @@ namespace Homefind.Web.Controllers
         public async Task<IViewComponentResult> InvokeAsync(string user, int page)
         {
             var reviews = await _profileViewModelService
-                .GetReviews(user != null ? user : User.Identity.Name, page == 0 ? 1 : page, int.MaxValue);
+                .GetReviews(user ?? User.Identity.Name, page == 0 ? 1 : page, int.MaxValue);
 
             return View(reviews);
         }
