@@ -1,6 +1,6 @@
 ﻿namespace Homefind.Core.DomainModels
 {
-    public partial class EstateFeature : BaseEntity
+    public class EstateFeature : BaseEntity
     {
         public bool HasCarParking { get; set; }
         public bool IsFurnished { get; set; }

@@ -1,7 +1,7 @@
-﻿using Homefind.Core.DomainModels;
+﻿using System.Threading.Tasks;
+using Homefind.Core.DomainModels;
 using Homefind.Web.Extensions;
 using Homefind.Web.Models.PropertyViewModels;
-using System.Threading.Tasks;
 
 namespace Homefind.Web.Services
 {

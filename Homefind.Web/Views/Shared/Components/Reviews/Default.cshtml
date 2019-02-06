@@ -1,7 +1,4 @@
-﻿@using Homefind.Web.Extensions
-@using Homefind.Web.Models.PropertyViewModels
-
-@model PagedCollection<ReviewModel>
+﻿@model Homefind.Web.Extensions.PagedCollection<Homefind.Web.Models.PropertyViewModels.ReviewModel>
 
 @{
     ViewData["HasNext"] = Model.HasNextPage ? "" : "disabled";

@@ -1,10 +1,10 @@
-﻿using Homefind.Core.Constants;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Homefind.Core.Constants;
 using Homefind.Core.DomainModels;
 using Homefind.Core.Filters;
 using Homefind.Web.Extensions;
 using Homefind.Web.Models.PropertyViewModels;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Homefind.Web.Services
 {

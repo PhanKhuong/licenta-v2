@@ -1,7 +1,7 @@
-﻿using Homefind.Core.Constants;
-using Homefind.Core.DomainModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Homefind.Core.Constants;
+using Homefind.Core.DomainModels;
 
 namespace Homefind.Web.Models.PropertyViewModels
 {

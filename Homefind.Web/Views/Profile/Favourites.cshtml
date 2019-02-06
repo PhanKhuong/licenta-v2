@@ -1,11 +1,8 @@
-﻿@using Homefind.Web.Extensions
-@using Homefind.Web.Models.PropertyViewModels
+﻿@inject UserManager<ApplicationUser> UserManager
+
+@using Homefind.Infrastructure.Identity
 @using Microsoft.AspNetCore.Identity
-@using Homefind.Infrastructure.Identity;
-
-@inject UserManager<ApplicationUser> UserManager
-
-@model PagedCollection<FavouritesModel>
+@model Homefind.Web.Extensions.PagedCollection<Homefind.Web.Models.PropertyViewModels.FavouritesModel>
 
 @{
     ViewData["Title"] = "Profile";

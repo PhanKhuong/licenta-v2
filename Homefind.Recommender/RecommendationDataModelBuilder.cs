@@ -1,8 +1,8 @@
-﻿using Homefind.Recommender.Models;
+﻿using System.Collections.Generic;
+using Homefind.Recommender.Models;
 using NReco.CF.Taste.Impl.Common;
 using NReco.CF.Taste.Impl.Model;
 using NReco.CF.Taste.Model;
-using System.Collections.Generic;
 
 namespace Homefind.Recommender
 {

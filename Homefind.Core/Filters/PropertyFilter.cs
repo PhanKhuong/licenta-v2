@@ -1,6 +1,6 @@
-﻿using Homefind.Core.Constants;
+﻿using System;
+using Homefind.Core.Constants;
 using Homefind.Core.DomainModels;
-using System;
 
 namespace Homefind.Core.Filters
 {

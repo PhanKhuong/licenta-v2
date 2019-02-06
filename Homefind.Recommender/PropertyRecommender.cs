@@ -1,13 +1,13 @@
-﻿using Homefind.Core.DomainModels;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Homefind.Core.DomainModels;
 using Homefind.Core.Interfaces;
 using Homefind.Recommender.Interfaces;
 using Homefind.Recommender.Models;
 using NReco.CF.Taste.Impl.Recommender;
 using NReco.CF.Taste.Impl.Similarity;
 using NReco.CF.Taste.Recommender;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Homefind.Recommender
 {
@@ -26,7 +26,7 @@ namespace Homefind.Recommender
         public async Task<IEnumerable<EstateUnit>> Recommend(long user, int items)
         {
             var userFavourites = await _favouritesRepository.ListAllAsync();
-            var userItems = userFavourites.Select(uf => new UserItem()
+            var userItems = userFavourites.Select(uf => new UserItem
             {
                 UserId = uf.UserIdNumeric,
                 ItemId = uf.EstateUnitId

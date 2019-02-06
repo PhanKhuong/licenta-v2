@@ -1,12 +1,12 @@
-﻿using AutoMapper;
-using Homefind.Core.DomainModels;
-using Homefind.Core.Interfaces;
-using Homefind.Web.Extensions;
-using Homefind.Web.Models.PropertyViewModels;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Homefind.Core.DomainModels;
+using Homefind.Core.Interfaces;
 using Homefind.Infrastructure.Repository;
+using Homefind.Web.Extensions;
+using Homefind.Web.Models.PropertyViewModels;
 
 namespace Homefind.Web.Services
 {

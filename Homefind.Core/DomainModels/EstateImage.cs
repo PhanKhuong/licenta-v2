@@ -1,6 +1,6 @@
 ﻿namespace Homefind.Core.DomainModels
 {
-    public partial class EstateImage : BaseEntity
+    public class EstateImage : BaseEntity
     {
         public long EstateUnitId { get; set; }
 

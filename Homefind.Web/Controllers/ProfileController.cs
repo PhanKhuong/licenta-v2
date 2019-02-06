@@ -1,4 +1,6 @@
-﻿using Homefind.Core.Constants;
+﻿using System;
+using System.Threading.Tasks;
+using Homefind.Core.Constants;
 using Homefind.Infrastructure.Identity;
 using Homefind.Web.Models.ProfileViewModels;
 using Homefind.Web.Models.PropertyViewModels;
@@ -6,8 +8,6 @@ using Homefind.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
 namespace Homefind.Web.Controllers
 {
@@ -91,7 +91,7 @@ namespace Homefind.Web.Controllers
             var reviews = await _profileViewModelService
                 .GetReviews(User.Identity.Name, reviewPage == 0 ? 1 : reviewPage, Constants.ItemsPerPage);
 
-            var model = new DashboardViewModel()
+            var model = new DashboardViewModel
             {
                 Listings = listing,
                 Reviews = reviews

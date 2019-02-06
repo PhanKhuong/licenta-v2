@@ -1,6 +1,6 @@
-﻿using Homefind.Core.DomainModels;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Homefind.Core.DomainModels;
 
 namespace Homefind.Recommender.Interfaces
 {

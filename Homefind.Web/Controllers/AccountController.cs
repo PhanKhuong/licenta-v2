@@ -1,14 +1,14 @@
-﻿using Homefind.Web.Models.AccountViewModels;
-using Homefind.Web.Services;
+﻿using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Homefind.Infrastructure.Identity;
+using Homefind.Web.Models.AccountViewModels;
+using Homefind.Web.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Homefind.Web.Controllers
 {
@@ -72,11 +72,9 @@ namespace Homefind.Web.Controllers
                     _logger.LogWarning("User account locked out.");
                     return RedirectToAction(nameof(Lockout));
                 }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(model);
-                }
+
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return View(model);
             }
 
             // If we got this far, something failed, redisplay form
@@ -92,7 +90,7 @@ namespace Homefind.Web.Controllers
 
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load two-factor authentication user.");
+                throw new ApplicationException("Unable to load two-factor authentication user.");
             }
 
             var model = new LoginWith2faViewModel { RememberMe = rememberMe };
@@ -126,17 +124,16 @@ namespace Homefind.Web.Controllers
                 _logger.LogInformation("User with ID {UserId} logged in with 2fa.", user.Id);
                 return RedirectToLocal(returnUrl);
             }
-            else if (result.IsLockedOut)
+
+            if (result.IsLockedOut)
             {
                 _logger.LogWarning("User with ID {UserId} account locked out.", user.Id);
                 return RedirectToAction(nameof(Lockout));
             }
-            else
-            {
-                _logger.LogWarning("Invalid authenticator code entered for user with ID {UserId}.", user.Id);
-                ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
-                return View();
-            }
+
+            _logger.LogWarning("Invalid authenticator code entered for user with ID {UserId}.", user.Id);
+            ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
+            return View();
         }
 
         [HttpGet]
@@ -147,7 +144,7 @@ namespace Homefind.Web.Controllers
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load two-factor authentication user.");
+                throw new ApplicationException("Unable to load two-factor authentication user.");
             }
 
             ViewData["ReturnUrl"] = returnUrl;
@@ -168,7 +165,7 @@ namespace Homefind.Web.Controllers
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load two-factor authentication user.");
+                throw new ApplicationException("Unable to load two-factor authentication user.");
             }
 
             var recoveryCode = model.RecoveryCode.Replace(" ", string.Empty);
@@ -185,12 +182,10 @@ namespace Homefind.Web.Controllers
                 _logger.LogWarning("User with ID {UserId} account locked out.", user.Id);
                 return RedirectToAction(nameof(Lockout));
             }
-            else
-            {
-                _logger.LogWarning("Invalid recovery code entered for user with ID {UserId}", user.Id);
-                ModelState.AddModelError(string.Empty, "Invalid recovery code entered.");
-                return View();
-            }
+
+            _logger.LogWarning("Invalid recovery code entered for user with ID {UserId}", user.Id);
+            ModelState.AddModelError(string.Empty, "Invalid recovery code entered.");
+            return View();
         }
 
         [HttpGet]
@@ -284,14 +279,12 @@ namespace Homefind.Web.Controllers
             {
                 return RedirectToAction(nameof(Lockout));
             }
-            else
-            {
-                // If the user does not have an account, then ask the user to create an account.
-                ViewData["ReturnUrl"] = returnUrl;
-                ViewData["LoginProvider"] = info.LoginProvider;
-                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                return View("ExternalLogin", new ExternalLoginViewModel { Email = email });
-            }
+
+            // If the user does not have an account, then ask the user to create an account.
+            ViewData["ReturnUrl"] = returnUrl;
+            ViewData["LoginProvider"] = info.LoginProvider;
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            return View("ExternalLogin", new ExternalLoginViewModel { Email = email });
         }
 
         [HttpPost]
@@ -450,10 +443,8 @@ namespace Homefind.Web.Controllers
             {
                 return Redirect(returnUrl);
             }
-            else
-            {
-                return RedirectToAction(nameof(PropertyController.Home), "Property");
-            }
+
+            return RedirectToAction(nameof(PropertyController.Home), "Property");
         }
 
         #endregion

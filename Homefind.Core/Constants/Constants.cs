@@ -12,8 +12,8 @@ namespace Homefind.Core.Constants
         public static readonly string SelectAnyStatus = "Any Status";
         public static readonly string SelectAllTypes = "All Types";
         public static readonly string SelectAllCities = "All Cities";
-        public static readonly int[] SelectBeds = new int[] { 1, 2, 3, 4, 5 };
-        public static readonly int[] SelectBaths = new int[] { 1, 2, 3, 4, 5 };
+        public static readonly int[] SelectBeds = { 1, 2, 3, 4, 5 };
+        public static readonly int[] SelectBaths = { 1, 2, 3, 4, 5 };
     }
 
     public enum SortOptions

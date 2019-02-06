@@ -1,9 +1,9 @@
-﻿using Homefind.Core.DomainModels;
-using Homefind.Web.Services;
-using Microsoft.Extensions.Caching.Memory;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Homefind.Core.DomainModels;
+using Homefind.Web.Services;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Homefind.Web.Extensions
 {

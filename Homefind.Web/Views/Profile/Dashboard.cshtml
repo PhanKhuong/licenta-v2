@@ -1,10 +1,8 @@
-﻿@using Homefind.Web.Models.ProfileViewModels;
-@using Microsoft.AspNetCore.Identity;
-@using Homefind.Infrastructure.Identity;
+﻿@inject UserManager<ApplicationUser> UserManager
 
-@inject UserManager<ApplicationUser> UserManager
-
-@model DashboardViewModel
+@using Homefind.Infrastructure.Identity
+@using Microsoft.AspNetCore.Identity
+@model Homefind.Web.Models.ProfileViewModels.DashboardViewModel
 
 @{
     ViewData["Title"] = "Profile";

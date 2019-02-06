@@ -45,8 +45,8 @@
                                 <div class="form-group">
                                     <label>Status</label>
                                     <select asp-for="Reason" class="classic">
-                                        <option value="@ListingType.Rental">@EnumHelper.GetDescription(ListingType.Rental)</option>
-                                        <option value="@ListingType.Selling">@EnumHelper.GetDescription(ListingType.Selling)</option>
+                                        <option value="@ListingType.Rental">@ListingType.Rental.GetDescription()</option>
+                                        <option value="@ListingType.Selling">@ListingType.Selling.GetDescription()</option>
                                     </select>
                                 </div>
                             </div>

@@ -1,8 +1,8 @@
-﻿using Homefind.Core.DomainModels;
-using AutoMapper;
-using Homefind.Web.Models.PropertyViewModels;
+﻿using System;
 using System.Linq;
-using System;
+using AutoMapper;
+using Homefind.Core.DomainModels;
+using Homefind.Web.Models.PropertyViewModels;
 
 namespace Homefind.Web.MapperConfig
 {

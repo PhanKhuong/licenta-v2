@@ -1,16 +1,16 @@
-﻿using Homefind.Web.Models.ManageViewModels;
-using Homefind.Web.Services;
+﻿using System;
+using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 using Homefind.Infrastructure.Identity;
+using Homefind.Web.Models.ManageViewModels;
+using Homefind.Web.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 
 namespace Homefind.Web.Controllers
 {
@@ -318,7 +318,7 @@ namespace Homefind.Web.Controllers
             {
                 HasAuthenticator = await _userManager.GetAuthenticatorKeyAsync(user) != null,
                 Is2faEnabled = user.TwoFactorEnabled,
-                RecoveryCodesLeft = await _userManager.CountRecoveryCodesAsync(user),
+                RecoveryCodesLeft = await _userManager.CountRecoveryCodesAsync(user)
             };
 
             return View(model);

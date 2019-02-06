@@ -1,6 +1,8 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Homefind.Core.Interfaces;
 using Homefind.Infrastructure.Identity;
+using Homefind.Infrastructure.Repository;
 using Homefind.Recommender;
 using Homefind.Recommender.Interfaces;
 using Homefind.Web.Services;
@@ -10,8 +12,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using Homefind.Infrastructure.Repository;
 
 namespace Homefind.Web
 {
@@ -80,10 +80,6 @@ namespace Homefind.Web
                 //app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-            }
-            else
-            {
-                //app.UseExceptionHandler("/Home/Error");
             }
 
             app.UseSession();

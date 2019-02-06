@@ -1,5 +1,5 @@
-﻿using Homefind.Core.DomainModels;
-using System;
+﻿using System;
+using Homefind.Core.DomainModels;
 
 namespace Homefind.Web.Models.PropertyViewModels
 {

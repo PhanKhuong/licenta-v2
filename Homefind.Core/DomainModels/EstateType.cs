@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace Homefind.Core.DomainModels
+﻿namespace Homefind.Core.DomainModels
 {
-    public partial class EstateType : BaseEntity
+    public class EstateType : BaseEntity
     {
         public string TypeName { get; set; }
     }

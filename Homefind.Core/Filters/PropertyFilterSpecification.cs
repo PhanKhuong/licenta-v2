@@ -1,7 +1,4 @@
 ﻿using Homefind.Core.Constants;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Homefind.Core.Filters
 {

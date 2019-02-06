@@ -1,10 +1,10 @@
-﻿using Homefind.Core.DomainModels;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Homefind.Core.DomainModels;
 using Homefind.Infrastructure.Identity;
 using Homefind.Recommender.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Homefind.Web.Controllers
 {

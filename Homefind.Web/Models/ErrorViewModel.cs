@@ -1,5 +1,3 @@
-using System;
-
 namespace Homefind.Web.Models
 {
     public class ErrorViewModel

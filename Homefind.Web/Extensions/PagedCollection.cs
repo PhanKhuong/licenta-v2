@@ -18,7 +18,7 @@ namespace Homefind.Web.Extensions
             TotalItems = count;
             ItemsPerPage = pageSize;
 
-            this.AddRange(items);
+            AddRange(items);
         }
 
         public bool HasPreviousPage

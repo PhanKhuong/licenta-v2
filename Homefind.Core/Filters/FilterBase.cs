@@ -1,8 +1,7 @@
-﻿using Homefind.Core.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq.Expressions;
+using Homefind.Core.Interfaces;
 
 namespace Homefind.Core.Filters
 {

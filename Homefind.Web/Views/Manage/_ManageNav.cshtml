@@ -1,7 +1,5 @@
-﻿@using Homefind.Web.Views.Manage
-@using Homefind.Infrastructure.Identity
-@using Microsoft.AspNetCore.Identity;
-
+﻿@using Homefind.Infrastructure.Identity
+@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();

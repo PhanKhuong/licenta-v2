@@ -1,11 +1,9 @@
-﻿@using Homefind.Infrastructure.Identity
-@using Homefind.Web.Models.AccountViewModels;
-@using Microsoft.AspNetCore.Identity;
+﻿@inject IAuthenticationSchemeProvider SchemeProvider
+
+@using Homefind.Infrastructure.Identity
 @using Microsoft.AspNetCore.Authentication
-
-@inject IAuthenticationSchemeProvider SchemeProvider
-
-@model LoginViewModel
+@using Microsoft.AspNetCore.Identity
+@model Homefind.Web.Models.AccountViewModels.LoginViewModel
 @inject SignInManager<ApplicationUser> SignInManager
 <!-- Page Banner Start -->
 <div id="page-banner-area" class="page-banner">
@@ -31,13 +29,13 @@
                     <form class="login-form" asp-action="Login" asp-controller="Account">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                <span class="input-group-text"><i class="lni-envelope"></i></span>
                             </div>
                             <input type="email" asp-for="Email" class="form-control" placeholder="Email" required>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-unlock-alt"></i></span>
+                                <span class="input-group-text"><i class="lni-unlock"></i></span>
                             </div>
                             <input type="password" asp-for="Password" class="form-control" placeholder="Password" required>
                         </div>

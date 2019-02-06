@@ -1,4 +1,10 @@
-﻿using Homefind.Core.Constants;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Homefind.Core.Constants;
 using Homefind.Core.DomainModels;
 using Homefind.Core.Filters;
 using Homefind.Infrastructure.Identity;
@@ -11,12 +17,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Homefind.Web.Controllers
 {
@@ -232,7 +232,7 @@ namespace Homefind.Web.Controllers
 
                     Image image = Image.FromStream(ms);
 
-                    EstateImage imageEntity = new EstateImage()
+                    EstateImage imageEntity = new EstateImage
                     {
                         Name = uploadedImage.Name,
                         Data = ms.ToArray(),

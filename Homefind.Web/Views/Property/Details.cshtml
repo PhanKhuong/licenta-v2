@@ -1,9 +1,7 @@
-﻿@using Homefind.Core.DomainModels
+﻿@using Homefind.Core.Constants
 @using Homefind.Infrastructure.Identity
 @using Microsoft.AspNetCore.Identity
-@using Homefind.Core.Constants
-
-@model EstateUnit
+@model Homefind.Core.DomainModels.EstateUnit
 @inject UserManager<ApplicationUser> UserManager
 
 @{
@@ -38,7 +36,7 @@
             <div class="row">
                 <div class="col-lg-4 col-md-12 col-xs-12">
                     <div class="info">
-                        <h3>@Model.Title <span class="badge">@EnumHelper.GetDescription(Model.Reason)</span></h3>
+                        <h3>@Model.Title <span class="badge">@Model.Reason.GetDescription()</span></h3>
                         <p class="address"><i class="lni-map-marker"></i> @Model.EstateLocation.Address</p>
                     </div>
                 </div>

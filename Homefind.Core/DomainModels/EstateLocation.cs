@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Homefind.Core.DomainModels
+﻿namespace Homefind.Core.DomainModels
 {
-    public partial class EstateLocation : BaseEntity
+    public class EstateLocation : BaseEntity
     {
         public string City { get; set; }
         public string State { get; set; }

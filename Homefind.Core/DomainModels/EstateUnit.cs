@@ -1,11 +1,11 @@
-﻿using Homefind.Core.Constants;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using Homefind.Core.Constants;
 
 namespace Homefind.Core.DomainModels
 {
-    public partial class EstateUnit : BaseEntity
+    public class EstateUnit : BaseEntity
     {
         public ListingType Reason { get; set; }
         public long EstateTypeId { get; set; }

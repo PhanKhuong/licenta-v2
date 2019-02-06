@@ -1,7 +1,5 @@
-﻿@using Homefind.Web.Models.PropertyViewModels
-@using Homefind.Core.Constants
-
-@model ListWithFilterModel
+﻿@using Homefind.Core.Constants
+@model Homefind.Web.Models.PropertyViewModels.ListWithFilterModel
 
 @{
     ViewData["Title"] = "All Properties";
@@ -33,10 +31,10 @@
                         <span>Sort by:</span>
                         <div class="sort-by-select">
                             <select asp-for="SortOption" class="classic" id="sortOptions">
-                                <option value="@SortOptions.Newest">@EnumHelper.GetDescription(SortOptions.Newest)</option>
-                                <option value="@SortOptions.LowestPrice">@EnumHelper.GetDescription(SortOptions.LowestPrice)</option>
-                                <option value="@SortOptions.HighestPrice">@EnumHelper.GetDescription(SortOptions.HighestPrice)</option>
-                                <option value="@SortOptions.Oldest">@EnumHelper.GetDescription(SortOptions.Oldest)</option>
+                                <option value="@SortOptions.Newest">@SortOptions.Newest.GetDescription()</option>
+                                <option value="@SortOptions.LowestPrice">@SortOptions.LowestPrice.GetDescription()</option>
+                                <option value="@SortOptions.HighestPrice">@SortOptions.HighestPrice.GetDescription()</option>
+                                <option value="@SortOptions.Oldest">@SortOptions.Oldest.GetDescription()</option>
                             </select>
                         </div>
                     </div>
@@ -76,7 +74,7 @@
                                             }
                                         </div>
                                         <div class="label-inner">
-                                            <span class="label-status label bg-red">@EnumHelper.GetDescription(property.Reason)</span>
+                                            <span class="label-status label bg-red">@property.Reason.GetDescription()</span>
                                         </div>
                                     </div>
                                     <div class="item-body">
@@ -158,9 +156,9 @@
                             <div class="row with-forms">
                                 <div class="col-md-12">
                                     <select asp-for="FilterSpecification.Reason" class="classic">
-                                        <option value="@ListingType.All">@EnumHelper.GetDescription(ListingType.All)</option>
-                                        <option value="@ListingType.Rental">@EnumHelper.GetDescription(ListingType.Rental)</option>
-                                        <option value="@ListingType.Selling">@EnumHelper.GetDescription(ListingType.Selling)</option>
+                                        <option value="@ListingType.All">@ListingType.All.GetDescription()</option>
+                                        <option value="@ListingType.Rental">@ListingType.Rental.GetDescription()</option>
+                                        <option value="@ListingType.Selling">@ListingType.Selling.GetDescription()</option>
                                     </select>
                                 </div>
                             </div>
