@@ -96,9 +96,10 @@ namespace Homefind.Web.Services
             return paginatedItems;
         }
 
-        public async Task<PagedCollection<PropertyInfoModel>> Search(string user, string searchText)
+        public async Task<PagedCollection<PropertyInfoModel>> Search(string user, string searchText, SortOptions sortOptions)
         {
             var filteredEstateUnits = await _propertyRepository.SearchByTextAsync(searchText);
+            filteredEstateUnits = GetSortedProperties(filteredEstateUnits, sortOptions);
 
             var result = _mapper.Map<IEnumerable<EstateUnit>, IEnumerable<PropertyInfoModel>>(filteredEstateUnits);
 

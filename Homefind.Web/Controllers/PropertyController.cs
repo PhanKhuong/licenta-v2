@@ -56,7 +56,7 @@ namespace Homefind.Web.Controllers
                                                SortOptions sortOptions = SortOptions.Newest,
                                                ListingType listingType = ListingType.All)
         {
-            var model = new ListWithFilterModel();
+            var model = new ListWithFilterModel {SortOption = sortOptions};
 
             var searchText = HttpContext.Session.GetString("search");
             var cachedFilters = HttpContext.Session.GetString("filters");
@@ -64,7 +64,7 @@ namespace Homefind.Web.Controllers
             if (!string.IsNullOrEmpty(searchText))
             {
                 model.Search = searchText;
-                model.Properties = await _propertyViewModelService.Search(User.Identity.Name, searchText);
+                model.Properties = await _propertyViewModelService.Search(User.Identity.Name, searchText, model.SortOption);
             }
             else
             {
@@ -73,7 +73,6 @@ namespace Homefind.Web.Controllers
                     model.FilterSpecification = JsonConvert.DeserializeObject<PropertyFilterSpecification>(cachedFilters);
                 }
 
-                model.SortOption = sortOptions;
                 model.FilterSpecification.Reason = listingType;
                 model.Properties = await _propertyViewModelService
                     .ListProperties(User.Identity.Name, model.FilterSpecification, page == 0 ? 1 : page, Constants.ItemsPerPage,

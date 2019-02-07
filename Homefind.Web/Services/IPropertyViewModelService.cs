@@ -28,6 +28,6 @@ namespace Homefind.Web.Services
 
         Task<string> GetPropertyLocationAddress(int propertyId);
 
-        Task<PagedCollection<PropertyInfoModel>> Search(string user, string searchText);
+        Task<PagedCollection<PropertyInfoModel>> Search(string user, string searchText, SortOptions sortOptions);
     }
 }
