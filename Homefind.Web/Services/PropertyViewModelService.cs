@@ -58,6 +58,14 @@ namespace Homefind.Web.Services
             return locations;
         }
 
+        public async Task<IEnumerable<PropertyInfoModel>> GetLatest(int howMany)
+        {
+            var items = await _propertyRepository.GetLatestAsync(howMany);
+            var mappedItems = _mapper.Map<IEnumerable<EstateUnit>, IEnumerable<PropertyInfoModel>>(items);
+
+            return mappedItems;
+        }
+
         public async Task AddProperty(SubmitPropertyModel propertyModel, string user)
         {
             var property = _mapper.Map<EstateUnit>(propertyModel);

@@ -16,6 +16,8 @@ namespace Homefind.Web.Services
 
         Task<PagedCollection<PropertyInfoModel>> ListProperties(string user, PropertyFilterSpecification filter, int pageNumber, int itemsPerPage, SortOptions sortOptions);
 
+        Task<IEnumerable<PropertyInfoModel>> GetLatest(int howMany);
+
         Task AddProperty(SubmitPropertyModel propertyModel, string user);
 
         Task<EstateUnit> GetProperty(int propertyId, string userName);

@@ -61,5 +61,16 @@ namespace Homefind.Infrastructure.Repository
                             x.EstateLocation.City.Contains(text))
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<EstateUnit>> GetLatestAsync(int howMany)
+        {
+            return await UnitOfWork.Context.Set<EstateUnit>()
+                .Include(x => x.EstateFeature)
+                .Include(x => x.EstateImages)
+                .Include(x => x.EstateLocation)
+                .Include(x => x.EstateType)
+                .OrderByDescending(x => x.DatePosted)
+                .Take(howMany).ToListAsync();
+        }
     }
 }

@@ -1,0 +1,48 @@
+﻿@using Homefind.Core.Constants
+@model IEnumerable<Homefind.Web.Models.PropertyViewModels.PropertyInfoModel>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="section-title-header text-center">
+                <p>Explore</p>
+                <h2 class="section-title">Latest Listings</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 wow fadeIn" data-wow-delay="0.8s">
+            <div id="latest-property" class="owl-carousel">
+                @foreach (var latest in Model)
+                {
+                    <div class="item">
+                        <div class="property-main">
+                            <div class="property-wrap">
+                                <div class="property-item">
+                                    <div class="item-thumb">
+                                        <a class="hover-effect" href="@Url.Action("Details", "Property", new { propertyId = latest.Id })">
+                                            <img class="img-fluid" src="@Url.Action("ViewImage", "Property", new { imageId = latest.AvatarImageId })" alt="">
+                                        </a>
+                                        <div class="label-inner">
+                                            <span class="label-status label bg-red">@latest.Reason.GetDescription()</span>
+                                        </div>
+                                    </div>
+                                    <div class="item-body">
+                                        <h3 class="property-title"><strong>@latest.Title</strong></h3>
+                                        <div class="adderess"><i class="lni-map-marker"></i> @latest.Address</div>
+                                        <div class="pricin-list">
+                                            <div class="property-price">
+                                                <span>@latest.Price.ToString("C")</span>
+                                            </div>
+                                            <p><span>@latest.Bedrooms bds</span> . <span>@latest.Bathrooms ba</span> . <span>@latest.CarpetArea Sqft</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

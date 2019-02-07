@@ -27,6 +27,9 @@
     <Content Update="Views\Profile\Dashboard.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Shared\Components\Latest\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Shared\Components\Recommended\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

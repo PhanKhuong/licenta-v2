@@ -110,7 +110,6 @@
                                     <i class="lni-chevron-left"></i> Previous
                                 </a>
                             </li>
-                            </li>
                             @for (int i = 1; i <= Model.Properties.TotalPages; i++)
                             {
                                 <li class="page-item">
@@ -233,7 +232,7 @@
                                 </div>
                             </div>
                             <!-- More Search Options  End -->
-                            <input type="submit" class="fullwidth btn btn-common btn-group-sm" value="Search"  style="margin-bottom: 5px"/>
+                            <input type="submit" class="fullwidth btn btn-common btn-group-sm" value="Search" style="margin-bottom: 5px" />
                             <button type="submit" asp-action="ClearFilters" asp-controller="Property" class="fullwidth btn btn-common btn-group-sm">Clear filter</button>
                         </form>
                     </div>
