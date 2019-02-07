@@ -57,25 +57,28 @@ namespace Homefind.Web.Controllers
                                                ListingType listingType = ListingType.All)
         {
             var model = new ListWithFilterModel();
+
+            var searchText = HttpContext.Session.GetString("search");
             var cachedFilters = HttpContext.Session.GetString("filters");
-            if (cachedFilters != null)
+
+            if (!string.IsNullOrEmpty(searchText))
             {
-                model.FilterSpecification = JsonConvert.DeserializeObject<PropertyFilterSpecification>(cachedFilters);
+                model.Search = searchText;
+                model.Properties = await _propertyViewModelService.Search(User.Identity.Name, searchText);
             }
-            model.SortOption = sortOptions;
-            model.FilterSpecification.Reason = listingType;
-
-            model.Properties = await _propertyViewModelService
-                .ListProperties(model.FilterSpecification, page == 0 ? 1 : page, Constants.ItemsPerPage, model.SortOption);
-
-            var favourites = await _profileViewModelService.ListFavourites(User.Identity.Name,
-                Constants.FirstPage,
-                int.MaxValue);
-
-            model.Properties.ForEach(p =>
+            else
             {
-                p.IsMarkedAsFavourite = favourites.Any(f => f.EstateUnitId == p.Id);
-            });
+                if (cachedFilters != null)
+                {
+                    model.FilterSpecification = JsonConvert.DeserializeObject<PropertyFilterSpecification>(cachedFilters);
+                }
+
+                model.SortOption = sortOptions;
+                model.FilterSpecification.Reason = listingType;
+                model.Properties = await _propertyViewModelService
+                    .ListProperties(User.Identity.Name, model.FilterSpecification, page == 0 ? 1 : page, Constants.ItemsPerPage,
+                        model.SortOption);
+            }
 
             await SetCacheEntries();
 
@@ -84,16 +87,30 @@ namespace Homefind.Web.Controllers
 
         public IActionResult ClearFilters()
         {
+            HttpContext.Session.Remove("search");
             HttpContext.Session.Remove("filters");
+
             return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
-        public IActionResult Index(ListWithFilterModel model)
+        public IActionResult Index(ListWithFilterModel model, string searchText)
         {
-            HttpContext.Session.SetString("filters", JsonConvert.SerializeObject(model.FilterSpecification));
+            ListingType listingType;
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                HttpContext.Session.Remove("filters");
+                HttpContext.Session.SetString("search", searchText);
+                listingType = ListingType.All;
+            }
+            else
+            {
+                HttpContext.Session.Remove("search");
+                HttpContext.Session.SetString("filters", JsonConvert.SerializeObject(model.FilterSpecification));
+                listingType = model.FilterSpecification.Reason;
+            }
 
-            return RedirectToAction(nameof(Index), new { page = Constants.FirstPage, sortOptions = SortOptions.Newest, listingType = model.FilterSpecification.Reason });
+            return RedirectToAction(nameof(Index), new { page = Constants.FirstPage, sortOptions = SortOptions.Newest, listingType });
         }
 
         [Authorize]
@@ -171,7 +188,11 @@ namespace Homefind.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Filter(PropertyFilterSpecification filterSpecification)
         {
-            await _propertyViewModelService.ListProperties(filterSpecification, 1, Constants.ItemsPerPage, SortOptions.Newest);
+            await _propertyViewModelService.ListProperties(User.Identity.Name,
+                filterSpecification,
+                Constants.FirstPage,
+                Constants.ItemsPerPage,
+                SortOptions.Newest);
 
             return View();
         }

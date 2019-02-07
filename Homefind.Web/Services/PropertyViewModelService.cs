@@ -80,26 +80,36 @@ namespace Homefind.Web.Services
             return paginatedItems;
         }
 
-        public async Task<PagedCollection<PropertyInfoModel>> ListProperties(PropertyFilterSpecification filter, int pageNumber, int itemsPerPage, SortOptions sortOptions)
+        public async Task<PagedCollection<PropertyInfoModel>> ListProperties(string user, PropertyFilterSpecification filter, int pageNumber, int itemsPerPage, SortOptions sortOptions)
         {
             var rootItems = await _propertyRepository.ListWithFilterAsync(new PropertyFilter(filter));
             rootItems = GetSortedProperties(rootItems, sortOptions);
 
             var items = _mapper.Map<IEnumerable<EstateUnit>, IEnumerable<PropertyInfoModel>>(rootItems);
+
             var paginatedItems = PagedCollection<PropertyInfoModel>.Create(items, pageNumber, itemsPerPage);
+            foreach (var estateUnit in paginatedItems)
+            {
+                estateUnit.IsMarkedAsFavourite = _favouritesRepository.IsFavouriteForUser(estateUnit.Id, user);
+            }
 
             return paginatedItems;
         }
 
-        public async Task<PagedCollection<PropertyInfoModel>> ListProperties(int pageNumber, int itemsPerPage, SortOptions sortOptions)
+        public async Task<PagedCollection<PropertyInfoModel>> Search(string user, string searchText)
         {
-            var rootItems = await _propertyRepository.ListAllWithEntitiesAsync();
-            rootItems = GetSortedProperties(rootItems, sortOptions);
+            var filteredEstateUnits = await _propertyRepository.SearchByTextAsync(searchText);
 
-            var items = _mapper.Map<IEnumerable<EstateUnit>, IEnumerable<PropertyInfoModel>>(rootItems);
-            var paginatedItems = PagedCollection<PropertyInfoModel>.Create(items, pageNumber, itemsPerPage);
+            var result = _mapper.Map<IEnumerable<EstateUnit>, IEnumerable<PropertyInfoModel>>(filteredEstateUnits);
 
-            return paginatedItems;
+            var pagedProperties =
+                PagedCollection<PropertyInfoModel>.Create(result, Constants.FirstPage, Constants.ItemsPerPage);
+            foreach (var estateUnit in pagedProperties)
+            {
+                estateUnit.IsMarkedAsFavourite = _favouritesRepository.IsFavouriteForUser(estateUnit.Id, user);
+            }
+
+            return pagedProperties;
         }
 
         public async Task<EstateUnit> GetProperty(int propertyId, string userName)

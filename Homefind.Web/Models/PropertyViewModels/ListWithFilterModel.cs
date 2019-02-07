@@ -4,7 +4,7 @@ using Homefind.Web.Extensions;
 
 namespace Homefind.Web.Models.PropertyViewModels
 {
-    public class ListWithFilterModel
+    public class ListWithFilterModel : BaseViewModel
     {
         public ListWithFilterModel()
         {

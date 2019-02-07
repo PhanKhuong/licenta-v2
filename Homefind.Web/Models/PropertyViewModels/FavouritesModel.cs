@@ -3,8 +3,9 @@ using Homefind.Core.DomainModels;
 
 namespace Homefind.Web.Models.PropertyViewModels
 {
-    public class FavouritesModel : BaseEntity
+    public class FavouritesModel
     {
+        public long Id { get; set; }
         public int? Views { get; set; }
         public int EstateUnitId { get; set; }
         public string Title { get; set; }

@@ -2,12 +2,12 @@
 
 @using Homefind.Infrastructure.Identity
 @using Microsoft.AspNetCore.Identity
-@model Homefind.Web.Extensions.PagedCollection<Homefind.Web.Models.PropertyViewModels.FavouritesModel>
+@model Homefind.Web.Models.ProfileViewModels.FavouritesViewModel
 
 @{
     ViewData["Title"] = "Profile";
-    ViewData["HasNext"] = Model.HasNextPage ? "" : "disabled";
-    ViewData["HasPrevious"] = Model.HasPreviousPage ? "" : "disabled";
+    ViewData["HasNext"] = Model.Favourites.HasNextPage ? "" : "disabled";
+    ViewData["HasPrevious"] = Model.Favourites.HasPreviousPage ? "" : "disabled";
 }
 
 <!-- Page Banner Start -->
@@ -77,7 +77,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var favourite in Model)
+                                @foreach (var favourite in Model.Favourites)
                                 {
                                     <tr>
                                         <td class="image">
@@ -114,14 +114,14 @@
                             <nav>
                                 <ul class="pagination">
                                     <li class="page-item">
-                                        <a class="btn btn-common @ViewData["HasPrevious"]" asp-route-page="@(Model.PageIndex - 1)">
+                                        <a class="btn btn-common @ViewData["HasPrevious"]" asp-route-page="@(Model.Favourites.PageIndex - 1)">
                                             <i class="lni-chevron-left"></i> Previous
                                         </a>
                                     </li>
-                                    @for (int i = 1; i <= Model.TotalPages; i++)
+                                    @for (int i = 1; i <= Model.Favourites.TotalPages; i++)
                                     {
                                         <li class="fav page-item">
-                                            @if (Model.PageIndex == i)
+                                            @if (Model.Favourites.PageIndex == i)
                                             {
                                                 <a class="page-link page-selected" asp-route-page="@i">@i</a>
                                             }
@@ -132,7 +132,7 @@
                                         </li>
                                     }
                                     <li class="page-item">
-                                        <a class="btn btn-common @ViewData["HasNext"]" asp-route-page="@(Model.PageIndex + 1)">
+                                        <a class="btn btn-common @ViewData["HasNext"]" asp-route-page="@(Model.Favourites.PageIndex + 1)">
                                             Next
                                             <i class="lni-chevron-right"></i>
                                         </a>

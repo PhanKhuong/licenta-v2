@@ -47,5 +47,19 @@ namespace Homefind.Infrastructure.Repository
                .Where(x => ids.Contains(x.Id))
                .ToListAsync();
         }
+
+        public async Task<IEnumerable<EstateUnit>> SearchByTextAsync(string text)
+        {
+            return await UnitOfWork.Context.Set<EstateUnit>()
+                .Include(x => x.EstateFeature)
+                .Include(x => x.EstateImages)
+                .Include(x => x.EstateLocation)
+                .Include(x => x.EstateType)
+                .Where(x => x.Title.Contains(text) ||
+                            x.Description.Contains(text) ||
+                            x.EstateLocation.Address.Contains(text) ||
+                            x.EstateLocation.City.Contains(text))
+                .ToListAsync();
+        }
     }
 }

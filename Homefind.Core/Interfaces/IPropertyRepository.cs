@@ -13,5 +13,7 @@ namespace Homefind.Core.Interfaces
         Task<IEnumerable<EstateUnit>> ListAllWithEntitiesAsync();
 
         Task<IEnumerable<EstateUnit>> GetListOfPropertiesByIdAsync(IList<long> ids);
+
+        Task<IEnumerable<EstateUnit>> SearchByTextAsync(string text);
     }
 }

@@ -14,9 +14,7 @@ namespace Homefind.Web.Services
 
         Task<IEnumerable<EstateLocation>> GetEstateLocations();
 
-        Task<PagedCollection<PropertyInfoModel>> ListProperties(int pageNumber, int itemsPerPage, SortOptions sortOptions);
-
-        Task<PagedCollection<PropertyInfoModel>> ListProperties(PropertyFilterSpecification filter, int pageNumber, int itemsPerPage, SortOptions sortOptions);
+        Task<PagedCollection<PropertyInfoModel>> ListProperties(string user, PropertyFilterSpecification filter, int pageNumber, int itemsPerPage, SortOptions sortOptions);
 
         Task AddProperty(SubmitPropertyModel propertyModel, string user);
 
@@ -29,5 +27,7 @@ namespace Homefind.Web.Services
         Task<PagedCollection<EstateUnit>> GetUserListing(string userName, int pageNumber, int itemsPerPage);
 
         Task<string> GetPropertyLocationAddress(int propertyId);
+
+        Task<PagedCollection<PropertyInfoModel>> Search(string user, string searchText);
     }
 }

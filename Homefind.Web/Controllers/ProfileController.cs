@@ -75,10 +75,11 @@ namespace Homefind.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Favourites(int page)
         {
-            var favourites = await _profileViewModelService
+            var model = new FavouritesViewModel();
+            model.Favourites = await _profileViewModelService
                .ListFavourites(User.Identity.Name, page == 0 ? 1 : page, Constants.ItemsPerPage);
 
-            return View(favourites);
+            return View(model);
         }
 
         [Authorize]

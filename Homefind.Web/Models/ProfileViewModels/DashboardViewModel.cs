@@ -4,7 +4,7 @@ using Homefind.Web.Models.PropertyViewModels;
 
 namespace Homefind.Web.Models.ProfileViewModels
 {
-    public class DashboardViewModel
+    public class DashboardViewModel : BaseViewModel
     {
         public PagedCollection<EstateUnit> Listings { get; set; }
 
