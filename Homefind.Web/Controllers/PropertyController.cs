@@ -82,6 +82,12 @@ namespace Homefind.Web.Controllers
             return View(model);
         }
 
+        public IActionResult ClearFilters()
+        {
+            HttpContext.Session.Remove("filters");
+            return RedirectToAction(nameof(Index));
+        }
+
         [HttpPost]
         public IActionResult Index(ListWithFilterModel model)
         {
