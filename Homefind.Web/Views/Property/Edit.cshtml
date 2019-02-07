@@ -1,5 +1,5 @@
 ﻿@using Homefind.Core.Constants
-@model Homefind.Core.DomainModels.EstateUnit
+@model Homefind.Web.Models.PropertyViewModels.UpdateViewModel
 
 @{
     ViewData["Title"] = "SubmitProperty";
@@ -17,11 +17,6 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="notification-box mb-5">
-                    <h3>Don't Have an Account?</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc. Semper ac dolor vitae accumsan.</p>
-                </div>
-
                 <div id="notification-wrapper">
                     <input id="notification-message" type="hidden" value="@ViewBag.notification" />
                 </div>
@@ -33,13 +28,13 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Property Title</label>
-                                    <input asp-for="Title" type="text" class="form-control" placeholder="Property Title" required>
+                                    <input asp-for="Property.Title" type="text" class="form-control" placeholder="Property Title" required>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>Status</label>
-                                    <select asp-for="Reason" class="classic">
+                                    <select asp-for="Property.Reason" class="classic">
                                         <option value="@ListingType.Rental">@ListingType.Rental.GetDescription()</option>
                                         <option value="@ListingType.Selling">@ListingType.Selling.GetDescription()</option>
                                     </select>
@@ -48,7 +43,7 @@
                             <div class="col-lg-3 col-md-6">
                                 <div class="form-group">
                                     <label>Price</label>
-                                    <input asp-for="Price" class="form-control" placeholder="USD" required>
+                                    <input asp-for="Property.Price" class="form-control" placeholder="USD" required>
                                 </div>
                             </div>
                         </div>
@@ -56,10 +51,10 @@
                         <div class="row mb-3">
                             <div class="col-lg-12">
                                 <fieldset class="form-group">
-                                    <input class="form-control" asp-for="EstateImages" type="file" id="images" name="images" multiple required>
+                                    <input class="form-control" asp-for="Property.EstateImages" type="file" id="images" name="images" multiple required>
                                 </fieldset>
                                 <div class="image-container">
-                                    @foreach (var image in Model.EstateImages)
+                                    @foreach (var image in Model.Property.EstateImages)
                                     {
                                         <div class="preview-image">
                                             <div class="image-zone">
@@ -76,7 +71,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group message">
                                     <label>Detailed Information</label>
-                                    <textarea asp-for="Description" class="form-control" placeholder="Detailed Information" required></textarea>
+                                    <textarea asp-for="Property.Description" class="form-control" placeholder="Detailed Information" required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -86,19 +81,19 @@
                             <div class="col-lg-4 col-md-4">
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input asp-for="EstateFeature.HasCarParking" class="form-check-input" type="checkbox" id="free-parking">
+                                        <input asp-for="Property.EstateFeature.HasCarParking" class="form-check-input" type="checkbox" id="free-parking">
                                         <label class="form-check-label" for="free-parking">Car parking</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input asp-for="EstateFeature.HasInternet" class="form-check-input" type="checkbox" id="has-internet">
+                                        <input asp-for="Property.EstateFeature.HasInternet" class="form-check-input" type="checkbox" id="has-internet">
                                         <label class="form-check-label" for="has-internet">Internet</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input asp-for="EstateFeature.HasTv" class="form-check-input" type="checkbox" id="has-tv">
+                                        <input asp-for="Property.EstateFeature.HasTv" class="form-check-input" type="checkbox" id="has-tv">
                                         <label class="form-check-label" for="has-tv">TV</label>
                                     </div>
                                 </div>
@@ -106,13 +101,13 @@
                             <div class="col-lg-4 col-md-4">
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input asp-for="EstateFeature.IsFurnished" class="form-check-input" type="checkbox" id="is-furnished">
+                                        <input asp-for="Property.EstateFeature.IsFurnished" class="form-check-input" type="checkbox" id="is-furnished">
                                         <label class="form-check-label" for="is-furnished">Furnished</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input asp-for="EstateFeature.HasAirConditioning" class="form-check-input" type="checkbox" id="air-condition">
+                                        <input asp-for="Property.EstateFeature.HasAirConditioning" class="form-check-input" type="checkbox" id="air-condition">
                                         <label class="form-check-label" for="air-condition">Air conditioning</label>
                                     </div>
                                 </div>
@@ -120,13 +115,13 @@
                             <div class="col-lg-4 col-md-4">
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input asp-for="EstateFeature.HasSwimmingPool" class="form-check-input" type="checkbox" id="swimming-pool">
+                                        <input asp-for="Property.EstateFeature.HasSwimmingPool" class="form-check-input" type="checkbox" id="swimming-pool">
                                         <label class="form-check-label" for="swimming-pool">Swimming pool</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input asp-for="EstateFeature.ArePetsAllowed" class="form-check-input" type="checkbox" id="allow-pets">
+                                        <input asp-for="Property.EstateFeature.ArePetsAllowed" class="form-check-input" type="checkbox" id="allow-pets">
                                         <label class="form-check-label" for="allow-pets">Pets allowed</label>
                                     </div>
                                 </div>

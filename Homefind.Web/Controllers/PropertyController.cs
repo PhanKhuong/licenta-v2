@@ -152,27 +152,29 @@ namespace Homefind.Web.Controllers
         public async Task<IActionResult> Edit(int id, NotificationType notification = NotificationType.None)
         {
             ViewBag.notification = notification;
-            var property = await _propertyViewModelService.GetProperty(id, User.Identity.Name);
 
-            return View(property);
+            var model = new UpdateViewModel();
+            model.Property = await _propertyViewModelService.GetProperty(id, User.Identity.Name);
+
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(EstateUnit editModel, ICollection<IFormFile> images)
+        public async Task<IActionResult> Edit(UpdateViewModel editModel, ICollection<IFormFile> images)
         {
             var notification = NotificationType.Success;
             try
             {
-                editModel.EstateImages = ProcessImageFileData(images);
+                editModel.Property.EstateImages = ProcessImageFileData(images);
 
-                await _propertyViewModelService.UpdateProperty(editModel);
+                await _propertyViewModelService.UpdateProperty(editModel.Property);
             }
             catch
             {
                 notification = NotificationType.Error;
             }
 
-            return RedirectToAction(nameof(Edit), new { id = editModel.Id, notification });
+            return RedirectToAction(nameof(Edit), new { id = editModel.Property.Id, notification });
         }
 
         [HttpGet]
