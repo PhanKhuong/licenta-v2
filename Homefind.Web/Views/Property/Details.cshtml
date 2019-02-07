@@ -1,7 +1,7 @@
 ﻿@using Homefind.Core.Constants
 @using Homefind.Infrastructure.Identity
 @using Microsoft.AspNetCore.Identity
-@model Homefind.Core.DomainModels.EstateUnit
+@model Homefind.Web.Models.PropertyViewModels.DetailsViewModel
 @inject UserManager<ApplicationUser> UserManager
 
 @{
@@ -29,42 +29,42 @@
 
         <!--Modal reviews-->
         <div id="review-component">
-            @await Component.InvokeAsync("Reviews", new { user = Model.PostedBy })
+            @await Component.InvokeAsync("Reviews", new { user = Model.Property.PostedBy })
         </div>
 
         <div class="property-details">
             <div class="row">
                 <div class="col-lg-4 col-md-12 col-xs-12">
                     <div class="info">
-                        <h3>@Model.Title <span class="badge">@Model.Reason.GetDescription()</span></h3>
-                        <p class="address"><i class="lni-map-marker"></i> @Model.EstateLocation.Address</p>
+                        <h3>@Model.Property.Title <span class="badge">@Model.Property.Reason.GetDescription()</span></h3>
+                        <p class="address"><i class="lni-map-marker"></i> @Model.Property.EstateLocation.Address</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-12 col-xs-12">
                     <div class="details">
                         <div class="details-listing">
                             <p>Bedrooms</p>
-                            <h5>@Model.Bedrooms</h5>
+                            <h5>@Model.Property.Bedrooms</h5>
                         </div>
                         <div class="details-listing">
                             <p>Washrooms</p>
-                            <h5>@Model.Bathrooms</h5>
+                            <h5>@Model.Property.Bathrooms</h5>
                         </div>
                         <div class="details-listing">
                             <p>Size (Sq.ft)</p>
-                            <h5>@Model.CarpetArea</h5>
+                            <h5>@Model.Property.CarpetArea</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-12 col-xs-12">
                     <div class="others">
                         <ul>
-                            <li><span>@Model.Price.ToString("C")</span></li>
+                            <li><span>@Model.Property.Price.ToString("C")</span></li>
                             <li>
                                 <a class="favourites-widget">
-                                    <input type="hidden" id="modelId" asp-for="Id" />
-                                    <input type="hidden" id="isFavourite" asp-for="IsMarkedAsFavourite" />
-                                    @if (!Model.IsMarkedAsFavourite)
+                                    <input type="hidden" id="modelId" asp-for="Property.Id" />
+                                    <input type="hidden" id="isFavourite" asp-for="Property.IsMarkedAsFavourite" />
+                                    @if (!Model.Property.IsMarkedAsFavourite)
                                     {
                                         <i class="fas fa-heart"></i>
                                     }
@@ -84,7 +84,7 @@
             <div class="col-lg-8 col-md-12 col-xs-12">
                 <div class="property-slider">
                     <div id="property-slider" class="owl-carousel owl-theme">
-                        @foreach (var picture in Model.EstateImages)
+                        @foreach (var picture in Model.Property.EstateImages)
                         {
                             <div class="item">
                                 <img src='@Url.Action("ViewImage", "Property", new { imageId = picture.Id })' alt="">
@@ -95,51 +95,37 @@
 
                 <div class="inner-box property-dsc">
                     <h2 class="desc-title">Property Description</h2>
-                    <p>@Model.Description</p>
-                </div>
-
-                <div class="inner-box featured">
-                    <h2 class="desc-title">Details</h2>
-                    <ul class="property-features">
-                        <li>Building Age: <span>2 Years</span></li>
-                        <li>Parking: <span>Attached Garage</span></li>
-                        <li>Cooling: <span>Central Cooling</span></li>
-                        <li>Heating: <span>Forced Air, Gas</span></li>
-                        <li>Sewer: <span>Public/City</span></li>
-                        <li>Water: <span>City</span></li>
-                        <li>Exercise Room: <span>Yes</span></li>
-                        <li>Storage Room: <span>Yes</span></li>
-                    </ul>
+                    <p>@Model.Property.Description</p>
                 </div>
 
                 <div class="inner-box featured">
                     <h2 class="desc-title">Features</h2>
                     <ul class="property-features checkboxes">
-                        @if (Model.EstateFeature.HasAirConditioning)
+                        @if (Model.Property.EstateFeature.HasAirConditioning)
                         {
                             <li><i class="lni-check-box"></i> Air Conditioning</li>
                         }
-                        @if (Model.EstateFeature.HasCarParking)
+                        @if (Model.Property.EstateFeature.HasCarParking)
                         {
                             <li><i class="lni-check-box"></i> Car Parking</li>
                         }
-                        @if (Model.EstateFeature.HasSwimmingPool)
+                        @if (Model.Property.EstateFeature.HasSwimmingPool)
                         {
                             <li><i class="lni-check-box"></i> Swimming Pool</li>
                         }
-                        @if (Model.EstateFeature.HasInternet)
+                        @if (Model.Property.EstateFeature.HasInternet)
                         {
                             <li><i class="lni-check-box"></i> Internet</li>
                         }
-                        @if (Model.EstateFeature.HasTv)
+                        @if (Model.Property.EstateFeature.HasTv)
                         {
                             <li><i class="lni-check-box"></i> TV</li>
                         }
-                        @if (Model.EstateFeature.IsFurnished)
+                        @if (Model.Property.EstateFeature.IsFurnished)
                         {
                             <li><i class="lni-check-box"></i> Furnished</li>
                         }
-                        @if (Model.EstateFeature.ArePetsAllowed)
+                        @if (Model.Property.EstateFeature.ArePetsAllowed)
                         {
                             <li><i class="lni-check-box"></i> Pets Allowed</li>
                         }
@@ -193,13 +179,13 @@
                                 <a href="#"><img src="~/assets/img/avatar/male-avatar.jpg" alt=""></a>
                             </div>
                             <div class="agent-details">
-                                <h3><a href="#">@((await UserManager.FindByNameAsync(Model.PostedBy)).DisplayName)</a></h3>
-                                <span><i class="lni-phone-handset"></i>@((await UserManager.FindByNameAsync(Model.PostedBy)).PhoneNumber)</span>
+                                <h3><a href="#">@((await UserManager.FindByNameAsync(Model.Property.PostedBy)).DisplayName)</a></h3>
+                                <span><i class="lni-phone-handset"></i>@((await UserManager.FindByNameAsync(Model.Property.PostedBy)).PhoneNumber)</span>
                             </div>
                         </div>
                         <input type="text" class="form-control" placeholder="Email"
-                               value="@((await UserManager.FindByNameAsync(Model.PostedBy)).Email)" disabled>
-                        <input type="hidden" id="propertyOwner" asp-for="@Model.PostedBy">
+                               value="@((await UserManager.FindByNameAsync(Model.Property.PostedBy)).Email)" disabled>
+                        <input type="hidden" id="propertyOwner" asp-for="@Model.Property.PostedBy">
                         <p>If you had an experience with this owner, don't hesitate to leave a feedback below.</p>
                         <br />
                         <button type="button" class="btn btn-common btn-block"

@@ -110,7 +110,13 @@ namespace Homefind.Web.Controllers
                 listingType = model.FilterSpecification.Reason;
             }
 
-            return RedirectToAction(nameof(Index), new { page = Constants.FirstPage, sortOptions = SortOptions.Newest, listingType });
+            return RedirectToAction(nameof(Index),
+                new
+                {
+                    page = Constants.FirstPage,
+                    sortOptions = SortOptions.Newest,
+                    listingType
+                });
         }
 
         [Authorize]
@@ -221,9 +227,10 @@ namespace Homefind.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int propertyId)
         {
-            var propertyDetailsModel = await _propertyViewModelService.GetProperty(propertyId, User.Identity.Name);
+            var model = new DetailsViewModel();
+            model.Property = await _propertyViewModelService.GetProperty(propertyId, User.Identity.Name);
 
-            return View(propertyDetailsModel);
+            return View(model);
         }
 
         private async Task SetCacheEntries()
