@@ -1,9 +1,4 @@
-﻿@model Homefind.Web.Extensions.PagedCollection<Homefind.Web.Models.PropertyViewModels.ReviewModel>
-
-@{
-    ViewData["HasNext"] = Model.HasNextPage ? "" : "disabled";
-    ViewData["HasPrevious"] = Model.HasPreviousPage ? "" : "disabled";
-}
+﻿@model IEnumerable<Homefind.Web.Models.PropertyViewModels.ReviewModel>
 
 <!-- Modal: modalPoll -->
 <div class="modal fade right" id="modalPoll-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

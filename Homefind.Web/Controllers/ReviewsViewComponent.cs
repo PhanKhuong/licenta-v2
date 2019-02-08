@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using Homefind.Web.Models.PropertyViewModels;
 using Homefind.Web.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Homefind.Web.Controllers
 {
@@ -15,8 +17,15 @@ namespace Homefind.Web.Controllers
 
         public async Task<IViewComponentResult> InvokeAsync(string user, int page)
         {
-            var reviews = await _profileViewModelService
-                .GetReviews(user, page, int.MaxValue);
+            IEnumerable<ReviewModel> reviews;
+            try
+            {
+                reviews = await _profileViewModelService.GetReviews(user, page, int.MaxValue);
+            }
+            catch
+            {
+                reviews = new List<ReviewModel>();
+            }
 
             return View(reviews);
         }
