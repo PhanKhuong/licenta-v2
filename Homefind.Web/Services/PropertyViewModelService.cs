@@ -66,6 +66,15 @@ namespace Homefind.Web.Services
             return mappedItems;
         }
 
+        public async Task<IEnumerable<PropertyInfoModel>> GetPopular(int howMany)
+        {
+            var topFavourites = await _favouritesRepository.FindTopFavouritesAsync(howMany);
+            var items = await _propertyRepository.GetListOfPropertiesByIdAsync(topFavourites);
+            var mappedItems = _mapper.Map<IEnumerable<EstateUnit>, IEnumerable<PropertyInfoModel>>(items);
+
+            return mappedItems;
+        }
+
         public async Task AddProperty(SubmitPropertyModel propertyModel, string user)
         {
             var property = _mapper.Map<EstateUnit>(propertyModel);

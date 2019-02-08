@@ -18,6 +18,8 @@ namespace Homefind.Web.Services
 
         Task<IEnumerable<PropertyInfoModel>> GetLatest(int howMany);
 
+        Task<IEnumerable<PropertyInfoModel>> GetPopular(int howMany);
+
         Task AddProperty(SubmitPropertyModel propertyModel, string user);
 
         Task<EstateUnit> GetProperty(int propertyId, string userName);

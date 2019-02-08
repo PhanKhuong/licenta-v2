@@ -230,6 +230,7 @@ namespace Homefind.Web.Controllers
         {
             var model = new DetailsViewModel();
             model.Property = await _propertyViewModelService.GetProperty(propertyId, User.Identity.Name);
+            model.Popular = await _propertyViewModelService.GetPopular(6);
 
             return View(model);
         }

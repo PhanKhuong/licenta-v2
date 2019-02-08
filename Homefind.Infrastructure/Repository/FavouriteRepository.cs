@@ -32,5 +32,15 @@ namespace Homefind.Infrastructure.Repository
                 .Include(fav => fav.EstateUnit.EstateImages)
                 .Where(fav => fav.UserId == username).ToListAsync();
         }
+
+        public async Task<List<long>> FindTopFavouritesAsync(int howMany)
+        {
+            return await UnitOfWork.Context.Set<Favourites>()
+                .GroupBy(x => x.EstateUnitId)
+                .OrderByDescending(x => x.Count())
+                .Take(howMany)
+                .Select(x => x.Key)
+                .ToListAsync();
+        }
     }
 }

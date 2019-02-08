@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Homefind.Core.DomainModels;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Homefind.Core.DomainModels;
 
 namespace Homefind.Core.Interfaces
 {
@@ -11,5 +11,7 @@ namespace Homefind.Core.Interfaces
         Task<Favourites> FindUserFavouriteByIdAsync(string username, long id);
 
         Task<IEnumerable<Favourites>> GetUserFavouritesAsync(string username);
+
+        Task<List<long>> FindTopFavouritesAsync(int howMany);
     }
 }
