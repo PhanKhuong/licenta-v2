@@ -228,9 +228,11 @@ namespace Homefind.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int propertyId)
         {
-            var model = new DetailsViewModel();
-            model.Property = await _propertyViewModelService.GetProperty(propertyId, User.Identity.Name);
-            model.Popular = await _propertyViewModelService.GetPopular(6);
+            var model = new DetailsViewModel
+            {
+                Property = await _propertyViewModelService.GetProperty(propertyId, User.Identity.Name),
+                Popular = await _propertyViewModelService.GetPopular(6)
+            };
 
             return View(model);
         }
