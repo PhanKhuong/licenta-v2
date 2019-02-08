@@ -49,7 +49,7 @@ namespace Homefind.Web.Controllers
 
             await _profileViewModelService.AddReview(reviewModel);
 
-            return ViewComponent("Reviews", new { user = reviewModel.RatedUserId });
+            return ViewComponent("Reviews", new { user = reviewModel.RatedUserId, page = Constants.FirstPage });
         }
 
         [HttpPost]
