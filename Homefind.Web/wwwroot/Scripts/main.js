@@ -84,6 +84,14 @@ function ToggleFavouriteAction() {
                 heartIcon.addClass("fa-heart-red");
             else
                 heartIcon.removeClass("fa-heart-red");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            if (xhr.status === 401) {
+                HideLoader();
+                location.href = "/Account/Login";
+            } else {
+                alert(thrownError);
+            }
         }
     });
 }

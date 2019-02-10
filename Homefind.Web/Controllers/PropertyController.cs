@@ -204,6 +204,7 @@ namespace Homefind.Web.Controllers
             return View();
         }
 
+        [Authorize]
         public async Task<int> ToggleFavourite(int propertyId, ToggleFavouritesAction action)
         {
             switch (action)
