@@ -889,7 +889,7 @@ a.back-to-top {
 intro section style
 ====================================================*/
 .section-intro {
-    background: url("/assets/img/background/landing-photo.jpg") center center no-repeat;
+    background: url("/assets/img/background/banner-unsplash.jpg") center center no-repeat;
     background-size: cover;
     color: #fff;
     position: relative;
