@@ -229,6 +229,13 @@ namespace Homefind.Web.Controllers
                 AddErrors(result);
                 model.Errors.AddRange(result.Errors.Select(e => e.Description));
             }
+            else
+            {
+                foreach (var entriesWithErrors in ModelState.Values.Where(mse => mse.Errors.Any()))
+                {
+                    model.Errors.AddRange(entriesWithErrors.Errors.Select(e => e.ErrorMessage));
+                }
+            }
 
             return View(model);
         }
