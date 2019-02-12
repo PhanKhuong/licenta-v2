@@ -6,20 +6,21 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <div class="header-top-right float-right">
-        <form method="post">
-            <div class="dropdown show">
-                <a class="header-top-button white-bg dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-user-circle"></i>  @((await UserManager.GetUserAsync(User)).DisplayName)
-                </a>
-
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" asp-action="Dashboard" asp-controller="Profile">My Profile</a>
-                    <button type="submit" class="btn btn-link profile-link-logout dropdown-item" asp-controller="Account" asp-action="Logout">
-                        <i class="fas fa-sign-out-alt"></i> Logout
+        <div class="dropdown show">
+            <a class="header-top-button white-bg dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user-circle"></i> @((await UserManager.GetUserAsync(User)).DisplayName)
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" asp-action="Dashboard" asp-controller="Profile">My Profile</a>
+                <a class="dropdown-item" asp-controller="Profile" asp-action="Favourites"><i class="lni-heart"></i> Favourites</a>
+                <a class="dropdown-item" asp-controller="Property" asp-action="Submit"><i class="lni-plus"></i> Submit property</a>
+                <form method="post">
+                    <button asp-action="Logout" asp-controller="Account" class="btn btn-link profile-link-logout dropdown-item" type="submit">
+                        <i class="lni-emoji-sad"></i> Logout
                     </button>
-                </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 }
 else

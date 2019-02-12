@@ -25,25 +25,35 @@ namespace Homefind.Recommender
 
         public async Task<IEnumerable<EstateUnit>> Recommend(long user, int items)
         {
-            var userFavourites = await _favouritesRepository.ListAllAsync();
-            var userItems = userFavourites.Select(uf => new UserItem
+            IEnumerable<EstateUnit> result;
+            try
             {
-                UserId = uf.UserIdNumeric,
-                ItemId = uf.EstateUnitId
-            }).ToList();
-            var currentUserPreferences = userItems.Where(ui => ui.UserId == user).Select(ui => ui.ItemId).ToArray();
+                var userFavourites = await _favouritesRepository.ListAllAsync();
+                var userItems = userFavourites.Select(uf => new UserItem
+                {
+                    UserId = uf.UserIdNumeric,
+                    ItemId = uf.EstateUnitId
+                }).ToList();
+                var currentUserPreferences = userItems.Where(ui => ui.UserId == user).Select(ui => ui.ItemId).ToArray();
 
-            var baseModel = RecommendationDataModelBuilder.BuildModel(userItems, isReviewBased:false);
-            var modelForPreferences = RecommendationDataModelBuilder
-                .BuildModelForUserPreferences(baseModel, user, currentUserPreferences);
+                var baseModel = RecommendationDataModelBuilder.BuildModel(userItems, isReviewBased: false);
+                var modelForPreferences = RecommendationDataModelBuilder
+                    .BuildModelForUserPreferences(baseModel, user, currentUserPreferences);
 
-            var similarity = new LogLikelihoodSimilarity(modelForPreferences);
+                var similarity = new LogLikelihoodSimilarity(modelForPreferences);
 
-            var recommender = new GenericBooleanPrefItemBasedRecommender(modelForPreferences, similarity);
+                var recommender = new GenericBooleanPrefItemBasedRecommender(modelForPreferences, similarity);
 
-            var recommendedItems = recommender.Recommend(user, items, null);
+                var recommendedItems = recommender.Recommend(user, items, null);
 
-            return await GetRecommendedProperties(recommendedItems);
+                result = await GetRecommendedProperties(recommendedItems);
+            }
+            catch
+            {
+                result = new List<EstateUnit>();
+            }
+
+            return result;
         }
 
         private async Task<IEnumerable<EstateUnit>> GetRecommendedProperties(IList<IRecommendedItem> recommendedItems)
