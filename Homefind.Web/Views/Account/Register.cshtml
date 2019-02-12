@@ -16,6 +16,16 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-5 col-md-6 col-xs-12">
+                @if (Model != null && Model.Errors.Any())
+                {
+                    <div>
+                        @foreach (var error in Model.Errors)
+                        {
+                            <p><strong style="color: red">@error</strong></p>
+                            <br />
+                        }
+                    </div>
+                }
                 <div class="page-login-form box">
                     <h3>
                         Create Your account

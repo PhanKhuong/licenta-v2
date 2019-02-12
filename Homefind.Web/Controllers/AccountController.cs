@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Homefind.Infrastructure.Identity;
@@ -226,9 +227,9 @@ namespace Homefind.Web.Controllers
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
+                model.Errors.AddRange(result.Errors.Select(e => e.Description));
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 

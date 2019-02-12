@@ -1,9 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using Homefind.Web.Models.PropertyViewModels;
 
 namespace Homefind.Web.Models.AccountViewModels
 {
-    public class RegisterViewModel
+    public class RegisterViewModel : BaseViewModel
     {
+        public RegisterViewModel()
+        {
+            Errors = new List<string>();
+        }
+
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Your name")]
@@ -24,5 +31,7 @@ namespace Homefind.Web.Models.AccountViewModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public List<string> Errors { get; set; }
     }
 }
