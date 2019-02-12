@@ -81,15 +81,15 @@ namespace Homefind.Infrastructure.Repository
                 entity.Property(e => e.City)
                     .IsRequired()
                     .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .IsUnicode();
 
                 entity.Property(e => e.Country)
                     .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .IsUnicode();
 
                 entity.Property(e => e.State)
                     .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .IsUnicode();
 
                 entity.Property(e => e.ZipCode)
                     .HasMaxLength(50)
