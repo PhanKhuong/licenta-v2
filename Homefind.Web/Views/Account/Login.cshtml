@@ -26,6 +26,18 @@
                     <h3>
                         Login
                     </h3>
+                    <div>
+                        @if (Model != null && Model.Errors.Any())
+                        {
+                            <div>
+                                @foreach (var error in Model.Errors)
+                                {
+                                    <p><strong style="color: red">@error</strong></p>
+                                    <br />
+                                }
+                            </div>
+                        }
+                    </div>
                     <form class="login-form" asp-action="Login" asp-controller="Account">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -40,12 +52,6 @@
                             <input type="password" asp-for="Password" class="form-control" placeholder="Password" required>
                         </div>
                         <button type="submit" class="btn btn-common log-btn">Sign In</button>
-                        @*<button type="submit" class="btn btn-danger log-btn" style="background-color: rgb(217,48,37)">
-                            <i class="fab fa-google-plus-square"></i> Sign in with Google
-                        </button>
-                        <button type="submit" class="btn btn-primary log-btn" style="background-color: rgb(66,103,178)">
-                            <i class="fab fa-facebook"></i> Sign in with Facebook
-                        </button>*@
                     </form>
                     <ul class="form-links">
                         <li class="text-center"><a href='@Url.Action("Register", "Account")'>Don't have an account?</a></li>

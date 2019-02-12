@@ -74,11 +74,18 @@ namespace Homefind.Web.Controllers
                     return RedirectToAction(nameof(Lockout));
                 }
 
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                var error = "Invalid login attempt.";
+                ModelState.AddModelError(string.Empty, error);
+                model.Errors.Add(error);
+
                 return View(model);
             }
 
-            // If we got this far, something failed, redisplay form
+            foreach (var entriesWithErrors in ModelState.Values.Where(ms => ms.Errors.Any()))
+            {
+                model.Errors.AddRange(entriesWithErrors.Errors.Select(e => e.ErrorMessage));
+            }
+
             return View(model);
         }
 

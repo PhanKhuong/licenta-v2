@@ -26,7 +26,7 @@ namespace Homefind.Web.Controllers
             try
             {
                 var userId = (await _userManager.FindByNameAsync(user)).UserIdNumeric;
-                recommended = await _propertyRecommender.Recommend(user: userId, items: 10);
+                recommended = await _propertyRecommender.Recommend(user: userId, items: 6);
             }
             catch
             {
